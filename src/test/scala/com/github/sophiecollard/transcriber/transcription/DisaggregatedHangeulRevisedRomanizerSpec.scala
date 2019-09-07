@@ -1,7 +1,7 @@
 package com.github.sophiecollard.transcriber.transcription
 
 import com.github.sophiecollard.transcriber.charset.{HangeulChar, RomanChar}
-import com.github.sophiecollard.transcriber.text.{HangeulText, RomanizedText}
+import com.github.sophiecollard.transcriber.text.{DisaggregatedHangeulText, RomanizedText}
 import org.specs2.mutable.Specification
 
 class DisaggregatedHangeulRevisedRomanizerSpec extends Specification {
@@ -10,7 +10,7 @@ class DisaggregatedHangeulRevisedRomanizerSpec extends Specification {
 
     "be romanized" in {
       // Disaggregated spelling of "제주도"
-      val input = HangeulText(
+      val input = DisaggregatedHangeulText(
         List(
           HangeulChar.ㅈ,
           HangeulChar.ㅔ,

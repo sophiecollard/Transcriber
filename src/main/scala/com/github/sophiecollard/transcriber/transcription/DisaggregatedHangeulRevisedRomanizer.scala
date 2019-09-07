@@ -3,11 +3,11 @@ package com.github.sophiecollard.transcriber.transcription
 import com.github.sophiecollard.transcriber.charset.HangeulChar
 import com.github.sophiecollard.transcriber.error.TranscriptionError
 import com.github.sophiecollard.transcriber.syntax._
-import com.github.sophiecollard.transcriber.text.{HangeulText, RomanizedText}
+import com.github.sophiecollard.transcriber.text.{DisaggregatedHangeulText, RomanizedText}
 
-object DisaggregatedHangeulRevisedRomanizer extends Transcriber[HangeulText, RomanizedText] {
+object DisaggregatedHangeulRevisedRomanizer extends Transcriber[DisaggregatedHangeulText, RomanizedText] {
 
-  override def transcribe(text: HangeulText): Either[TranscriptionError, RomanizedText] = {
+  override def transcribe(text: DisaggregatedHangeulText): Either[TranscriptionError, RomanizedText] = {
     import com.github.sophiecollard.transcriber.charset.RomanChar._
 
     val chars = text.chars.map {

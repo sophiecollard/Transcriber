@@ -6,39 +6,235 @@ import org.specs2.mutable.Specification
 
 class NaiveHangeulRomaniserSpec extends Specification {
 
-  "Hangeul" should {
+  "NaiveHangeulRomaniser" should {
 
-    "be romanised, albeit in a naive fashion" in {
-      // Spelling of "제주도"
-      val input = HangeulText(
-        Vector(
-          HangeulSyllabicBlock.TwoLetter(
-            HangeulLetter.ㅈ,
-            HangeulLetter.ㅔ
-          ),
-          HangeulSyllabicBlock.TwoLetter(
-            HangeulLetter.ㅈ,
-            HangeulLetter.ㅜ
-          ),
-          HangeulSyllabicBlock.TwoLetter(
-            HangeulLetter.ㄷ,
-            HangeulLetter.ㅗ
+    "romanise words made of two-letter blocks, such as" in {
+
+      "'제주도' to 'jejudo'" in {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.TwoLetter(
+              HangeulLetter.ㅈ,
+              HangeulLetter.ㅔ
+            ),
+            HangeulSyllabicBlock.TwoLetter(
+              HangeulLetter.ㅈ,
+              HangeulLetter.ㅜ
+            ),
+            HangeulSyllabicBlock.TwoLetter(
+              HangeulLetter.ㄷ,
+              HangeulLetter.ㅗ
+            )
           )
         )
-      )
 
-      val expectedOutput = RomanizedText(
-        Vector(
-          RomanLetter.J,
-          RomanLetter.E,
-          RomanLetter.J,
-          RomanLetter.U,
-          RomanLetter.D,
-          RomanLetter.O
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.J,
+            RomanLetter.E,
+            RomanLetter.J,
+            RomanLetter.U,
+            RomanLetter.D,
+            RomanLetter.O
+          )
         )
-      )
 
-      NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanise words in which consonant position within a single block is significant, such as" in {
+
+      "'불국사' to 'bulguksa'" in {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅂ,
+              HangeulLetter.ㅜ,
+              HangeulLetter.ㄹ
+            ),
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㄱ,
+              HangeulLetter.ㅜ,
+              HangeulLetter.ㄱ
+            ),
+            HangeulSyllabicBlock.TwoLetter(
+              HangeulLetter.ㅅ,
+              HangeulLetter.ㅏ
+            )
+          )
+        )
+
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.B,
+            RomanLetter.U,
+            RomanLetter.L,
+            RomanLetter.G,
+            RomanLetter.U,
+            RomanLetter.K,
+            RomanLetter.S,
+            RomanLetter.A
+          )
+        )
+
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
+      "'묵호' to 'mukho'" in {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅁ,
+              HangeulLetter.ㅜ,
+              HangeulLetter.ㄱ
+            ),
+            HangeulSyllabicBlock.TwoLetter(
+              HangeulLetter.ㅎ,
+              HangeulLetter.ㅗ
+            )
+          )
+        )
+
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.M,
+            RomanLetter.U,
+            RomanLetter.K,
+            RomanLetter.H,
+            RomanLetter.O
+          )
+        )
+
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
+      "'울산' to 'ulsan'" in {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅇ,
+              HangeulLetter.ㅜ,
+              HangeulLetter.ㄹ
+            ),
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅅ,
+              HangeulLetter.ㅏ,
+              HangeulLetter.ㄴ
+            )
+          )
+        )
+
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.U,
+            RomanLetter.L,
+            RomanLetter.S,
+            RomanLetter.A,
+            RomanLetter.N
+          )
+        )
+
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanise words in which consonant position with respect to adjacent blocks is significant, such as" in {
+
+      "'설악' to 'seorak'" in pending {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅅ,
+              HangeulLetter.ㅓ,
+              HangeulLetter.ㄹ
+            ),
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅇ,
+              HangeulLetter.ㅏ,
+              HangeulLetter.ㄱ
+            )
+          )
+        )
+
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.S,
+            RomanLetter.E,
+            RomanLetter.O,
+            RomanLetter.R,
+            RomanLetter.A,
+            RomanLetter.K
+          )
+        )
+
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
+      "'칠곡' to 'chilgok'" in pending {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅈ,
+              HangeulLetter.ㅣ,
+              HangeulLetter.ㄹ
+            ),
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㄱ,
+              HangeulLetter.ㅗ,
+              HangeulLetter.ㄱ
+            )
+          )
+        )
+
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.C,
+            RomanLetter.H,
+            RomanLetter.I,
+            RomanLetter.L,
+            RomanLetter.G,
+            RomanLetter.O,
+            RomanLetter.K
+          )
+        )
+
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
+      "'울릉' to 'ulleung'" in pending {
+        val input = HangeulText(
+          Vector(
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㅇ,
+              HangeulLetter.ㅜ,
+              HangeulLetter.ㄹ
+            ),
+            HangeulSyllabicBlock.ThreeLetter(
+              HangeulLetter.ㄹ,
+              HangeulLetter.ㅡ,
+              HangeulLetter.ㅇ
+            )
+          )
+        )
+
+        val expectedOutput = RomanizedText(
+          Vector(
+            RomanLetter.U,
+            RomanLetter.L,
+            RomanLetter.L,
+            RomanLetter.E,
+            RomanLetter.U,
+            RomanLetter.N,
+            RomanLetter.G
+          )
+        )
+
+        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+      }
+
     }
 
   }

@@ -1,8 +1,8 @@
 package com.github.sophiecollard.transcriber.transcription
 
-import com.github.sophiecollard.transcriber.charset.{HangeulChar, HangeulSyllabicBlock}
+import com.github.sophiecollard.transcriber.charset.{HangeulLetter, HangeulSyllabicBlock}
 import com.github.sophiecollard.transcriber.charset.HangeulSyllabicBlock._
-import com.github.sophiecollard.transcriber.charset.RomanChar._
+import com.github.sophiecollard.transcriber.charset.RomanLetter._
 import com.github.sophiecollard.transcriber.error.TranscriptionError
 import com.github.sophiecollard.transcriber.text.{HangeulText, RomanizedText}
 
@@ -37,75 +37,75 @@ object NaiveHangeulRomaniser extends Transcriber[HangeulText, RomanizedText] {
         transcribeFinalConsonant(block.finalConsonant).chars
     )
 
-  private def transcribeVowel(vowel: HangeulChar.Vowel): RomanizedText =
+  private def transcribeVowel(vowel: HangeulLetter.Vowel): RomanizedText =
     vowel match {
-      case HangeulChar.ㅏ => RomanizedText(Vector(A))
-      case HangeulChar.ㅐ => RomanizedText(Vector(A, E))
-      case HangeulChar.ㅑ => RomanizedText(Vector(Y, A))
-      case HangeulChar.ㅒ => RomanizedText(Vector(Y, A, E))
-      case HangeulChar.ㅓ => RomanizedText(Vector(E, O))
-      case HangeulChar.ㅔ => RomanizedText(Vector(E))
-      case HangeulChar.ㅕ => RomanizedText(Vector(Y, E, O))
-      case HangeulChar.ㅖ => RomanizedText(Vector(Y, E))
-      case HangeulChar.ㅗ => RomanizedText(Vector(O))
-      case HangeulChar.ㅘ => RomanizedText(Vector(W, A))
-      case HangeulChar.ㅙ => RomanizedText(Vector(W, A, E))
-      case HangeulChar.ㅚ => RomanizedText(Vector(O, E))
-      case HangeulChar.ㅛ => RomanizedText(Vector(Y, O))
-      case HangeulChar.ㅜ => RomanizedText(Vector(U))
-      case HangeulChar.ㅝ => RomanizedText(Vector(W, O))
-      case HangeulChar.ㅞ => RomanizedText(Vector(W, E))
-      case HangeulChar.ㅟ => RomanizedText(Vector(W, I))
-      case HangeulChar.ㅠ => RomanizedText(Vector(Y, U))
-      case HangeulChar.ㅡ => RomanizedText(Vector(E, U))
-      case HangeulChar.ㅢ => RomanizedText(Vector(U, I))
-      case HangeulChar.ㅣ => RomanizedText(Vector(I))
+      case HangeulLetter.ㅏ => RomanizedText(Vector(A))
+      case HangeulLetter.ㅐ => RomanizedText(Vector(A, E))
+      case HangeulLetter.ㅑ => RomanizedText(Vector(Y, A))
+      case HangeulLetter.ㅒ => RomanizedText(Vector(Y, A, E))
+      case HangeulLetter.ㅓ => RomanizedText(Vector(E, O))
+      case HangeulLetter.ㅔ => RomanizedText(Vector(E))
+      case HangeulLetter.ㅕ => RomanizedText(Vector(Y, E, O))
+      case HangeulLetter.ㅖ => RomanizedText(Vector(Y, E))
+      case HangeulLetter.ㅗ => RomanizedText(Vector(O))
+      case HangeulLetter.ㅘ => RomanizedText(Vector(W, A))
+      case HangeulLetter.ㅙ => RomanizedText(Vector(W, A, E))
+      case HangeulLetter.ㅚ => RomanizedText(Vector(O, E))
+      case HangeulLetter.ㅛ => RomanizedText(Vector(Y, O))
+      case HangeulLetter.ㅜ => RomanizedText(Vector(U))
+      case HangeulLetter.ㅝ => RomanizedText(Vector(W, O))
+      case HangeulLetter.ㅞ => RomanizedText(Vector(W, E))
+      case HangeulLetter.ㅟ => RomanizedText(Vector(W, I))
+      case HangeulLetter.ㅠ => RomanizedText(Vector(Y, U))
+      case HangeulLetter.ㅡ => RomanizedText(Vector(E, U))
+      case HangeulLetter.ㅢ => RomanizedText(Vector(U, I))
+      case HangeulLetter.ㅣ => RomanizedText(Vector(I))
     }
 
-  private def transcribeInitialConsonant(consonant: HangeulChar.Consonant): RomanizedText =
+  private def transcribeInitialConsonant(consonant: HangeulLetter.Consonant): RomanizedText =
     consonant match {
-      case HangeulChar.ㄱ => RomanizedText(Vector(G))
-      case HangeulChar.ㄲ => RomanizedText(Vector(K, K))
-      case HangeulChar.ㄴ => RomanizedText(Vector(N))
-      case HangeulChar.ㄷ => RomanizedText(Vector(D))
-      case HangeulChar.ㄸ => RomanizedText(Vector(T, T))
-      case HangeulChar.ㄹ => RomanizedText(Vector(R))
-      case HangeulChar.ㅁ => RomanizedText(Vector(M))
-      case HangeulChar.ㅂ => RomanizedText(Vector(B))
-      case HangeulChar.ㅃ => RomanizedText(Vector(P, P))
-      case HangeulChar.ㅅ => RomanizedText(Vector(S))
-      case HangeulChar.ㅆ => RomanizedText(Vector(S, S))
-      case HangeulChar.ㅇ => RomanizedText(Vector.empty) // Silent when in initial position
-      case HangeulChar.ㅈ => RomanizedText(Vector(J))
-      case HangeulChar.ㅉ => RomanizedText(Vector(J, J))
-      case HangeulChar.ㅊ => RomanizedText(Vector(C, H))
-      case HangeulChar.ㅋ => RomanizedText(Vector(K))
-      case HangeulChar.ㅌ => RomanizedText(Vector(T))
-      case HangeulChar.ㅍ => RomanizedText(Vector(P))
-      case HangeulChar.ㅎ => RomanizedText(Vector(H))
+      case HangeulLetter.ㄱ => RomanizedText(Vector(G))
+      case HangeulLetter.ㄲ => RomanizedText(Vector(K, K))
+      case HangeulLetter.ㄴ => RomanizedText(Vector(N))
+      case HangeulLetter.ㄷ => RomanizedText(Vector(D))
+      case HangeulLetter.ㄸ => RomanizedText(Vector(T, T))
+      case HangeulLetter.ㄹ => RomanizedText(Vector(R))
+      case HangeulLetter.ㅁ => RomanizedText(Vector(M))
+      case HangeulLetter.ㅂ => RomanizedText(Vector(B))
+      case HangeulLetter.ㅃ => RomanizedText(Vector(P, P))
+      case HangeulLetter.ㅅ => RomanizedText(Vector(S))
+      case HangeulLetter.ㅆ => RomanizedText(Vector(S, S))
+      case HangeulLetter.ㅇ => RomanizedText(Vector.empty) // Silent when in initial position
+      case HangeulLetter.ㅈ => RomanizedText(Vector(J))
+      case HangeulLetter.ㅉ => RomanizedText(Vector(J, J))
+      case HangeulLetter.ㅊ => RomanizedText(Vector(C, H))
+      case HangeulLetter.ㅋ => RomanizedText(Vector(K))
+      case HangeulLetter.ㅌ => RomanizedText(Vector(T))
+      case HangeulLetter.ㅍ => RomanizedText(Vector(P))
+      case HangeulLetter.ㅎ => RomanizedText(Vector(H))
     }
 
-  private def transcribeFinalConsonant(consonant: HangeulChar.Consonant): RomanizedText =
+  private def transcribeFinalConsonant(consonant: HangeulLetter.Consonant): RomanizedText =
     consonant match {
-      case HangeulChar.ㄱ => RomanizedText(Vector(K))
-      case HangeulChar.ㄲ => RomanizedText(Vector(K))
-      case HangeulChar.ㄴ => RomanizedText(Vector(N))
-      case HangeulChar.ㄷ => RomanizedText(Vector(T))
-      case HangeulChar.ㄸ => RomanizedText(Vector.empty)
-      case HangeulChar.ㄹ => RomanizedText(Vector(L))
-      case HangeulChar.ㅁ => RomanizedText(Vector(M))
-      case HangeulChar.ㅂ => RomanizedText(Vector(P))
-      case HangeulChar.ㅃ => RomanizedText(Vector.empty)
-      case HangeulChar.ㅅ => RomanizedText(Vector(T))
-      case HangeulChar.ㅆ => RomanizedText(Vector(T))
-      case HangeulChar.ㅇ => RomanizedText(Vector(N, G))
-      case HangeulChar.ㅈ => RomanizedText(Vector(T))
-      case HangeulChar.ㅉ => RomanizedText(Vector.empty)
-      case HangeulChar.ㅊ => RomanizedText(Vector(T))
-      case HangeulChar.ㅋ => RomanizedText(Vector(K))
-      case HangeulChar.ㅌ => RomanizedText(Vector(T))
-      case HangeulChar.ㅍ => RomanizedText(Vector(P))
-      case HangeulChar.ㅎ => RomanizedText(Vector(T))
+      case HangeulLetter.ㄱ => RomanizedText(Vector(K))
+      case HangeulLetter.ㄲ => RomanizedText(Vector(K))
+      case HangeulLetter.ㄴ => RomanizedText(Vector(N))
+      case HangeulLetter.ㄷ => RomanizedText(Vector(T))
+      case HangeulLetter.ㄸ => RomanizedText(Vector.empty)
+      case HangeulLetter.ㄹ => RomanizedText(Vector(L))
+      case HangeulLetter.ㅁ => RomanizedText(Vector(M))
+      case HangeulLetter.ㅂ => RomanizedText(Vector(P))
+      case HangeulLetter.ㅃ => RomanizedText(Vector.empty)
+      case HangeulLetter.ㅅ => RomanizedText(Vector(T))
+      case HangeulLetter.ㅆ => RomanizedText(Vector(T))
+      case HangeulLetter.ㅇ => RomanizedText(Vector(N, G))
+      case HangeulLetter.ㅈ => RomanizedText(Vector(T))
+      case HangeulLetter.ㅉ => RomanizedText(Vector.empty)
+      case HangeulLetter.ㅊ => RomanizedText(Vector(T))
+      case HangeulLetter.ㅋ => RomanizedText(Vector(K))
+      case HangeulLetter.ㅌ => RomanizedText(Vector(T))
+      case HangeulLetter.ㅍ => RomanizedText(Vector(P))
+      case HangeulLetter.ㅎ => RomanizedText(Vector(T))
     }
 
 }

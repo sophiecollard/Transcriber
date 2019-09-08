@@ -5,14 +5,14 @@ sealed trait HangeulSyllabicBlock
 object HangeulSyllabicBlock {
 
   final case class TwoLetter(
-    consonant: HangeulChar.Consonant,
-    vowel: HangeulChar.Vowel
+    consonant: HangeulLetter.Consonant,
+    vowel: HangeulLetter.Vowel
   ) extends HangeulSyllabicBlock
 
   final case class ThreeLetter(
-    initialConsonant: HangeulChar.Consonant,
-    vowel: HangeulChar.Vowel,
-    finalConsonant: HangeulChar.Consonant
+    initialConsonant: HangeulLetter.Consonant,
+    vowel: HangeulLetter.Vowel,
+    finalConsonant: HangeulLetter.Consonant
   ) extends HangeulSyllabicBlock
 
 }

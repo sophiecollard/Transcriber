@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transcriber.transcription
 
-import com.github.sophiecollard.transcriber.charset.{HangeulChar, HangeulSyllabicBlock, RomanChar}
+import com.github.sophiecollard.transcriber.charset.{HangeulLetter, HangeulSyllabicBlock, RomanLetter}
 import com.github.sophiecollard.transcriber.text.{HangeulText, RomanizedText}
 import org.specs2.mutable.Specification
 
@@ -13,28 +13,28 @@ class NaiveHangeulRomaniserSpec extends Specification {
       val input = HangeulText(
         Vector(
           HangeulSyllabicBlock.TwoLetter(
-            HangeulChar.ㅈ,
-            HangeulChar.ㅔ
+            HangeulLetter.ㅈ,
+            HangeulLetter.ㅔ
           ),
           HangeulSyllabicBlock.TwoLetter(
-            HangeulChar.ㅈ,
-            HangeulChar.ㅜ
+            HangeulLetter.ㅈ,
+            HangeulLetter.ㅜ
           ),
           HangeulSyllabicBlock.TwoLetter(
-            HangeulChar.ㄷ,
-            HangeulChar.ㅗ
+            HangeulLetter.ㄷ,
+            HangeulLetter.ㅗ
           )
         )
       )
 
       val expectedOutput = RomanizedText(
         Vector(
-          RomanChar.J,
-          RomanChar.E,
-          RomanChar.J,
-          RomanChar.U,
-          RomanChar.D,
-          RomanChar.O
+          RomanLetter.J,
+          RomanLetter.E,
+          RomanLetter.J,
+          RomanLetter.U,
+          RomanLetter.D,
+          RomanLetter.O
         )
       )
 

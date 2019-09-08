@@ -1,10 +1,10 @@
 package com.github.sophiecollard.transcriber.charset
 
-sealed abstract class HangeulChar(value: Char)
+sealed abstract class HangeulLetter(value: Char)
 
-object HangeulChar {
+object HangeulLetter {
 
-  sealed abstract class Consonant(char: Char) extends HangeulChar(char)
+  sealed abstract class Consonant(char: Char) extends HangeulLetter(char)
 
   final case object ㄱ extends Consonant('ㄱ')
   final case object ㄲ extends Consonant('ㄲ')
@@ -26,7 +26,7 @@ object HangeulChar {
   final case object ㅍ extends Consonant('ㅍ')
   final case object ㅎ extends Consonant('ㅎ')
 
-  sealed abstract class Vowel(char: Char) extends HangeulChar(char)
+  sealed abstract class Vowel(char: Char) extends HangeulLetter(char)
 
   final case object ㅏ extends Vowel('ㅏ')
   final case object ㅐ extends Vowel('ㅐ')

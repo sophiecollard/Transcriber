@@ -5,4 +5,5 @@ An attempt at creating a library for transcription between [Hangeul](https://en.
   - [x] Implement crude romanization of individual Hangeul characters
   - [x] Introduce Hangeul syllabic blocks
   - [ ] Implement [revised romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of Hangeul syllabic blocks
+  - [ ] Implement hyphen for location names (eg: `jeju-do`)
   - [ ] Implement parsing of `HangeulText` and `RomanText` from `String` instances and respective character sets

@@ -12,11 +12,36 @@ def priorTo213(scalaVersion: String): Boolean =
 
 lazy val root = project
   .in(file("."))
-  .aggregate(core)
+  .aggregate(core, japanese, korean)
   .settings(crossScalaVersions := Nil, publish / skip := true)
 
+// TODO factor out common build settings
 lazy val core = project
   .in(file("core"))
+  .settings(crossScalaVersions := supportedScalaVersions)
+  .settings(metadataSettings)
+  .settings(scalaSettings)
+  .settings(scalacSettings)
+  .settings(resolverSettings)
+  .settings(pluginSettings)
+  .settings(testSettings)
+  .withDependencies
+
+lazy val japanese = project
+  .in(file("japanese"))
+  .dependsOn(core)
+  .settings(crossScalaVersions := supportedScalaVersions)
+  .settings(metadataSettings)
+  .settings(scalaSettings)
+  .settings(scalacSettings)
+  .settings(resolverSettings)
+  .settings(pluginSettings)
+  .settings(testSettings)
+  .withDependencies
+
+lazy val korean = project
+  .in(file("korean"))
+  .dependsOn(core)
   .settings(crossScalaVersions := supportedScalaVersions)
   .settings(metadataSettings)
   .settings(scalaSettings)
@@ -29,7 +54,7 @@ lazy val core = project
 lazy val metadataSettings = Seq(
   organization := "com.github.sophiecollard",
   organizationHomepage := Some(url("https://github.com/sophiecollard")),
-  name := "hangeul4s"
+  name := "transliterators4s"
 )
 
 lazy val pluginSettings = Seq(

@@ -22,11 +22,11 @@ This project is currently under development.
 Single-word transliteration example:
 
 ```scala
-import hangeul4s.model.hangeul.HangeulTextElement
-import hangeul4s.model.romanization.RomanizedTextElement
-import hangeul4s.parsing.syntax._
-import hangeul4s.transliteration.hangeul.instances._
-import hangeul4s.transliteration.syntax._
+import transliterator4s.korean.model.hangeul.HangeulTextElement
+import transliterator4s.korean.model.romanization.RomanizedTextElement
+import transliterator4s.parsing.syntax._
+import transliterator4s.transliteration.hangeul.instances._
+import transliterator4s.transliteration.syntax._
 
 val input = "안녕하세요"
 // input: String = 안녕하세요
@@ -35,20 +35,20 @@ val output = for {
   parsed <- input.parse[HangeulTextElement]
   transliterated <- parsed.transliterate[RomanizedTextElement]
 } yield transliterated.unparse[String]
-// output: scala.util.Either[hangeul4s.error.Hangeul4sError,String] = Right(annyeonghaseyo)
+// output: scala.util.Either[transliterator4s.error.Error,String] = Right(annyeonghaseyo)
 ```
 
 Text transliteration example:
 
 ```scala
 import cats.instances.vector._
-import hangeul4s.model.hangeul.HangeulTextElement
-import hangeul4s.model.hangeul.HangeulTextElement._
-import hangeul4s.model.romanization.RomanizedTextElement
-import hangeul4s.model.romanization.RomanizedTextElement._
-import hangeul4s.parsing.implicits._
-import hangeul4s.transliteration.hangeul.instances._
-import hangeul4s.transliteration.implicits._
+import transliterator4s.korean.model.hangeul.HangeulTextElement
+import transliterator4s.korean.model.hangeul.HangeulTextElement._
+import transliterator4s.korean.model.romanization.RomanizedTextElement
+import transliterator4s.korean.model.romanization.RomanizedTextElement._
+import transliterator4s.parsing.implicits._
+import transliterator4s.transliteration.hangeul.instances._
+import transliterator4s.transliteration.implicits._
 
 // first sentence of second paragraph of the Korean Wikipedia article on Seoul (retrieved 2019-09-22)
 // See https://ko.wikipedia.org/wiki/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C
@@ -59,7 +59,7 @@ val output = for {
   parsed <- input.parseF[Vector, HangeulTextElement]
   transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
 } yield transliterated.unparse[String]
-// output: scala.util.Either[hangeul4s.error.Hangeul4sError,String] = Right(sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.)
+// output: scala.util.Either[transliterator4s.error.Error,String] = Right(sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.)
 ```
 
 ## Transliteration rules

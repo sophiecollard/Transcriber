@@ -3,7 +3,7 @@ package com.github.sophiecollard.transcriber.text
 import com.github.sophiecollard.transcriber.charset.HangeulSyllabicBlock
 import com.github.sophiecollard.transcriber.error.ParsingError
 
-final case class HangeulText(chars: List[HangeulSyllabicBlock]) extends Text[HangeulSyllabicBlock]
+final case class HangeulText(chars: Vector[HangeulSyllabicBlock]) extends Text[HangeulSyllabicBlock]
 
 object HangeulText {
 

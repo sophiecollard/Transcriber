@@ -11,7 +11,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
     "be romanised, albeit in a naive fashion" in {
       // Spelling of "제주도"
       val input = HangeulText(
-        List(
+        Vector(
           HangeulSyllabicBlock.TwoLetter(
             HangeulChar.ㅈ,
             HangeulChar.ㅔ
@@ -28,7 +28,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
       )
 
       val expectedOutput = RomanizedText(
-        List(
+        Vector(
           RomanChar.J,
           RomanChar.E,
           RomanChar.J,

@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transcriber.charset
 
-sealed abstract class HangeulLetter(value: Char)
+sealed abstract class HangeulLetter(char: Char)
 
 object HangeulLetter {
 

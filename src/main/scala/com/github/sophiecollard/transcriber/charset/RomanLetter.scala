@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transcriber.charset
 
-sealed abstract class RomanLetter(value: Char)
+sealed abstract class RomanLetter(char: Char)
 
 object RomanLetter {
 

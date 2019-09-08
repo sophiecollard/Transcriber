@@ -12,7 +12,7 @@ object NaiveHangeulRomaniser extends Transcriber[HangeulText, RomanizedText] {
 
   override def transcribe(text: HangeulText): Either[TranscriptionError, RomanizedText] =
     Right(
-      text.chars.map(transcribeBlock).combineAll
+      text.contents.map(transcribeBlock).combineAll
     )
 
   private def transcribeBlock(block: HangeulSyllabicBlock): RomanizedText =

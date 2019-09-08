@@ -5,15 +5,14 @@ import com.github.sophiecollard.transcriber.charset.HangeulSyllabicBlock._
 import com.github.sophiecollard.transcriber.charset.RomanLetter._
 import com.github.sophiecollard.transcriber.error.TranscriptionError
 import com.github.sophiecollard.transcriber.text.{HangeulText, RomanizedText}
+import com.github.sophiecollard.transcriber.syntax._
+import com.github.sophiecollard.transcriber.util.Monoid
 
 object NaiveHangeulRomaniser extends Transcriber[HangeulText, RomanizedText] {
 
   override def transcribe(text: HangeulText): Either[TranscriptionError, RomanizedText] =
     Right(
-      // TODO refactor
-      RomanizedText(
-        text.chars.map(transcribeBlock).flatMap(_.chars)
-      )
+      text.chars.map(transcribeBlock).combineAll
     )
 
   private def transcribeBlock(block: HangeulSyllabicBlock): RomanizedText =
@@ -23,18 +22,16 @@ object NaiveHangeulRomaniser extends Transcriber[HangeulText, RomanizedText] {
     }
 
   private def transcribeTwoLetterBlock(block: TwoLetter): RomanizedText =
-    // TODO refactor
-    RomanizedText(
-      transcribeInitialConsonant(block.consonant).chars ++
-        transcribeVowel(block.vowel).chars
+    Monoid.combine(
+      transcribeInitialConsonant(block.consonant),
+      transcribeVowel(block.vowel)
     )
 
   private def transcribeThreeLetterBlock(block: ThreeLetter): RomanizedText =
-    // TODO refactor
-    RomanizedText(
-      transcribeInitialConsonant(block.initialConsonant).chars ++
-        transcribeVowel(block.vowel).chars ++
-        transcribeFinalConsonant(block.finalConsonant).chars
+    Monoid.combineAll(
+      transcribeInitialConsonant(block.initialConsonant),
+      transcribeVowel(block.vowel),
+      transcribeFinalConsonant(block.finalConsonant)
     )
 
   private def transcribeVowel(vowel: HangeulLetter.Vowel): RomanizedText =

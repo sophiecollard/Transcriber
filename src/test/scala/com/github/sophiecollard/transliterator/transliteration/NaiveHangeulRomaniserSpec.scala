@@ -219,7 +219,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
             HangeulWord(
               Vector(
                 HangeulSyllabicBlock.ThreeLetter(
-                  HangeulLetter.ㅈ,
+                  HangeulLetter.ㅊ,
                   HangeulLetter.ㅣ,
                   HangeulLetter.ㄹ
                 ),

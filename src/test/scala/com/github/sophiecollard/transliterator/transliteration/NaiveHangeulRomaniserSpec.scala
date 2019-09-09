@@ -1,7 +1,7 @@
-package com.github.sophiecollard.transcriber.transcription
+package com.github.sophiecollard.transliterator.transliteration
 
-import com.github.sophiecollard.transcriber.charset.{HangeulLetter, HangeulSyllabicBlock, RomanLetter}
-import com.github.sophiecollard.transcriber.text.{HangeulText, HangeulWord, RomanizedText, RomanizedWord}
+import com.github.sophiecollard.transliterator.charset.{HangeulLetter, HangeulSyllabicBlock, RomanLetter}
+import com.github.sophiecollard.transliterator.text.{HangeulText, HangeulWord, RomanizedText, RomanizedWord}
 import org.specs2.mutable.Specification
 
 class NaiveHangeulRomaniserSpec extends Specification {
@@ -47,7 +47,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -95,7 +95,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
       "'묵호' to 'mukho'" in {
@@ -131,7 +131,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
       "'울산' to 'ulsan'" in {
@@ -168,7 +168,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -210,7 +210,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
       "'칠곡' to 'chilgok'" in pending {
@@ -249,7 +249,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
       "'울릉' to 'ulleung'" in pending {
@@ -288,7 +288,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transcribe(input) must beRight(expectedOutput)
+        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
       }
 
     }

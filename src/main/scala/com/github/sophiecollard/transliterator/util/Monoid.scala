@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transcriber.util
+package com.github.sophiecollard.transliterator.util
 
 trait Monoid[A] {
 

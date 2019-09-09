@@ -1,6 +1,6 @@
-package com.github.sophiecollard.transcriber
+package com.github.sophiecollard.transliterator
 
-import com.github.sophiecollard.transcriber.util.Monoid
+import com.github.sophiecollard.transliterator.util.Monoid
 
 package object instances {
 

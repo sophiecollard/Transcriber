@@ -1,6 +1,6 @@
-package com.github.sophiecollard.transcriber.text
+package com.github.sophiecollard.transliterator.text
 
-import com.github.sophiecollard.transcriber.util.Monoid
+import com.github.sophiecollard.transliterator.util.Monoid
 
 final case class RomanizedText(words: Vector[RomanizedWord])
 

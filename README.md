@@ -1,5 +1,5 @@
-# Transcriber
-An attempt at creating a library for transcription between [Hangeul](https://en.wikipedia.org/wiki/Hangul), the [Latin alphabet](https://en.wikipedia.org/wiki/Latin_alphabet), and possibly more later.
+# Transliterator
+An attempt at creating a library for transliteration between [Hangeul](https://en.wikipedia.org/wiki/Hangul), the [Latin alphabet](https://en.wikipedia.org/wiki/Latin_alphabet), and possibly more later.
 
 ## Todos
   - [x] Implement crude romanization of individual Hangeul characters

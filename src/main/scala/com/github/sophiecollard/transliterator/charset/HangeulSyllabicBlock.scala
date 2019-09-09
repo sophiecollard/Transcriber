@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transcriber.charset
+package com.github.sophiecollard.transliterator.charset
 
 sealed trait HangeulSyllabicBlock
 

@@ -1,4 +1,4 @@
-name := "transcriber"
+name := "transliterator"
 
 scalaVersion := "2.12.8"
 

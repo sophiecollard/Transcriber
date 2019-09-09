@@ -1,6 +1,6 @@
-package com.github.sophiecollard.transcriber.text
+package com.github.sophiecollard.transliterator.text
 
-import com.github.sophiecollard.transcriber.error.ParsingError
+import com.github.sophiecollard.transliterator.error.ParsingError
 
 trait Parser[T] {
 

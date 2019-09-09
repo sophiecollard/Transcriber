@@ -1,9 +1,8 @@
 package com.github.sophiecollard.transcriber.text
 
-import com.github.sophiecollard.transcriber.charset.RomanLetter
 import com.github.sophiecollard.transcriber.util.Monoid
 
-final case class RomanizedText(contents: Vector[RomanLetter])
+final case class RomanizedText(words: Vector[RomanizedWord])
 
 object RomanizedText {
 
@@ -12,7 +11,7 @@ object RomanizedText {
       RomanizedText(Vector.empty)
 
     override def combine(x: RomanizedText, y: RomanizedText): RomanizedText =
-      RomanizedText(x.contents ++ y.contents)
+      RomanizedText(x.words ++ y.words)
   }
 
   implicit val parser: Parser[RomanizedText] =

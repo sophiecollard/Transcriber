@@ -1,9 +1,8 @@
 package com.github.sophiecollard.transcriber.text
 
-import com.github.sophiecollard.transcriber.charset.HangeulSyllabicBlock
 import com.github.sophiecollard.transcriber.util.Monoid
 
-final case class HangeulText(contents: Vector[HangeulSyllabicBlock])
+final case class HangeulText(words: Vector[HangeulWord])
 
 object HangeulText {
 
@@ -12,7 +11,7 @@ object HangeulText {
       HangeulText(Vector.empty)
 
     override def combine(x: HangeulText, y: HangeulText): HangeulText =
-      HangeulText(x.contents ++ y.contents)
+      HangeulText(x.words ++ y.words)
   }
 
   implicit val parser: Parser[HangeulText] =

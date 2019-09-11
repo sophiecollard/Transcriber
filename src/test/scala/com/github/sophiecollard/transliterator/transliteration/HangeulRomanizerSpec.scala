@@ -3,28 +3,38 @@ package com.github.sophiecollard.transliterator.transliteration
 import com.github.sophiecollard.transliterator.model._
 import org.specs2.mutable.Specification
 
-class NaiveHangeulRomaniserSpec extends Specification {
+class HangeulRomanizerSpec extends Specification {
 
-  "NaiveHangeulRomaniser" should {
+  "HangeulRomanizer" should {
 
-    "romanise words made of two-letter blocks, such as" in {
+    "romanize words made of regular consonant clusters only, such as" in {
 
-      "'제주도' to 'jejudo'" in {
+      "'안녕하세요' to 'annyeonghaseyo'" in {
         val input = HangeulText(
           Vector(
             HangeulWord(
               Vector(
+                HangeulSyllabicBlock.ThreeLetter(
+                  HangeulLetter.ㅇ,
+                  HangeulLetter.ㅏ,
+                  HangeulLetter.ㄴ
+                ),
+                HangeulSyllabicBlock.ThreeLetter(
+                  HangeulLetter.ㄴ,
+                  HangeulLetter.ㅕ,
+                  HangeulLetter.ㅇ
+                ),
                 HangeulSyllabicBlock.TwoLetter(
-                  HangeulLetter.ㅈ,
+                  HangeulLetter.ㅎ,
+                  HangeulLetter.ㅏ
+                ),
+                HangeulSyllabicBlock.TwoLetter(
+                  HangeulLetter.ㅅ,
                   HangeulLetter.ㅔ
                 ),
                 HangeulSyllabicBlock.TwoLetter(
-                  HangeulLetter.ㅈ,
-                  HangeulLetter.ㅜ
-                ),
-                HangeulSyllabicBlock.TwoLetter(
-                  HangeulLetter.ㄷ,
-                  HangeulLetter.ㅗ
+                  HangeulLetter.ㅇ,
+                  HangeulLetter.ㅛ
                 )
               )
             )
@@ -35,23 +45,27 @@ class NaiveHangeulRomaniserSpec extends Specification {
           Vector(
             RomanizedWord(
               Vector(
-                RomanLetter.J,
+                RomanLetter.A,
+                RomanLetter.N,
+                RomanLetter.N,
+                RomanLetter.Y,
                 RomanLetter.E,
-                RomanLetter.J,
-                RomanLetter.U,
-                RomanLetter.D,
+                RomanLetter.O,
+                RomanLetter.N,
+                RomanLetter.G,
+                RomanLetter.H,
+                RomanLetter.A,
+                RomanLetter.S,
+                RomanLetter.E,
+                RomanLetter.Y,
                 RomanLetter.O
               )
             )
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
-
-    }
-
-    "romanise words in which consonant position within a single block is significant, such as" in {
 
       "'불국사' to 'bulguksa'" in {
         val input = HangeulText(
@@ -94,7 +108,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
 
       "'묵호' to 'mukho'" in {
@@ -130,7 +144,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
 
       "'울산' to 'ulsan'" in {
@@ -167,14 +181,14 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
 
     }
 
-    "romanise words in which consonant position with respect to adjacent blocks is significant, such as" in {
+    "romanize words with irregular consonant clusters, such as" in {
 
-      "'설악' to 'seorak'" in pending {
+      "'설악' to 'seorak'" in {
         val input = HangeulText(
           Vector(
             HangeulWord(
@@ -209,10 +223,10 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
 
-      "'칠곡' to 'chilgok'" in pending {
+      "'칠곡' to 'chilgok'" in {
         val input = HangeulText(
           Vector(
             HangeulWord(
@@ -248,10 +262,10 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
 
-      "'울릉' to 'ulleung'" in pending {
+      "'울릉' to 'ulleung'" in {
         val input = HangeulText(
           Vector(
             HangeulWord(
@@ -287,7 +301,7 @@ class NaiveHangeulRomaniserSpec extends Specification {
           )
         )
 
-        NaiveHangeulRomaniser.transliterate(input) must beRight(expectedOutput)
+        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
       }
 
     }

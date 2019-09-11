@@ -1,41 +1,11 @@
 package com.github.sophiecollard.transliterator.transliteration
 
-import com.github.sophiecollard.transliterator.error.TransliterationError
-import com.github.sophiecollard.transliterator.instances._
-import com.github.sophiecollard.transliterator.model._
-import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
+import com.github.sophiecollard.transliterator.model.{HangeulLetter, RomanLetter}
 import com.github.sophiecollard.transliterator.model.RomanLetter._
-import com.github.sophiecollard.transliterator.util.Monoid
 
-object NaiveHangeulRomaniser extends Transliterator[HangeulText, RomanizedText] {
+private [transliteration] object HangeulLetterRomanizer {
 
-  override def transliterate(text: HangeulText): Either[TransliterationError, RomanizedText] =
-    Right(
-      RomanizedText(
-        text.words.map(w => RomanizedWord(w.blocks.flatMap(transliterateBlock)))
-      )
-    )
-
-  private def transliterateBlock(block: HangeulSyllabicBlock): Vector[RomanLetter] =
-    block match {
-      case block: TwoLetter   => transliterateTwoLetterBlock(block)
-      case block: ThreeLetter => transliterateThreeLetterBlock(block)
-    }
-
-  private def transliterateTwoLetterBlock(block: TwoLetter): Vector[RomanLetter] =
-    Monoid.combine(
-      transliterateInitialConsonant(block.consonant),
-      transliterateVowel(block.vowel)
-    )
-
-  private def transliterateThreeLetterBlock(block: ThreeLetter): Vector[RomanLetter] =
-    Monoid.combineAll(
-      transliterateInitialConsonant(block.initialConsonant),
-      transliterateVowel(block.vowel),
-      transliterateFinalConsonant(block.finalConsonant)
-    )
-
-  private def transliterateVowel(vowel: HangeulLetter.Vowel): Vector[RomanLetter] =
+  def transliterateVowel(vowel: HangeulLetter.Vowel): Vector[RomanLetter] =
     vowel match {
       case HangeulLetter.ㅏ => Vector(A)
       case HangeulLetter.ㅐ => Vector(A, E)
@@ -60,7 +30,7 @@ object NaiveHangeulRomaniser extends Transliterator[HangeulText, RomanizedText] 
       case HangeulLetter.ㅣ => Vector(I)
     }
 
-  private def transliterateInitialConsonant(consonant: HangeulLetter.Consonant): Vector[RomanLetter] =
+  def transliterateInitialConsonant(consonant: HangeulLetter.Consonant): Vector[RomanLetter] =
     consonant match {
       case HangeulLetter.ㄱ => Vector(G)
       case HangeulLetter.ㄲ => Vector(K, K)
@@ -83,7 +53,7 @@ object NaiveHangeulRomaniser extends Transliterator[HangeulText, RomanizedText] 
       case HangeulLetter.ㅎ => Vector(H)
     }
 
-  private def transliterateFinalConsonant(consonant: HangeulLetter.Consonant): Vector[RomanLetter] =
+  def transliterateFinalConsonant(consonant: HangeulLetter.Consonant): Vector[RomanLetter] =
     consonant match {
       case HangeulLetter.ㄱ => Vector(K)
       case HangeulLetter.ㄲ => Vector(K)

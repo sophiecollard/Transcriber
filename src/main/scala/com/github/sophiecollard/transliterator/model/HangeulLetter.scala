@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transliterator.charset
+package com.github.sophiecollard.transliterator.model
 
 sealed abstract class HangeulLetter(char: Char)
 

@@ -1,11 +1,10 @@
 package com.github.sophiecollard.transliterator.transliteration
 
-import com.github.sophiecollard.transliterator.charset.{HangeulLetter, HangeulSyllabicBlock, RomanLetter}
-import com.github.sophiecollard.transliterator.charset.HangeulSyllabicBlock._
-import com.github.sophiecollard.transliterator.charset.RomanLetter._
 import com.github.sophiecollard.transliterator.error.TransliterationError
 import com.github.sophiecollard.transliterator.instances._
-import com.github.sophiecollard.transliterator.text.{HangeulText, RomanizedText, RomanizedWord}
+import com.github.sophiecollard.transliterator.model._
+import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
+import com.github.sophiecollard.transliterator.model.RomanLetter._
 import com.github.sophiecollard.transliterator.util.Monoid
 
 object NaiveHangeulRomaniser extends Transliterator[HangeulText, RomanizedText] {

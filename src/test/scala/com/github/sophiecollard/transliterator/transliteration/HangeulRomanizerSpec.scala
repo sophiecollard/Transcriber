@@ -14,25 +14,25 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅇ,
                   HangeulLetter.ㅏ,
                   HangeulLetter.ㄴ
                 ),
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㄴ,
                   HangeulLetter.ㅕ,
                   HangeulLetter.ㅇ
                 ),
-                HangeulSyllabicBlock.TwoLetter(
+                HangeulSyllabicBlock.IM(
                   HangeulLetter.ㅎ,
                   HangeulLetter.ㅏ
                 ),
-                HangeulSyllabicBlock.TwoLetter(
+                HangeulSyllabicBlock.IM(
                   HangeulLetter.ㅅ,
                   HangeulLetter.ㅔ
                 ),
-                HangeulSyllabicBlock.TwoLetter(
+                HangeulSyllabicBlock.IM(
                   HangeulLetter.ㅇ,
                   HangeulLetter.ㅛ
                 )
@@ -72,17 +72,17 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅂ,
                   HangeulLetter.ㅜ,
                   HangeulLetter.ㄹ
                 ),
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㄱ,
                   HangeulLetter.ㅜ,
                   HangeulLetter.ㄱ
                 ),
-                HangeulSyllabicBlock.TwoLetter(
+                HangeulSyllabicBlock.IM(
                   HangeulLetter.ㅅ,
                   HangeulLetter.ㅏ
                 )
@@ -116,12 +116,12 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅁ,
                   HangeulLetter.ㅜ,
                   HangeulLetter.ㄱ
                 ),
-                HangeulSyllabicBlock.TwoLetter(
+                HangeulSyllabicBlock.IM(
                   HangeulLetter.ㅎ,
                   HangeulLetter.ㅗ
                 )
@@ -152,12 +152,12 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅇ,
                   HangeulLetter.ㅜ,
                   HangeulLetter.ㄹ
                 ),
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅅ,
                   HangeulLetter.ㅏ,
                   HangeulLetter.ㄴ
@@ -193,12 +193,12 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅅ,
                   HangeulLetter.ㅓ,
                   HangeulLetter.ㄹ
                 ),
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅇ,
                   HangeulLetter.ㅏ,
                   HangeulLetter.ㄱ
@@ -231,12 +231,12 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅊ,
                   HangeulLetter.ㅣ,
                   HangeulLetter.ㄹ
                 ),
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㄱ,
                   HangeulLetter.ㅗ,
                   HangeulLetter.ㄱ
@@ -270,12 +270,12 @@ class HangeulRomanizerSpec extends Specification {
           Vector(
             HangeulWord(
               Vector(
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㅇ,
                   HangeulLetter.ㅜ,
                   HangeulLetter.ㄹ
                 ),
-                HangeulSyllabicBlock.ThreeLetter(
+                HangeulSyllabicBlock.IMF(
                   HangeulLetter.ㄹ,
                   HangeulLetter.ㅡ,
                   HangeulLetter.ㅇ

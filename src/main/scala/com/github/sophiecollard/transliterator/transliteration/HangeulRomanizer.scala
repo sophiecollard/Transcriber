@@ -30,60 +30,62 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
     maybeNextBlock: Option[HangeulSyllabicBlock]
   ): Vector[RomanLetter] =
     block match {
-      case twoLetter: TwoLetter =>
+      case im @ IM(_, medial) =>
         Monoid.combine(
-          transliterateInitialConsonantInContext(maybePrevBlock, twoLetter),
-          transliterateVowel(twoLetter.vowel)
+          transliterateInitialConsonantInContext(maybePrevBlock, im),
+          transliterateVowel(medial)
         )
-      case threeLetter: ThreeLetter =>
+      case imf @ IMF(_, medial, _) =>
         Monoid.combineAll(
-          transliterateInitialConsonantInContext(maybePrevBlock, threeLetter),
-          transliterateVowel(threeLetter.vowel),
-          transliterateFinalConsonantInContext(threeLetter, maybeNextBlock)
+          transliterateInitialConsonantInContext(maybePrevBlock, imf),
+          transliterateVowel(medial),
+          transliterateFinalConsonantInContext(imf, maybeNextBlock)
         )
+      case _ =>
+        throw new RuntimeException("not implemented")
     }
 
   private def transliterateInitialConsonantInContext(
     maybePrevBlock: Option[HangeulSyllabicBlock],
-    block: TwoLetter
+    block: IM
   ): Vector[RomanLetter] =
     (maybePrevBlock, block) match {
       case (
-        Some(ThreeLetter(_, _, HangeulLetter.ㄹ)),
-        TwoLetter(HangeulLetter.ㄹ, _)
+        Some(IMF(_, _, HangeulLetter.ㄹ)),
+        IM(HangeulLetter.ㄹ, _)
         ) =>
         transliterateFinalConsonant(HangeulLetter.ㄹ)
       case _ =>
-        transliterateInitialConsonant(block.consonant)
+        transliterateInitialConsonant(block.initial)
     }
 
   private def transliterateInitialConsonantInContext(
     maybePrevBlock: Option[HangeulSyllabicBlock],
-    block: ThreeLetter
+    block: IMF
   ): Vector[RomanLetter] =
     (maybePrevBlock, block) match {
       case (
-        Some(ThreeLetter(_, _, HangeulLetter.ㄹ)),
-        ThreeLetter(HangeulLetter.ㄹ, _, _)
+        Some(IMF(_, _, HangeulLetter.ㄹ)),
+        IMF(HangeulLetter.ㄹ, _, _)
         ) =>
         transliterateFinalConsonant(HangeulLetter.ㄹ)
       case _ =>
-        transliterateInitialConsonant(block.initialConsonant)
+        transliterateInitialConsonant(block.initial)
     }
 
   private def transliterateFinalConsonantInContext(
-    block: ThreeLetter,
+    block: IMF,
     maybeNextBlock: Option[HangeulSyllabicBlock]
   ): Vector[RomanLetter] =
     (block, maybeNextBlock) match {
       case (
-        ThreeLetter(_, _, HangeulLetter.ㄹ),
-        Some(TwoLetter(HangeulLetter.ㅇ, _)) |
-        Some(ThreeLetter(HangeulLetter.ㅇ, _, _))
+        IMF(_, _, HangeulLetter.ㄹ),
+        Some(IM(HangeulLetter.ㅇ, _)) |
+        Some(IMF(HangeulLetter.ㅇ, _, _))
         ) =>
         transliterateInitialConsonant(HangeulLetter.ㄹ)
       case _ =>
-        transliterateFinalConsonant(block.finalConsonant)
+        transliterateFinalConsonant(block.`final`)
     }
 
 }

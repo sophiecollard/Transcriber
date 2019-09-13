@@ -1,6 +1,28 @@
 package com.github.sophiecollard.transliterator.model
 
-sealed trait HangeulSyllabicBlock
+sealed trait HangeulSyllabicBlock {
+
+  import HangeulSyllabicBlock._
+
+  def getInitial: HangeulLetter.Consonant = this match {
+    case IM(i, _)             => i
+    case IMM(i, _, _)         => i
+    case IMF(i, _, _)         => i
+    case IMMF(i, _, _, _)     => i
+    case IMFF(i, _, _, _)     => i
+    case IMMFF(i, _, _, _, _) => i
+  }
+
+  def getFinal: Option[HangeulLetter.Consonant] = this match {
+    case IM(_, _)               => None
+    case IMM(_, _, _)           => None
+    case IMF(_, _, f)           => Some(f)
+    case IMMF(_, _, _, f)       => Some(f)
+    case IMFF(_, _, f1, f2)     => Some(f2)
+    case IMMFF(_, _, _, f1, f2) => Some(f2)
+  }
+
+}
 
 object HangeulSyllabicBlock {
 

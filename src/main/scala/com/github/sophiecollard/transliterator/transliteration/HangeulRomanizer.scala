@@ -4,6 +4,7 @@ import com.github.sophiecollard.transliterator.error.TransliterationError
 import com.github.sophiecollard.transliterator.instances._
 import com.github.sophiecollard.transliterator.model._
 import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
+import com.github.sophiecollard.transliterator.model.RomanLetter._
 import com.github.sophiecollard.transliterator.syntax.RichVector
 import com.github.sophiecollard.transliterator.util.Monoid
 
@@ -17,7 +18,9 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
         text.words.map { w =>
           RomanizedWord(
             w.blocks.zipWithNeighbors.flatMap { case (maybePrevBlock, block, maybeNextBlock) =>
-              transliterateBlock(maybePrevBlock, block, maybeNextBlock)
+              val maybePrecedingFinal = maybePrevBlock.flatMap(_.getFinal)
+              val maybeFollowingInitial = maybeNextBlock.map(_.getInitial)
+              transliterateBlock(maybePrecedingFinal, block, maybeFollowingInitial)
             }
           )
         }
@@ -25,67 +28,46 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
     )
 
   private def transliterateBlock(
-    maybePrevBlock: Option[HangeulSyllabicBlock],
+    maybePrecedingFinal: Option[HangeulLetter.Consonant],
     block: HangeulSyllabicBlock,
-    maybeNextBlock: Option[HangeulSyllabicBlock]
+    maybeFollowingInitial: Option[HangeulLetter.Consonant]
   ): Vector[RomanLetter] =
     block match {
-      case im @ IM(_, medial) =>
+      case IM(initial, medial) =>
         Monoid.combine(
-          transliterateInitialConsonantInContext(maybePrevBlock, im),
-          transliterateVowel(medial)
+          transliterateInitialInContext(maybePrecedingFinal, initial),
+          transliterateMedial(medial)
         )
-      case imf @ IMF(_, medial, _) =>
+      case IMF(initial, medial, final_) =>
         Monoid.combineAll(
-          transliterateInitialConsonantInContext(maybePrevBlock, imf),
-          transliterateVowel(medial),
-          transliterateFinalConsonantInContext(imf, maybeNextBlock)
+          transliterateInitialInContext(maybePrecedingFinal, initial),
+          transliterateMedial(medial),
+          transliterateFinalInContext(final_, maybeFollowingInitial)
         )
       case _ =>
         throw new RuntimeException("not implemented")
     }
 
-  private def transliterateInitialConsonantInContext(
-    maybePrevBlock: Option[HangeulSyllabicBlock],
-    block: IM
+  private def transliterateInitialInContext(
+    maybePrecedingFinal: Option[HangeulLetter.Consonant],
+    initial: HangeulLetter.Consonant
   ): Vector[RomanLetter] =
-    (maybePrevBlock, block) match {
-      case (
-        Some(IMF(_, _, HangeulLetter.ㄹ)),
-        IM(HangeulLetter.ㄹ, _)
-        ) =>
-        transliterateFinalConsonant(HangeulLetter.ㄹ)
+    (maybePrecedingFinal, initial) match {
+      case (Some(HangeulLetter.ㄹ), HangeulLetter.ㄹ) =>
+        Vector(L)
       case _ =>
-        transliterateInitialConsonant(block.initial)
+        transliterateInitial(initial)
     }
 
-  private def transliterateInitialConsonantInContext(
-    maybePrevBlock: Option[HangeulSyllabicBlock],
-    block: IMF
+  private def transliterateFinalInContext(
+    `final`: HangeulLetter.Consonant,
+    maybeFollowingInitial: Option[HangeulLetter.Consonant]
   ): Vector[RomanLetter] =
-    (maybePrevBlock, block) match {
-      case (
-        Some(IMF(_, _, HangeulLetter.ㄹ)),
-        IMF(HangeulLetter.ㄹ, _, _)
-        ) =>
-        transliterateFinalConsonant(HangeulLetter.ㄹ)
+    (`final`, maybeFollowingInitial) match {
+      case (HangeulLetter.ㄹ, Some(HangeulLetter.ㅇ)) =>
+        Vector(R)
       case _ =>
-        transliterateInitialConsonant(block.initial)
-    }
-
-  private def transliterateFinalConsonantInContext(
-    block: IMF,
-    maybeNextBlock: Option[HangeulSyllabicBlock]
-  ): Vector[RomanLetter] =
-    (block, maybeNextBlock) match {
-      case (
-        IMF(_, _, HangeulLetter.ㄹ),
-        Some(IM(HangeulLetter.ㅇ, _)) |
-        Some(IMF(HangeulLetter.ㅇ, _, _))
-        ) =>
-        transliterateInitialConsonant(HangeulLetter.ㄹ)
-      case _ =>
-        transliterateFinalConsonant(block.`final`)
+        transliterateFinal(`final`)
     }
 
 }

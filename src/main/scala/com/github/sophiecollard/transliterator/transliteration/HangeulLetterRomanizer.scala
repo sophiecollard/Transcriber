@@ -5,8 +5,8 @@ import com.github.sophiecollard.transliterator.model.RomanLetter._
 
 private [transliteration] object HangeulLetterRomanizer {
 
-  def transliterateVowel(vowel: HangeulLetter.Vowel): Vector[RomanLetter] =
-    vowel match {
+  def transliterateMedial(medial: HangeulLetter.Vowel): Vector[RomanLetter] =
+    medial match {
       case HangeulLetter.ㅏ => Vector(A)
       case HangeulLetter.ㅐ => Vector(A, E)
       case HangeulLetter.ㅑ => Vector(Y, A)
@@ -30,8 +30,8 @@ private [transliteration] object HangeulLetterRomanizer {
       case HangeulLetter.ㅣ => Vector(I)
     }
 
-  def transliterateInitialConsonant(consonant: HangeulLetter.Consonant): Vector[RomanLetter] =
-    consonant match {
+  def transliterateInitial(initial: HangeulLetter.Consonant): Vector[RomanLetter] =
+    initial match {
       case HangeulLetter.ㄱ => Vector(G)
       case HangeulLetter.ㄲ => Vector(K, K)
       case HangeulLetter.ㄴ => Vector(N)
@@ -53,8 +53,8 @@ private [transliteration] object HangeulLetterRomanizer {
       case HangeulLetter.ㅎ => Vector(H)
     }
 
-  def transliterateFinalConsonant(consonant: HangeulLetter.Consonant): Vector[RomanLetter] =
-    consonant match {
+  def transliterateFinal(`final`: HangeulLetter.Consonant): Vector[RomanLetter] =
+    `final` match {
       case HangeulLetter.ㄱ => Vector(K)
       case HangeulLetter.ㄲ => Vector(K)
       case HangeulLetter.ㄴ => Vector(N)

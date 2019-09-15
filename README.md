@@ -36,8 +36,9 @@ This project is an implementation of the [revised Hangeul romanization](https://
 
 ### Special provisions for final / initial consonant pairs
 Rows and columns correspond to final and initial consonants, respectively. Final / initial consonants pairs with irregular transliteration are displayed in bold.
-| I/F    | ㅇ                   | ㄱ  | ㄴ                     | ㄷ  | ㄹ                     | ㅁ       |
-| ------ | :------------------: | :-: | :--------------------: | :-: | :--------------------: | :-----: |
+
+| I/F    | ㅇ                   | ㄱ   | ㄴ                     | ㄷ  | ㄹ                     | ㅁ      |
+| :----: | -------------------- | --- | ---------------------- | --- | ---------------------- | ------- |
 | **ㄱ** | **g**                | kg  | **ngn**                | kd  | **ngn**                | **ngm** |
 | **ㄴ** | n                    | ng  | nn                     | nd  | **ll, nn**<sup>2</sup> | nm      |
 | **ㄷ** | **d, j**<sup>1</sup> | tg  | **nn**                 | td  | **nn**                 | **nm**  |
@@ -47,5 +48,5 @@ Rows and columns correspond to final and initial consonants, respectively. Final
 | **ㅅ** | **s**                | tg  | **nn**                 | td  | **nn**                 | **nm**  |
 | **ㅇ** | ng                   | ngg | ngn                    | ngd | **ngn**                | ngm     |
 
-<sup>1</sup> Always transliterated as **d** in the current implementation
+<sup>1</sup> Always transliterated as **d** in the current implementation  
 <sup>2</sup> Always transliterated as **ll** in the current implementation

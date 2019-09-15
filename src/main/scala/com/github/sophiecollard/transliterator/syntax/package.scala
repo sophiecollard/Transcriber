@@ -1,6 +1,23 @@
 package com.github.sophiecollard.transliterator
 
+import com.github.sophiecollard.transliterator.util.{Applicative, Functor, Traverse}
+
 package object syntax {
+
+  implicit class FunctorOps[F[_], A](fa: F[A])(implicit ev: Functor[F]) {
+    def map[B](f: A => B): F[B] =
+      ev.map(fa, f)
+  }
+
+  implicit class ApplicativeOps[A](a: A) {
+    def pure[F[_]](implicit ev: Applicative[F]): F[A] =
+      ev.pure(a)
+  }
+
+  implicit class TraverseOps[F[_], A](fa: F[A])(implicit ev: Traverse[F]) {
+    def traverse[G[_]: Applicative, B](f: A => G[B]): G[F[B]] =
+      ev.traverse(fa)(f)
+  }
 
   implicit class RichVector[A](vector: Vector[A]) {
 

@@ -5,7 +5,7 @@ import com.github.sophiecollard.transliterator.instances._
 import com.github.sophiecollard.transliterator.model._
 import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
 import com.github.sophiecollard.transliterator.model.RomanLetter._
-import com.github.sophiecollard.transliterator.syntax.RichVector
+import com.github.sophiecollard.transliterator.syntax._
 import com.github.sophiecollard.transliterator.util.Monoid
 
 object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
@@ -13,52 +13,62 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
   import HangeulLetterRomanizer._
 
   override def transliterate(text: HangeulText): Either[TransliterationError, RomanizedText] =
-    Right(
-      RomanizedText(
-        text.words.map { w =>
-          RomanizedWord(
-            w.blocks.zipWithNeighbors.flatMap { case (maybePrevBlock, block, maybeNextBlock) =>
-              val maybePrecedingFinal = maybePrevBlock.flatMap(_.getFinal)
-              val maybeFollowingInitial = maybeNextBlock.map(_.getInitial)
-              transliterateBlock(maybePrecedingFinal, block, maybeFollowingInitial)
-            }
-          )
-        }
-      )
-    )
+    text.words
+      .map { word =>
+        word.blocks
+          .zipWithNeighbors
+          .map { case (maybePrevBlock, block, maybeNextBlock) =>
+            val maybePrecedingFinal = maybePrevBlock.flatMap(_.getFinal)
+            val maybeFollowingInitial = maybeNextBlock.map(_.getInitial)
+            transliterateBlock(maybePrecedingFinal, block, maybeFollowingInitial)
+          }
+          .traverse[Either[TransliterationError, ?], Vector[RomanLetter]](identity)
+          .map(_.flatten)
+          .map(RomanizedWord)
+      }
+      .traverse[Either[TransliterationError, ?], RomanizedWord](identity)
+      .map(RomanizedText.apply _)
 
   private def transliterateBlock(
     maybePrecedingFinal: Option[HangeulLetter.Consonant],
     block: HangeulSyllabicBlock,
     maybeFollowingInitial: Option[HangeulLetter.Consonant]
-  ): Vector[RomanLetter] =
+  ): Either[TransliterationError, Vector[RomanLetter]] =
     block match {
       case IM(initial, medial) =>
-        Monoid.combine(
-          transliterateInitialInContext(maybePrecedingFinal, initial),
-          transliterateMedial(medial)
+        Right(
+          Monoid.combine(
+            transliterateInitialInContext(maybePrecedingFinal, initial),
+            transliterateMedial(medial)
+          )
         )
       case IMM(initial, medial, secondMedial) =>
-        Monoid.combineAll(
-          transliterateInitialInContext(maybePrecedingFinal, initial),
-          transliterateMedial(medial),
-          transliterateMedial(secondMedial)
+        Right(
+          Monoid.combineAll(
+            transliterateInitialInContext(maybePrecedingFinal, initial),
+            transliterateMedial(medial),
+            transliterateMedial(secondMedial)
+          )
         )
       case IMF(initial, medial, final_) =>
-        Monoid.combineAll(
-          transliterateInitialInContext(maybePrecedingFinal, initial),
-          transliterateMedial(medial),
-          transliterateFinalInContext(final_, maybeFollowingInitial)
+        Right(
+          Monoid.combineAll(
+            transliterateInitialInContext(maybePrecedingFinal, initial),
+            transliterateMedial(medial),
+            transliterateFinalInContext(final_, maybeFollowingInitial)
+          )
         )
       case IMMF(initial, medial, secondMedial, final_) =>
-        Monoid.combineAll(
-          transliterateInitialInContext(maybePrecedingFinal, initial),
-          transliterateMedial(medial),
-          transliterateMedial(secondMedial),
-          transliterateFinalInContext(final_, maybeFollowingInitial)
+        Right(
+          Monoid.combineAll(
+            transliterateInitialInContext(maybePrecedingFinal, initial),
+            transliterateMedial(medial),
+            transliterateMedial(secondMedial),
+            transliterateFinalInContext(final_, maybeFollowingInitial)
+          )
         )
       case _ =>
-        throw new RuntimeException("not implemented")
+        Left(TransliterationError.NotImplemented("support for syllabic blocks with two final consonants"))
     }
 
   private def transliterateFinalInContext(

@@ -1,12 +1,13 @@
 package com.github.sophiecollard.transliterator.model
 
-sealed abstract class HangeulJamo(char: Char, index: Int)
+sealed abstract class HangeulJamo(char: Char, val index: Int)
 
 object HangeulJamo {
 
   sealed abstract class Initial(char: Char, index: Int) extends HangeulJamo(char, index)
 
   object Initial {
+
     final case object ㄱ extends Initial('ᄀ', 0)
     final case object ㄲ extends Initial('ᄁ', 1)
     final case object ㄴ extends Initial('ᄂ', 2)
@@ -26,11 +27,37 @@ object HangeulJamo {
     final case object ㅌ extends Initial('ᄐ', 16)
     final case object ㅍ extends Initial('ᄑ', 17)
     final case object ㅎ extends Initial('ᄒ', 18)
+
+    def fromChar(char: Char): Option[Initial] =
+      char match {
+        case 'ᄀ' => Some(ㄱ)
+        case 'ᄁ' => Some(ㄲ)
+        case 'ᄂ' => Some(ㄴ)
+        case 'ᄃ' => Some(ㄷ)
+        case 'ᄄ' => Some(ㄸ)
+        case 'ᄅ' => Some(ㄹ)
+        case 'ᄆ' => Some(ㅁ)
+        case 'ᄇ' => Some(ㅂ)
+        case 'ᄈ' => Some(ㅃ)
+        case 'ᄉ' => Some(ㅅ)
+        case 'ᄊ' => Some(ㅆ)
+        case 'ᄋ' => Some(ㅇ)
+        case 'ᄌ' => Some(ㅈ)
+        case 'ᄍ' => Some(ㅉ)
+        case 'ᄎ' => Some(ㅊ)
+        case 'ᄏ' => Some(ㅋ)
+        case 'ᄐ' => Some(ㅌ)
+        case 'ᄑ' => Some(ㅍ)
+        case 'ᄒ' => Some(ㅎ)
+        case _   => None
+      }
+
   }
 
   sealed abstract class Medial(char: Char, index: Int) extends HangeulJamo(char, index)
 
   object Medial {
+
     final case object ㅏ extends Medial('ᅡ', 0)
     final case object ㅐ extends Medial('ᅢ', 1)
     final case object ㅑ extends Medial('ᅣ', 2)
@@ -52,11 +79,39 @@ object HangeulJamo {
     final case object ㅡ extends Medial('ᅳ', 18)
     final case object ㅢ extends Medial('ᅴ', 19)
     final case object ㅣ extends Medial('ᅵ', 20)
+
+    def fromChar(char: Char): Option[Medial] =
+      char match {
+        case 'ᅡ' => Some(ㅏ)
+        case 'ᅢ' => Some(ㅐ)
+        case 'ᅣ' => Some(ㅑ)
+        case 'ᅤ' => Some(ㅒ)
+        case 'ᅥ' => Some(ㅓ)
+        case 'ᅦ' => Some(ㅔ)
+        case 'ᅧ' => Some(ㅕ)
+        case 'ᅨ' => Some(ㅖ)
+        case 'ᅩ' => Some(ㅗ)
+        case 'ᅪ' => Some(ㅘ)
+        case 'ᅫ' => Some(ㅙ)
+        case 'ᅬ' => Some(ㅚ)
+        case 'ᅭ' => Some(ㅛ)
+        case 'ᅮ' => Some(ㅜ)
+        case 'ᅯ' => Some(ㅝ)
+        case 'ᅰ' => Some(ㅞ)
+        case 'ᅱ' => Some(ㅟ)
+        case 'ᅲ' => Some(ㅠ)
+        case 'ᅳ' => Some(ㅡ)
+        case 'ᅴ' => Some(ㅢ)
+        case 'ᅵ' => Some(ㅣ)
+        case _   => None
+      }
+
   }
 
   sealed abstract class Final(char: Char, index: Int) extends HangeulJamo(char, index)
 
   object Final {
+
     final case object ㄱ extends Final('ᆨ', 1)
     final case object ㄲ extends Final('ᆩ', 2)
     final case object ㄳ extends Final('ᆪ', 3)
@@ -84,6 +139,39 @@ object HangeulJamo {
     final case object ㅌ extends Final('ᇀ', 25)
     final case object ㅍ extends Final('ᇁ', 26)
     final case object ㅎ extends Final('ᇂ', 27)
+
+    def fromChar(char: Char): Option[Final] =
+      char match {
+        case 'ᆨ' => Some(ㄱ)
+        case 'ᆩ' => Some(ㄲ)
+        case 'ᆪ' => Some(ㄳ)
+        case 'ᆫ' => Some(ㄴ)
+        case 'ᆬ' => Some(ㄵ)
+        case 'ᆭ' => Some(ㄶ)
+        case 'ᆮ' => Some(ㄷ)
+        case 'ᆯ' => Some(ㄹ)
+        case 'ᆰ' => Some(ㄺ)
+        case 'ᆱ' => Some(ㄻ)
+        case 'ᆲ' => Some(ㄼ)
+        case 'ᆳ' => Some(ㄽ)
+        case 'ᆴ' => Some(ㄾ)
+        case 'ᆵ' => Some(ㄿ)
+        case 'ᆶ' => Some(ㅀ)
+        case 'ᆷ' => Some(ㅁ)
+        case 'ᆸ' => Some(ㅂ)
+        case 'ᆹ' => Some(ㅄ)
+        case 'ᆺ' => Some(ㅅ)
+        case 'ᆻ' => Some(ㅆ)
+        case 'ᆼ' => Some(ㅇ)
+        case 'ᆽ' => Some(ㅈ)
+        case 'ᆾ' => Some(ㅊ)
+        case 'ᆿ' => Some(ㅋ)
+        case 'ᇀ' => Some(ㅌ)
+        case 'ᇁ' => Some(ㅍ)
+        case 'ᇂ' => Some(ㅎ)
+        case _   => None
+      }
+
   }
 
 }

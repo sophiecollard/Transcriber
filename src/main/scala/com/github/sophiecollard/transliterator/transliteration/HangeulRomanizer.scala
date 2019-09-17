@@ -10,7 +10,7 @@ import com.github.sophiecollard.transliterator.util.Monoid
 
 object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
 
-  import HangeulLetterRomanizer._
+  import HangeulJamoRomanizer._
 
   override def transliterate(text: HangeulText): Either[TransliterationError, RomanizedText] =
     text.words
@@ -30,27 +30,19 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
       .map(RomanizedText.apply _)
 
   private def transliterateBlock(
-    maybePrecedingFinal: Option[HangeulLetter.Consonant],
+    maybePrecedingFinal: Option[HangeulJamo.Final],
     block: HangeulSyllabicBlock,
-    maybeFollowingInitial: Option[HangeulLetter.Consonant]
+    maybeFollowingInitial: Option[HangeulJamo.Initial]
   ): Either[TransliterationError, Vector[RomanLetter]] =
     block match {
-      case IM(initial, medial) =>
+      case TwoLetter(initial, medial) =>
         Right(
           Monoid.combine(
             transliterateInitialInContext(maybePrecedingFinal, initial),
             transliterateMedial(medial)
           )
         )
-      case IMM(initial, medial, secondMedial) =>
-        Right(
-          Monoid.combineAll(
-            transliterateInitialInContext(maybePrecedingFinal, initial),
-            transliterateMedial(medial),
-            transliterateMedial(secondMedial)
-          )
-        )
-      case IMF(initial, medial, final_) =>
+      case ThreeLetter(initial, medial, final_) =>
         Right(
           Monoid.combineAll(
             transliterateInitialInContext(maybePrecedingFinal, initial),
@@ -58,60 +50,49 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
             transliterateFinalInContext(final_, maybeFollowingInitial)
           )
         )
-      case IMMF(initial, medial, secondMedial, final_) =>
-        Right(
-          Monoid.combineAll(
-            transliterateInitialInContext(maybePrecedingFinal, initial),
-            transliterateMedial(medial),
-            transliterateMedial(secondMedial),
-            transliterateFinalInContext(final_, maybeFollowingInitial)
-          )
-        )
-      case _ =>
-        Left(TransliterationError.NotImplemented("support for syllabic blocks with two final consonants"))
     }
 
   private def transliterateFinalInContext(
-    `final`: HangeulLetter.Consonant,
-    maybeFollowingInitial: Option[HangeulLetter.Consonant]
+    `final`: HangeulJamo.Final,
+    maybeFollowingInitial: Option[HangeulJamo.Initial]
   ): Vector[RomanLetter] =
     (`final`, maybeFollowingInitial) match {
-      case (HangeulLetter.ㄱ, Some(HangeulLetter.ㅇ)) =>
+      case (HangeulJamo.Final.ㄱ, Some(HangeulJamo.Initial.ㅇ)) =>
         Vector(G)
-      case (HangeulLetter.ㄱ, Some(HangeulLetter.ㄴ) | Some(HangeulLetter.ㄹ) | Some(HangeulLetter.ㅁ)) =>
+      case (HangeulJamo.Final.ㄱ, Some(HangeulJamo.Initial.ㄴ) | Some(HangeulJamo.Initial.ㄹ) | Some(HangeulJamo.Initial.ㅁ)) =>
         Vector(N, G)
-      case (HangeulLetter.ㄷ, Some(HangeulLetter.ㅇ)) =>
+      case (HangeulJamo.Final.ㄷ, Some(HangeulJamo.Initial.ㅇ)) =>
         Vector(D) // This can also sometimes be J
-      case (HangeulLetter.ㄷ, Some(HangeulLetter.ㄴ) | Some(HangeulLetter.ㄹ) | Some(HangeulLetter.ㅁ)) =>
+      case (HangeulJamo.Final.ㄷ, Some(HangeulJamo.Initial.ㄴ) | Some(HangeulJamo.Initial.ㄹ) | Some(HangeulJamo.Initial.ㅁ)) =>
         Vector(N)
-      case (HangeulLetter.ㄹ, Some(HangeulLetter.ㅇ)) =>
+      case (HangeulJamo.Final.ㄹ, Some(HangeulJamo.Initial.ㅇ)) =>
         Vector(R)
-      case (HangeulLetter.ㅂ, Some(HangeulLetter.ㅇ)) =>
+      case (HangeulJamo.Final.ㅂ, Some(HangeulJamo.Initial.ㅇ)) =>
         Vector(B)
-      case (HangeulLetter.ㅂ, Some(HangeulLetter.ㄴ) | Some(HangeulLetter.ㄹ) | Some(HangeulLetter.ㅁ)) =>
+      case (HangeulJamo.Final.ㅂ, Some(HangeulJamo.Initial.ㄴ) | Some(HangeulJamo.Initial.ㄹ) | Some(HangeulJamo.Initial.ㅁ)) =>
         Vector(M)
-      case (HangeulLetter.ㅅ, Some(HangeulLetter.ㅇ)) =>
+      case (HangeulJamo.Final.ㅅ, Some(HangeulJamo.Initial.ㅇ)) =>
         Vector(S)
-      case (HangeulLetter.ㅅ, Some(HangeulLetter.ㄴ) | Some(HangeulLetter.ㄹ) | Some(HangeulLetter.ㅁ)) =>
+      case (HangeulJamo.Final.ㅅ, Some(HangeulJamo.Initial.ㄴ) | Some(HangeulJamo.Initial.ㄹ) | Some(HangeulJamo.Initial.ㅁ)) =>
         Vector(N)
       case _ =>
         transliterateFinal(`final`)
     }
 
   private def transliterateInitialInContext(
-    maybePrecedingFinal: Option[HangeulLetter.Consonant],
-    initial: HangeulLetter.Consonant
+    maybePrecedingFinal: Option[HangeulJamo.Final],
+    initial: HangeulJamo.Initial
   ): Vector[RomanLetter] =
     (maybePrecedingFinal, initial) match {
-      case (Some(HangeulLetter.ㄱ) | Some(HangeulLetter.ㄷ) | Some(HangeulLetter.ㅂ), HangeulLetter.ㄹ) =>
+      case (Some(HangeulJamo.Final.ㄱ) | Some(HangeulJamo.Final.ㄷ) | Some(HangeulJamo.Final.ㅂ), HangeulJamo.Initial.ㄹ) =>
         Vector(N)
-      case (Some(HangeulLetter.ㄹ), HangeulLetter.ㄴ) =>
+      case (Some(HangeulJamo.Final.ㄹ), HangeulJamo.Initial.ㄴ) =>
         Vector(L) // This could also sometimes be NN instead of LL
-      case (Some(HangeulLetter.ㄹ), HangeulLetter.ㄹ) =>
+      case (Some(HangeulJamo.Final.ㄹ), HangeulJamo.Initial.ㄹ) =>
         Vector(L)
-      case (Some(HangeulLetter.ㅅ) | Some(HangeulLetter.ㅇ), HangeulLetter.ㄹ) =>
+      case (Some(HangeulJamo.Final.ㅅ) | Some(HangeulJamo.Final.ㅇ), HangeulJamo.Initial.ㄹ) =>
         Vector(N)
-      case (Some(HangeulLetter.ㅂ), HangeulLetter.ㅁ) =>
+      case (Some(HangeulJamo.Final.ㅂ), HangeulJamo.Initial.ㅁ) =>
         Vector(M)
       case _ =>
         transliterateInitial(initial)

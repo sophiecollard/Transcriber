@@ -2,16 +2,13 @@ package com.github.sophiecollard.transliterator.model
 
 sealed trait HangeulSyllabicBlock {
 
-  import HangeulSyllabicBlock._
+  def initial: HangeulJamo.Initial
 
-  def getInitial: HangeulJamo.Initial = this match {
-    case TwoLetter(i, _)      => i
-    case ThreeLetter(i, _, _) => i
-  }
+  def medial: HangeulJamo.Medial
 
-  def getFinal: Option[HangeulJamo.Final] = this match {
-    case TwoLetter(_, _)      => None
-    case ThreeLetter(_, _, f) => Some(f)
+  def maybeFinal: Option[HangeulJamo.Final] = this match {
+    case HangeulSyllabicBlock.TwoLetter(_, _)      => None
+    case HangeulSyllabicBlock.ThreeLetter(_, _, f) => Some(f)
   }
 
 }

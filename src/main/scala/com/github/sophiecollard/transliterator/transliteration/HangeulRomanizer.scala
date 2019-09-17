@@ -18,8 +18,8 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
         word.blocks
           .zipWithNeighbors
           .map { case (maybePrevBlock, block, maybeNextBlock) =>
-            val maybePrecedingFinal = maybePrevBlock.flatMap(_.getFinal)
-            val maybeFollowingInitial = maybeNextBlock.map(_.getInitial)
+            val maybePrecedingFinal = maybePrevBlock.flatMap(_.maybeFinal)
+            val maybeFollowingInitial = maybeNextBlock.map(_.initial)
             transliterateBlock(maybePrecedingFinal, block, maybeFollowingInitial)
           }
           .traverse[Either[TransliterationError, ?], Vector[RomanLetter]](identity)

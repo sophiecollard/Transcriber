@@ -1,4 +1,7 @@
 # Hangeul Transliterator 4s
+
+![CircleCI](https://img.shields.io/circleci/build/github/sophiecollard/hangeul-transliterator-4s/master)
+
 An attempt at creating a library for transliteration between [Hangeul](https://en.wikipedia.org/wiki/Hangul), the [Latin alphabet](https://en.wikipedia.org/wiki/Latin_alphabet), and possibly more later.
 
 ## Status

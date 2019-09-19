@@ -5,19 +5,17 @@
 An attempt at creating a library for transliteration between [Hangeul](https://en.wikipedia.org/wiki/Hangul), the [Latin alphabet](https://en.wikipedia.org/wiki/Latin_alphabet), and possibly more later.
 
 ## Status
-This project is currently under development. Shortcomings in the present implementation include:
-  - No support for transliteration of syllabic blocks with two final consonants
-  - Incomplete and mostly untested implementation of special provisions for transliteration of final / initial consonant pairs
+This project is currently under development.
 
 ### Roadmap to first release
-  - [x] Implement romanization of individual Hangeul letters
-  - [x] Introduce Hangeul syllabic blocks
-  - [ ] Implement [revised Hangeul romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean)
-  - [ ] Add hyphen to location names (eg: `jeju-do`)
+  - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block))
+  - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
+  - [x] Implement conversion between [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block)) and [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
+  - [ ] Implement parsing of `HangeulText`
   - [ ] Provide support for non-Hangeul characters (eg: numerals, punctuation) in `HangeulText`
-  - [ ] Implement parsing of `HangeulText` and `RomanText` from `String` instances and respective character sets
+  - [x] Add CircleCI integration
+  - [x] Add Apache 2.0 licence
   - [ ] Assess performance of parsing and transliteration
-  - [ ] Add CircleCI integration
 
 ## Transliteration rules
 This project is an implementation of the [revised Hangeul romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean). Transliteration rules currently supported are detailed in the tables below.

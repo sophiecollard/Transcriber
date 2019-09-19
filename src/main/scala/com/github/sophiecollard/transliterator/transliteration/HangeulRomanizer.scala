@@ -62,7 +62,7 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
       case (HangeulJamo.Final.ㄱ, Some(HangeulJamo.Initial.ㄴ) | Some(HangeulJamo.Initial.ㄹ) | Some(HangeulJamo.Initial.ㅁ)) =>
         Vector(N, G)
       case (HangeulJamo.Final.ㄷ, Some(HangeulJamo.Initial.ㅇ)) =>
-        Vector(D) // This can also sometimes be J
+        Vector(D) // Also sometimes J
       case (HangeulJamo.Final.ㄷ, Some(HangeulJamo.Initial.ㄴ) | Some(HangeulJamo.Initial.ㄹ) | Some(HangeulJamo.Initial.ㅁ)) =>
         Vector(N)
       case (HangeulJamo.Final.ㄹ, Some(HangeulJamo.Initial.ㅇ)) =>
@@ -87,7 +87,7 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
       case (Some(HangeulJamo.Final.ㄱ) | Some(HangeulJamo.Final.ㄷ) | Some(HangeulJamo.Final.ㅂ), HangeulJamo.Initial.ㄹ) =>
         Vector(N)
       case (Some(HangeulJamo.Final.ㄹ), HangeulJamo.Initial.ㄴ) =>
-        Vector(L) // This could also sometimes be NN instead of LL
+        Vector(L) // Also sometimes NN instead of LL
       case (Some(HangeulJamo.Final.ㄹ), HangeulJamo.Initial.ㄹ) =>
         Vector(L)
       case (Some(HangeulJamo.Final.ㅅ) | Some(HangeulJamo.Final.ㅇ), HangeulJamo.Initial.ㄹ) =>

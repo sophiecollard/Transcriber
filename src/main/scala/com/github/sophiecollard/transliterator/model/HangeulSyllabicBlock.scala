@@ -11,6 +11,11 @@ sealed trait HangeulSyllabicBlock {
     case HangeulSyllabicBlock.ThreeLetter(_, _, f) => Some(f)
   }
 
+  def charSequence: CharSequence = this match {
+    case HangeulSyllabicBlock.TwoLetter(i, m)      => s"${i.char}${m.char}"
+    case HangeulSyllabicBlock.ThreeLetter(i, m, f) => s"${i.char}${m.char}${f.char}"
+  }
+
 }
 
 object HangeulSyllabicBlock {

@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.model
 
-sealed abstract class HangeulJamo(char: Char, val index: Int)
+sealed abstract class HangeulJamo(val char: Char, val index: Int)
 
 object HangeulJamo {
 

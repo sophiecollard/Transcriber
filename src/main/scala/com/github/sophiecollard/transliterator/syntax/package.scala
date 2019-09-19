@@ -2,6 +2,8 @@ package com.github.sophiecollard.transliterator
 
 import com.github.sophiecollard.transliterator.util.{Applicative, Functor, Traverse}
 
+import scala.util.Try
+
 package object syntax {
 
   implicit class FunctorOps[F[_], A](fa: F[A])(implicit ev: Functor[F]) {
@@ -17,6 +19,11 @@ package object syntax {
   implicit class TraverseOps[F[_], A](fa: F[A])(implicit ev: Traverse[F]) {
     def traverse[G[_]: Applicative, B](f: A => G[B]): G[F[B]] =
       ev.traverse(fa)(f)
+  }
+
+  implicit class RichString(string: String) {
+    def safeCharAt(index: Int): Option[Char] =
+      Try(string.charAt(index)).toOption
   }
 
   implicit class RichVector[A](vector: Vector[A]) {

@@ -33,9 +33,9 @@ This project is an implementation of the [revised Hangeul romanization](https://
 | **Romanization** | g  | kk | n  | d | tt | r  | m  | b  | pp | s  | ss | –  | j  | jj | ch | k | t  | p  | h  |
 
 ### Final consonants
-| Hangul           | ㄱ | ㄲ | ㄴ | ㄷ | ㄸ | ㄹ | ㅁ | ㅂ | ㅃ | ㅅ  | ㅆ | ㅇ | ㅈ | ㅉ | ㅊ | ㅋ | ㅌ | ㅍ | ㅎ |
-| :--------------: | -- | -- | -- | - | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | - | -- | -- | -- |
-| **Romanization** | k  | k  | n  | t | –  | l  | m  | p  | –  | t  | t  | ng | t  | –  | t  | k | t  | p  | t  |
+| Hangul           | ㄱ | ㄲ | ㄳ  | ㄴ | ㄵ | ㄶ | ㄷ | ㄹ | ㄺ | ㄻ | ㄼ | ㄽ | ㄾ | ㄿ | ㅀ | ㅁ | ㅂ | ㅄ | ㅅ  | ㅆ | ㅇ | ㅈ | ㅊ | ㅋ | ㅌ | ㅍ | ㅎ |
+| :--------------: | -- | -- | -- | -- | - | -- | - | -- | - | -- | -- | - | -- | - | -- | -- | -- | - | -- | -- | -- | -- | -- | - | -- | -- | -- |
+| **Romanization** | k  | k  | k  | n  | n | n  | t | l  | k | m  | p  | l | l  | p | l  | m  | p  | p | t  | t  | ng | t  | t  | k | t  | p  | t  |
 
 ### Special provisions for final / initial consonant pairs
 Rows and columns correspond to final and initial consonants, respectively. Final / initial consonants pairs with irregular transliteration are displayed in bold.

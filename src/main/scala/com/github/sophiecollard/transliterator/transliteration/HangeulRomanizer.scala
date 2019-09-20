@@ -6,7 +6,8 @@ import com.github.sophiecollard.transliterator.instances.vector._
 import com.github.sophiecollard.transliterator.model._
 import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
 import com.github.sophiecollard.transliterator.model.RomanLetter._
-import com.github.sophiecollard.transliterator.syntax._
+import com.github.sophiecollard.transliterator.syntax.vector._
+import com.github.sophiecollard.transliterator.syntax.traverse._
 import com.github.sophiecollard.transliterator.util.typeclasses.Monoid
 
 object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {

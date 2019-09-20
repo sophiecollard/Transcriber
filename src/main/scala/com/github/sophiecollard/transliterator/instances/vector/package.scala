@@ -1,7 +1,8 @@
 package com.github.sophiecollard.transliterator.instances
 
 import com.github.sophiecollard.transliterator.util.typeclasses.{Applicative, Monoid, Semigroupal, Traverse}
-import com.github.sophiecollard.transliterator.syntax._
+import com.github.sophiecollard.transliterator.syntax.applicative._
+import com.github.sophiecollard.transliterator.syntax.functor._
 
 package object vector {
 

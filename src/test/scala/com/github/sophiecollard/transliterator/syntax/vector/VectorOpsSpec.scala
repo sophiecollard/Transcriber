@@ -1,8 +1,8 @@
-package com.github.sophiecollard.transliterator.syntax
+package com.github.sophiecollard.transliterator.syntax.vector
 
 import org.specs2.mutable.Specification
 
-class RichVectorSpec extends Specification {
+class VectorOpsSpec extends Specification {
 
   "RichVector#zipWithNeighbors" should {
     "return an empty vector when invoked on an empty vector" in {

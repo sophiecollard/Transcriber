@@ -11,9 +11,9 @@ package object syntax {
       ev.map(fa, f)
   }
 
-  implicit class ApplicativeOps[A](a: A) {
+  implicit class ApplicativeOps[A](value: A) {
     def pure[F[_]](implicit ev: Applicative[F]): F[A] =
-      ev.pure(a)
+      ev.pure(value)
   }
 
   implicit class TraverseOps[F[_], A](fa: F[A])(implicit ev: Traverse[F]) {

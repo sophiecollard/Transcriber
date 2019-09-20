@@ -1,21 +1,9 @@
-package com.github.sophiecollard.transliterator
+package com.github.sophiecollard.transliterator.instances
 
-import com.github.sophiecollard.transliterator.syntax._
 import com.github.sophiecollard.transliterator.util.typeclasses.{Applicative, Monoid, Semigroupal, Traverse}
+import com.github.sophiecollard.transliterator.syntax._
 
-package object instances {
-
-  implicit def eitherApplicative[E]: Applicative[Either[E, ?]] =
-    new Applicative[Either[E, ?]] {
-      override def pure[A](a: A): Either[E, A] =
-        Right(a)
-
-      override def map[A, B](fa: Either[E, A], f: A => B): Either[E, B] =
-        fa.map(f)
-
-      override def product[A, B](fa: Either[E, A], fb: Either[E, B]): Either[E, (A, B)] =
-        fa.flatMap(a => fb.map(b => (a, b)))
-    }
+package object vector {
 
   implicit def vectorMonoid[A]: Monoid[Vector[A]] =
     new Monoid[Vector[A]] {

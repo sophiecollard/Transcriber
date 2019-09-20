@@ -1,7 +1,8 @@
 package com.github.sophiecollard.transliterator.transliteration
 
 import com.github.sophiecollard.transliterator.error.TransliterationError
-import com.github.sophiecollard.transliterator.instances._
+import com.github.sophiecollard.transliterator.instances.either._
+import com.github.sophiecollard.transliterator.instances.vector._
 import com.github.sophiecollard.transliterator.model._
 import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
 import com.github.sophiecollard.transliterator.model.RomanLetter._

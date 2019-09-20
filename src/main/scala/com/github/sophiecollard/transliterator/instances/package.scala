@@ -1,7 +1,7 @@
 package com.github.sophiecollard.transliterator
 
 import com.github.sophiecollard.transliterator.syntax._
-import com.github.sophiecollard.transliterator.util.{Applicative, Monoid, Semigroupal, Traverse}
+import com.github.sophiecollard.transliterator.util.typeclasses.{Applicative, Monoid, Semigroupal, Traverse}
 
 package object instances {
 

@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator
 
-import com.github.sophiecollard.transliterator.util.{Applicative, Functor, Traverse}
+import com.github.sophiecollard.transliterator.util.typeclasses.{Applicative, Functor, Traverse}
 
 import scala.util.Try
 

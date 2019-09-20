@@ -1,4 +1,6 @@
-package com.github.sophiecollard.transliterator.util
+package com.github.sophiecollard.transliterator.util.types
+
+import com.github.sophiecollard.transliterator.util.typeclasses.{Applicative, Functor, Semigroupal}
 
 sealed abstract class ValidatedNev[+E, +A] {
 

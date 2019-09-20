@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.model
 
-import com.github.sophiecollard.transliterator.util.{Monoid, Parser}
+import com.github.sophiecollard.transliterator.util.typeclasses.{Monoid, Parser}
 
 final case class HangeulText(words: Vector[HangeulWord])
 

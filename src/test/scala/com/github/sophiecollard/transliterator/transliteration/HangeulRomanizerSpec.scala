@@ -1,7 +1,7 @@
 package com.github.sophiecollard.transliterator.transliteration
 
 import com.github.sophiecollard.transliterator.model.hangeul._
-import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedWord}
+import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedTextElement}
 import com.github.sophiecollard.transliterator.util.types.NonEmptyVector
 import org.specs2.mutable.Specification
 
@@ -45,7 +45,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.A,
                 RomanLetter.N,
@@ -95,7 +95,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.B,
                 RomanLetter.U,
@@ -134,7 +134,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.M,
                 RomanLetter.U,
@@ -171,7 +171,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.U,
                 RomanLetter.L,
@@ -217,7 +217,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.S,
                 RomanLetter.E,
@@ -260,7 +260,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.S,
                 RomanLetter.E,
@@ -310,7 +310,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.G,
                 RomanLetter.A,
@@ -354,7 +354,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.C,
                 RomanLetter.H,
@@ -393,7 +393,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.U,
                 RomanLetter.L,
@@ -435,7 +435,7 @@ class HangeulRomanizerSpec extends Specification {
 
         val expectedOutput = RomanizedText(
           NonEmptyVector.of(
-            RomanizedWord(
+            RomanizedTextElement.Word(
               Vector(
                 RomanLetter.J,
                 RomanLetter.O,

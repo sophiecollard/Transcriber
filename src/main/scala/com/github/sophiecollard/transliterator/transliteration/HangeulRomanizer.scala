@@ -5,7 +5,7 @@ import com.github.sophiecollard.transliterator.instances.either._
 import com.github.sophiecollard.transliterator.instances.vector._
 import com.github.sophiecollard.transliterator.model.hangeul.{HangeulJamo, HangeulSyllabicBlock, HangeulText, HangeulTextElement}
 import com.github.sophiecollard.transliterator.model.hangeul.HangeulSyllabicBlock.{ThreeLetter, TwoLetter}
-import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedWord}
+import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedTextElement}
 import com.github.sophiecollard.transliterator.model.romanization.RomanLetter._
 import com.github.sophiecollard.transliterator.syntax.either.EitherConstructors
 import com.github.sophiecollard.transliterator.syntax.vector._
@@ -29,19 +29,17 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
             }
             .traverse[TransliterationResult, Vector[RomanLetter]](identity)
             .map(_.flatten)
-            .map(RomanizedWord)
-        case HangeulTextElement.Punctuation(contents) =>
-          // TODO implement
-          TransliterationError
-            .NotImplemented("Transliteration of punctuation")
-            .left[TransliterationError, RomanizedWord]
-        case HangeulTextElement.Digits(contents) =>
-          // TODO implement
-          TransliterationError
-            .NotImplemented("Transliteration of digits")
-            .left[TransliterationError, RomanizedWord]
+            .map(RomanizedTextElement.Word) // TODO use non-empty vector
+        case punctuation: HangeulTextElement.Punctuation =>
+          RomanizedTextElement
+            .Punctuation.fromHangeul(punctuation)
+            .right[TransliterationError, RomanizedTextElement]
+        case digits: HangeulTextElement.Digits =>
+          RomanizedTextElement
+            .Digits.fromHangeul(digits)
+            .right[TransliterationError, RomanizedTextElement]
       }
-      .traverse[TransliterationResult, RomanizedWord](identity(_))
+      .traverse[TransliterationResult, RomanizedTextElement](identity(_))
       .map(RomanizedText.apply(_))
 
   private def transliterateBlock(

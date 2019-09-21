@@ -14,6 +14,7 @@ This project is currently under development.
   - [ ] Implement parsing of `HangeulText`
   - [ ] Provide support for non-Hangeul characters (eg: numerals, punctuation) in `HangeulText`
   - [x] Add CircleCI integration
+  - [ ] Add Codecov integration
   - [x] Add Apache 2.0 licence
   - [ ] Assess performance of parsing and transliteration
 

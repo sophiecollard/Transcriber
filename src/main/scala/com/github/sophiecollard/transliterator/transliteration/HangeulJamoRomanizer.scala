@@ -4,7 +4,7 @@ import com.github.sophiecollard.transliterator.model.hangeul.HangeulJamo
 import com.github.sophiecollard.transliterator.model.romanization.RomanLetter
 import com.github.sophiecollard.transliterator.model.romanization.RomanLetter._
 
-object HangeulJamoRomanizer {
+private [transliteration] object HangeulJamoRomanizer {
 
   def transliterateInitial(jamo: HangeulJamo.Initial): Vector[RomanLetter] =
     jamo match {

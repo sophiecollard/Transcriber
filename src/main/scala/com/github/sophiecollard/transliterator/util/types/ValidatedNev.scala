@@ -4,11 +4,18 @@ import com.github.sophiecollard.transliterator.util.typeclasses.{Applicative, Fu
 
 sealed abstract class ValidatedNev[+E, +A] {
 
+  import ValidatedNev._
+
   def map[B](f: A => B): ValidatedNev[E, B] =
-    ValidatedNev.functor.map(this, f)
+    functor.map(this, f)
 
   def product[EE >: E, B](fb: ValidatedNev[EE, B]): ValidatedNev[EE, (A, B)] =
-    ValidatedNev.semigroupal.product(this, fb)
+    semigroupal.product(this, fb)
+
+  def toEither: Either[NonEmptyVector[E], A] = this match {
+    case Invalid(es) => Left(es)
+    case Valid(a)    => Right(a)
+  }
 
 }
 
@@ -17,6 +24,11 @@ object ValidatedNev {
   final case class Valid[A](value: A) extends ValidatedNev[Nothing, A]
 
   final case class Invalid[E](errors: NonEmptyVector[E]) extends ValidatedNev[E, Nothing]
+
+  object Invalid {
+    def one[E, A](error: E): ValidatedNev[E, A] =
+      Invalid(NonEmptyVector.one(error))
+  }
 
   def valid[E, A](value: A): ValidatedNev[E, A] =
     Valid(value)
@@ -40,7 +52,7 @@ object ValidatedNev {
           case (Valid(a), Valid(b)) =>
             Valid((a, b))
           case (Invalid(es1), Invalid(es2)) =>
-            Invalid(es1 append es2)
+            Invalid(es1 concat es2)
           case (Invalid(es), Valid(_)) =>
             Invalid(es)
           case (Valid(_), Invalid(es)) =>

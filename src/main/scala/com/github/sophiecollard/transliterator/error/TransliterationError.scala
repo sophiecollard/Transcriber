@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.error
 
-sealed abstract class TransliterationError(message: String)
+sealed abstract class TransliterationError(val message: String)
 
 object TransliterationError {
 

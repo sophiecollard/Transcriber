@@ -1,12 +1,15 @@
 package com.github.sophiecollard.transliterator.transliteration
 
 import com.github.sophiecollard.transliterator.error.TransliterationError
-import com.github.sophiecollard.transliterator.instances._
-import com.github.sophiecollard.transliterator.model._
-import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock._
-import com.github.sophiecollard.transliterator.model.RomanLetter._
-import com.github.sophiecollard.transliterator.syntax._
-import com.github.sophiecollard.transliterator.util.Monoid
+import com.github.sophiecollard.transliterator.instances.either._
+import com.github.sophiecollard.transliterator.instances.vector._
+import com.github.sophiecollard.transliterator.model.hangeul.{HangeulJamo, HangeulSyllabicBlock, HangeulText}
+import com.github.sophiecollard.transliterator.model.hangeul.HangeulSyllabicBlock.{TwoLetter, ThreeLetter}
+import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedWord}
+import com.github.sophiecollard.transliterator.model.romanization.RomanLetter._
+import com.github.sophiecollard.transliterator.syntax.vector._
+import com.github.sophiecollard.transliterator.syntax.traverse._
+import com.github.sophiecollard.transliterator.util.typeclasses.Monoid
 
 object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
 

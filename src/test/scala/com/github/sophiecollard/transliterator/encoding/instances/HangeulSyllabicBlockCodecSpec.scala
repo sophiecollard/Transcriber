@@ -1,8 +1,8 @@
 package com.github.sophiecollard.transliterator.encoding.instances
 
-import com.github.sophiecollard.transliterator.model.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.transliterator.encoding.syntax._
 import com.github.sophiecollard.transliterator.error.DecodingError
+import com.github.sophiecollard.transliterator.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import org.specs2.mutable.Specification
 
 class HangeulSyllabicBlockCodecSpec extends Specification {

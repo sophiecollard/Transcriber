@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transliterator.model
+package com.github.sophiecollard.transliterator.model.hangeul
 
 sealed abstract class HangeulJamo(val char: Char)
 

@@ -1,6 +1,6 @@
-package com.github.sophiecollard.transliterator.util
+package com.github.sophiecollard.transliterator.util.typeclasses
 
-import com.github.sophiecollard.transliterator.instances.vectorTraverse
+import com.github.sophiecollard.transliterator.instances.vector.vectorTraverse
 import org.specs2.mutable.Specification
 
 import scala.util.Try

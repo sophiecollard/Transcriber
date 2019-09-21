@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.error
 
-import com.github.sophiecollard.transliterator.model.HangeulSyllabicBlock
+import com.github.sophiecollard.transliterator.model.hangeul.HangeulSyllabicBlock
 
 sealed abstract class EncodingError(message: String)
 

@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transliterator.util
+package com.github.sophiecollard.transliterator.util.typeclasses
 
 import com.github.sophiecollard.transliterator.error.ParsingError
 

@@ -5,6 +5,14 @@ import com.github.sophiecollard.transliterator.util.types.ValidatedNev.{Invalid,
 
 package object either {
 
+  implicit class EitherConstructors[A](value: A) {
+    def left[AA >: A, B]: Either[AA, B] =
+      Left(value)
+
+    def right[B, AA >: A]: Either[B, AA] =
+      Right(value)
+  }
+
   implicit class EitherOps[E, A](either: Either[E, A]) {
     def leftMap[B](f: E => B): Either[B, A] =
       either match {

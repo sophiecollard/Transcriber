@@ -19,6 +19,9 @@ object NonEmptyVector {
   def one[A](value: A): NonEmptyVector[A] =
     NonEmptyVector(value, Vector.empty[A])
 
+  def of[A](head: A, tail: A*): NonEmptyVector[A] =
+    NonEmptyVector(head, tail.toVector)
+
   def fromVector[A](vector: Vector[A]): Option[NonEmptyVector[A]] =
     Try(NonEmptyVector(vector(0), vector.drop(1))).toOption
 

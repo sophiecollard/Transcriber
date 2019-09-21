@@ -3,10 +3,11 @@ package com.github.sophiecollard.transliterator.transliteration
 import com.github.sophiecollard.transliterator.error.TransliterationError
 import com.github.sophiecollard.transliterator.instances.either._
 import com.github.sophiecollard.transliterator.instances.vector._
-import com.github.sophiecollard.transliterator.model.hangeul.{HangeulJamo, HangeulSyllabicBlock, HangeulText}
-import com.github.sophiecollard.transliterator.model.hangeul.HangeulSyllabicBlock.{TwoLetter, ThreeLetter}
+import com.github.sophiecollard.transliterator.model.hangeul.{HangeulJamo, HangeulSyllabicBlock, HangeulText, HangeulTextElement}
+import com.github.sophiecollard.transliterator.model.hangeul.HangeulSyllabicBlock.{ThreeLetter, TwoLetter}
 import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedWord}
 import com.github.sophiecollard.transliterator.model.romanization.RomanLetter._
+import com.github.sophiecollard.transliterator.syntax.either.EitherConstructors
 import com.github.sophiecollard.transliterator.syntax.vector._
 import com.github.sophiecollard.transliterator.syntax.traverse._
 import com.github.sophiecollard.transliterator.util.typeclasses.Monoid
@@ -16,21 +17,32 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
   import HangeulJamoRomanizer._
 
   override def transliterate(text: HangeulText): Either[TransliterationError, RomanizedText] =
-    text.words
-      .map { word =>
-        word.blocks
-          .zipWithNeighbors
-          .map { case (maybePrevBlock, block, maybeNextBlock) =>
-            val maybePrecedingFinal = maybePrevBlock.flatMap(_.maybeFinal)
-            val maybeFollowingInitial = maybeNextBlock.map(_.initial)
-            transliterateBlock(maybePrecedingFinal, block, maybeFollowingInitial)
-          }
-          .traverse[Either[TransliterationError, ?], Vector[RomanLetter]](identity)
-          .map(_.flatten)
-          .map(RomanizedWord)
+    text.elements
+      .map {
+        case HangeulTextElement.Word(blocks) =>
+          blocks.toVector
+            .zipWithNeighbors
+            .map { case (maybePrevBlock, block, maybeNextBlock) =>
+              val maybePrecedingFinal = maybePrevBlock.flatMap(_.maybeFinal)
+              val maybeFollowingInitial = maybeNextBlock.map(_.initial)
+              transliterateBlock(maybePrecedingFinal, block, maybeFollowingInitial)
+            }
+            .traverse[TransliterationResult, Vector[RomanLetter]](identity)
+            .map(_.flatten)
+            .map(RomanizedWord)
+        case HangeulTextElement.Punctuation(contents) =>
+          // TODO implement
+          TransliterationError
+            .NotImplemented("Transliteration of punctuation")
+            .left[TransliterationError, RomanizedWord]
+        case HangeulTextElement.Digits(contents) =>
+          // TODO implement
+          TransliterationError
+            .NotImplemented("Transliteration of digits")
+            .left[TransliterationError, RomanizedWord]
       }
-      .traverse[Either[TransliterationError, ?], RomanizedWord](identity)
-      .map(RomanizedText.apply _)
+      .traverse[TransliterationResult, RomanizedWord](identity(_))
+      .map(RomanizedText.apply(_))
 
   private def transliterateBlock(
     maybePrecedingFinal: Option[HangeulJamo.Final],

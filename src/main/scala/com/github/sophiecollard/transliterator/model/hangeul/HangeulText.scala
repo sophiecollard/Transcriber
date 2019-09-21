@@ -1,17 +1,5 @@
 package com.github.sophiecollard.transliterator.model.hangeul
 
-import com.github.sophiecollard.transliterator.util.typeclasses.Monoid
+import com.github.sophiecollard.transliterator.util.types.NonEmptyVector
 
-final case class HangeulText(words: Vector[HangeulWord])
-
-object HangeulText {
-
-  implicit val monoid: Monoid[HangeulText] = new Monoid[HangeulText] {
-    override def empty: HangeulText =
-      HangeulText(Vector.empty)
-
-    override def combine(x: HangeulText, y: HangeulText): HangeulText =
-      HangeulText(x.words ++ y.words)
-  }
-
-}
+final case class HangeulText(elements: NonEmptyVector[HangeulTextElement])

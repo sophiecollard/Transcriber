@@ -19,7 +19,7 @@ package object vector {
     new Traverse[Vector] {
       override def traverse[G[_]: Applicative, A, B](fa: Vector[A])(f: A => G[B]): G[Vector[B]] =
         fa.foldLeft(Vector.empty[B].pure[G]) { (gbs, a) =>
-          Semigroupal.product(gbs, f(a)).map { case (acc, b) => acc :+ b }
+          Semigroupal.product(gbs, f(a)).map { case (bs, b) => bs :+ b }
         }
     }
 

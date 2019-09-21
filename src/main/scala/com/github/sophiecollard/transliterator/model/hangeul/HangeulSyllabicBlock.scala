@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transliterator.model
+package com.github.sophiecollard.transliterator.model.hangeul
 
 sealed trait HangeulSyllabicBlock {
 

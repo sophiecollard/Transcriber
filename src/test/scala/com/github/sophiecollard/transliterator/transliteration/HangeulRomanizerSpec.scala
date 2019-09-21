@@ -1,6 +1,7 @@
 package com.github.sophiecollard.transliterator.transliteration
 
-import com.github.sophiecollard.transliterator.model._
+import com.github.sophiecollard.transliterator.model.hangeul._
+import com.github.sophiecollard.transliterator.model.romanization.{RomanLetter, RomanizedText, RomanizedWord}
 import org.specs2.mutable.Specification
 
 class HangeulRomanizerSpec extends Specification {

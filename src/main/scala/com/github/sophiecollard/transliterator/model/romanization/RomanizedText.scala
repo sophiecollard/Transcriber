@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transliterator.model
+package com.github.sophiecollard.transliterator.model.romanization
 
 import com.github.sophiecollard.transliterator.util.typeclasses.{Monoid, Parser}
 

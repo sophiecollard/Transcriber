@@ -4,6 +4,7 @@ import java.text.Normalizer
 
 import com.github.sophiecollard.transliterator.error.{DecodingError, EncodingError}
 import com.github.sophiecollard.transliterator.model._
+import com.github.sophiecollard.transliterator.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.transliterator.syntax.string._
 
 package object instances {

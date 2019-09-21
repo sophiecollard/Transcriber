@@ -1,4 +1,4 @@
-package com.github.sophiecollard.transliterator.model
+package com.github.sophiecollard.transliterator.model.romanization
 
 sealed abstract class RomanLetter(char: Char)
 

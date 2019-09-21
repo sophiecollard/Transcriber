@@ -6,11 +6,11 @@ final case class NonEmptyVector[+A](head: A, tail: Vector[A]) {
 
   def toVector: Vector[A] = head +: tail
 
-  def appendVector[AA >: A](vector: Vector[AA]): NonEmptyVector[AA] =
+  def concat[AA >: A](vector: Vector[AA]): NonEmptyVector[AA] =
     NonEmptyVector(head, tail ++ vector)
 
-  def append[AA >: A](nev: NonEmptyVector[AA]): NonEmptyVector[AA] =
-    appendVector(nev.toVector)
+  def concat[AA >: A](nev: NonEmptyVector[AA]): NonEmptyVector[AA] =
+    concat(nev.toVector)
 
 }
 

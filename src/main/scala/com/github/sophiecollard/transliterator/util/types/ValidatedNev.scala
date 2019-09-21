@@ -52,7 +52,7 @@ object ValidatedNev {
           case (Valid(a), Valid(b)) =>
             Valid((a, b))
           case (Invalid(es1), Invalid(es2)) =>
-            Invalid(es1 append es2)
+            Invalid(es1 concat es2)
           case (Invalid(es), Valid(_)) =>
             Invalid(es)
           case (Valid(_), Invalid(es)) =>

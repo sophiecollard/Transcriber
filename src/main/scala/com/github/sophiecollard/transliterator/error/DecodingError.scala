@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.error
 
-sealed abstract class DecodingError(message: String)
+sealed abstract class DecodingError(val message: String)
 
 object DecodingError {
 

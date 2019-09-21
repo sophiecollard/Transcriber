@@ -2,7 +2,7 @@ package com.github.sophiecollard.transliterator.error
 
 import com.github.sophiecollard.transliterator.model.UnicodeBlock
 
-sealed abstract class ValidationError(message: String)
+sealed abstract class ValidationError(val message: String)
 
 object ValidationError {
 

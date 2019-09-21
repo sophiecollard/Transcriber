@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.model.romanization
 
-import com.github.sophiecollard.transliterator.util.typeclasses.{Monoid, Parser}
+import com.github.sophiecollard.transliterator.util.typeclasses.Monoid
 
 final case class RomanizedText(words: Vector[RomanizedWord])
 
@@ -13,8 +13,5 @@ object RomanizedText {
     override def combine(x: RomanizedText, y: RomanizedText): RomanizedText =
       RomanizedText(x.words ++ y.words)
   }
-
-  implicit val parser: Parser[RomanizedText] =
-    Parser.instance(_ => throw new RuntimeException("not implemented"))
 
 }

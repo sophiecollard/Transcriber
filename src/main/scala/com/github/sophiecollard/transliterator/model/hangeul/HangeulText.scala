@@ -1,6 +1,6 @@
 package com.github.sophiecollard.transliterator.model.hangeul
 
-import com.github.sophiecollard.transliterator.util.typeclasses.{Monoid, Parser}
+import com.github.sophiecollard.transliterator.util.typeclasses.Monoid
 
 final case class HangeulText(words: Vector[HangeulWord])
 
@@ -13,8 +13,5 @@ object HangeulText {
     override def combine(x: HangeulText, y: HangeulText): HangeulText =
       HangeulText(x.words ++ y.words)
   }
-
-  implicit val parser: Parser[HangeulText] =
-    Parser.instance(_ => throw new RuntimeException("not implemented"))
 
 }

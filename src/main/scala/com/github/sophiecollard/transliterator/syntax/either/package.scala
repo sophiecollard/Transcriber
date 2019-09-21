@@ -1,5 +1,8 @@
 package com.github.sophiecollard.transliterator.syntax
 
+import com.github.sophiecollard.transliterator.util.types.ValidatedNev
+import com.github.sophiecollard.transliterator.util.types.ValidatedNev.{Invalid, Valid}
+
 package object either {
 
   implicit class EitherOps[E, A](either: Either[E, A]) {
@@ -13,6 +16,12 @@ package object either {
       either match {
         case Left(e)  => Left(f(e))
         case Right(a) => Right(g(a))
+      }
+
+    def toValidatedNev: ValidatedNev[E, A] =
+      either match {
+        case Left(e)  => Invalid.one(e)
+        case Right(a) => Valid(a)
       }
   }
 

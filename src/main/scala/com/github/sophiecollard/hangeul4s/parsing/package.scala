@@ -6,10 +6,10 @@ import com.github.sophiecollard.hangeul4s.util.types.ValidatedNev.Valid
 
 package object parsing {
 
-  type ParsingResult[A] = Either[ParsingError, A]
+  type SequentialParsingResult[A] = Either[ParsingError, A]
 
-  object ParsingResult {
-    def success[A](value: A): ParsingResult[A] =
+  object SequentialParsingResult {
+    def success[A](value: A): SequentialParsingResult[A] =
       Right(value)
   }
 

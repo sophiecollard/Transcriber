@@ -15,7 +15,7 @@ class HangeulRomanizerSpec extends Specification {
 
       "'안녕하세요' to 'annyeonghaseyo'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
             ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
             TwoLetter(Initial.ㅎ, Medial.ㅏ),
@@ -25,7 +25,7 @@ class HangeulRomanizerSpec extends Specification {
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             A, N, N, Y, E, O, N, G, H, A, S, E, Y, O
           )
         )
@@ -35,7 +35,7 @@ class HangeulRomanizerSpec extends Specification {
 
       "'불국사' to 'bulguksa'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅂ, Medial.ㅜ, Final.ㄹ),
             ThreeLetter(Initial.ㄱ, Medial.ㅜ, Final.ㄱ),
             TwoLetter(Initial.ㅅ, Medial.ㅏ)
@@ -43,7 +43,7 @@ class HangeulRomanizerSpec extends Specification {
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             B, U, L, G, U, K, S, A
           )
         )
@@ -53,14 +53,14 @@ class HangeulRomanizerSpec extends Specification {
 
       "'묵호' to 'mukho'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅁ, Medial.ㅜ, Final.ㄱ),
             TwoLetter(Initial.ㅎ, Medial.ㅗ)
           )
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             M, U, K, H, O
           )
         )
@@ -70,14 +70,14 @@ class HangeulRomanizerSpec extends Specification {
 
       "'울산' to 'ulsan'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅇ, Medial.ㅜ, Final.ㄹ),
             ThreeLetter(Initial.ㅅ, Medial.ㅏ, Final.ㄴ)
           )
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             U, L, S, A, N
           )
         )
@@ -91,7 +91,7 @@ class HangeulRomanizerSpec extends Specification {
 
       "'성산읍' to 'seongsaneup'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅅ, Medial.ㅓ, Final.ㅇ),
             ThreeLetter(Initial.ㅅ, Medial.ㅏ, Final.ㄴ),
             ThreeLetter(Initial.ㅇ, Medial.ㅡ, Final.ㅂ)
@@ -99,7 +99,7 @@ class HangeulRomanizerSpec extends Specification {
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             S, E, O, N, G, S, A, N, E, U, P
           )
         )
@@ -109,14 +109,14 @@ class HangeulRomanizerSpec extends Specification {
 
       "'설악' to 'seorak'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅅ, Medial.ㅓ, Final.ㄹ),
             ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄱ)
           )
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
               S, E, O, R, A, K
           )
         )
@@ -126,7 +126,7 @@ class HangeulRomanizerSpec extends Specification {
 
       "'감사합니다' to 'gamsahamnida'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㄱ, Medial.ㅏ, Final.ㅁ),
             TwoLetter(Initial.ㅅ, Medial.ㅏ),
             ThreeLetter(Initial.ㅎ, Medial.ㅏ, Final.ㅂ),
@@ -136,7 +136,7 @@ class HangeulRomanizerSpec extends Specification {
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             G, A, M, S, A, H, A, M, N, I, D, A
           )
         )
@@ -146,14 +146,14 @@ class HangeulRomanizerSpec extends Specification {
 
       "'칠곡' to 'chilgok'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅊ, Medial.ㅣ, Final.ㄹ),
             ThreeLetter(Initial.ㄱ, Medial.ㅗ, Final.ㄱ)
           )
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             C, H, I, L, G, O, K
           )
         )
@@ -163,14 +163,14 @@ class HangeulRomanizerSpec extends Specification {
 
       "'울릉' to 'ulleung'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅇ, Medial.ㅜ, Final.ㄹ),
             ThreeLetter(Initial.ㄹ, Medial.ㅡ, Final.ㅇ)
           )
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             U, L, L, E, U, N, G
           )
         )
@@ -180,7 +180,7 @@ class HangeulRomanizerSpec extends Specification {
 
       "'종로구' to 'jongnogu'" in {
         val input = HangeulText.fromElements(
-          HangeulTextElement.Word.fromSyllabicBlocks(
+          HangeulTextElement.Captured.fromSyllabicBlocks(
             ThreeLetter(Initial.ㅈ, Medial.ㅗ, Final.ㅇ),
             TwoLetter(Initial.ㄹ, Medial.ㅗ),
             TwoLetter(Initial.ㄱ, Medial.ㅜ)
@@ -188,7 +188,7 @@ class HangeulRomanizerSpec extends Specification {
         )
 
         val expectedOutput = RomanizedText.fromElements(
-          RomanizedTextElement.Word.fromLetters(
+          RomanizedTextElement.Captured.fromLetters(
             J, O, N, G, N, O, G, U
           )
         )

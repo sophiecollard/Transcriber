@@ -12,6 +12,9 @@ final case class HangeulText(elements: NonEmptyVector[HangeulTextElement])
 
 object HangeulText {
 
+  def fromElements(e: HangeulTextElement, es: HangeulTextElement*): HangeulText =
+    HangeulText(NonEmptyVector(e, es.toVector))
+
   val parser: ParallelParser[HangeulText] =
     ParallelParser.instance[HangeulText] { input =>
       input

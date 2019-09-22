@@ -25,7 +25,7 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
             }
             .traverse[TransliterationResult, Vector[RomanLetter]](identity)
             .map(_.flatten)
-            .map(RomanizedTextElement.Word) // TODO use non-empty vector
+            .map(RomanizedTextElement.Word.apply) // TODO use non-empty vector
         case punctuation: HangeulTextElement.Punctuation =>
           RomanizedTextElement
             .Punctuation.fromHangeul(punctuation)

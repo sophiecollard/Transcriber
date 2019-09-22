@@ -16,6 +16,9 @@ object HangeulTextElement {
   final case class Word(syllabicBlocks: NonEmptyVector[HangeulSyllabicBlock]) extends HangeulTextElement
 
   object Word {
+    def fromSyllabicBlocks(b: HangeulSyllabicBlock, bs: HangeulSyllabicBlock*): Word =
+      Word(NonEmptyVector(b, bs.toVector))
+
     val parser: SequentialParser[Word] =
       SequentialParser.instance[Word] { input =>
         input

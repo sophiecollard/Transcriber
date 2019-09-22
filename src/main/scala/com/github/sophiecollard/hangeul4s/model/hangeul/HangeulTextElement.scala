@@ -16,7 +16,7 @@ object HangeulTextElement {
   final case class Word(syllabicBlocks: NonEmptyVector[HangeulSyllabicBlock]) extends HangeulTextElement
 
   object Word {
-    implicit val parser: Parser[Word] =
+    val parser: Parser[Word] =
       Parser.instance[Word] { input =>
         input
           .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
@@ -35,7 +35,7 @@ object HangeulTextElement {
     private [hangeul] def unvalidatedFrom(input: String): Punctuation =
       new Punctuation(input) {}
 
-    implicit val parser: Parser[Punctuation] =
+    val parser: Parser[Punctuation] =
       Parser.instance[Punctuation] { input =>
         UnicodeBlock
           .validateString(input, UnicodeBlock.ASCIIPunctuation)
@@ -53,7 +53,7 @@ object HangeulTextElement {
     private [hangeul] def unvalidatedFrom(input: String): Digits =
       new Digits(input) {}
 
-    implicit val parser: Parser[Digits] =
+    val parser: Parser[Digits] =
       Parser.instance[Digits] { input =>
         UnicodeBlock
           .validateString(input, UnicodeBlock.ASCIIDigits)
@@ -65,7 +65,7 @@ object HangeulTextElement {
       }
   }
 
-  implicit val parser: Parser[HangeulTextElement] =
+  val parser: Parser[HangeulTextElement] =
     Parser.instance[HangeulTextElement] { input =>
       Digits.parser.parse(input) orElse
         Punctuation.parser.parse(input) orElse

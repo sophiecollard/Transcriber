@@ -4,7 +4,7 @@ import com.github.sophiecollard.hangeul4s.encoding.instances.HangeulSyllabicBloc
 import com.github.sophiecollard.hangeul4s.error.{DecodingError, ParsingError}
 import com.github.sophiecollard.hangeul4s.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.UnicodeBlock
-import com.github.sophiecollard.hangeul4s.parsing.Parser
+import com.github.sophiecollard.hangeul4s.parsing.SequentialParser
 import com.github.sophiecollard.hangeul4s.syntax.either.EitherOps
 import com.github.sophiecollard.hangeul4s.syntax.traverse.TraverseOps
 import com.github.sophiecollard.hangeul4s.util.types.{NonEmptyVector, ValidatedNev}
@@ -16,8 +16,11 @@ object HangeulTextElement {
   final case class Word(syllabicBlocks: NonEmptyVector[HangeulSyllabicBlock]) extends HangeulTextElement
 
   object Word {
-    implicit val parser: Parser[Word] =
-      Parser.instance[Word] { input =>
+    def fromSyllabicBlocks(b: HangeulSyllabicBlock, bs: HangeulSyllabicBlock*): Word =
+      Word(NonEmptyVector(b, bs.toVector))
+
+    val parser: SequentialParser[Word] =
+      SequentialParser.instance[Word] { input =>
         input
           .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
           .toVector
@@ -32,8 +35,11 @@ object HangeulTextElement {
   sealed abstract case class Punctuation(contents: String) extends HangeulTextElement
 
   object Punctuation {
-    implicit val parser: Parser[Punctuation] =
-      Parser.instance[Punctuation] { input =>
+    private [hangeul] def unvalidatedFrom(input: String): Punctuation =
+      new Punctuation(input) {}
+
+    val parser: SequentialParser[Punctuation] =
+      SequentialParser.instance[Punctuation] { input =>
         UnicodeBlock
           .validateString(input, UnicodeBlock.ASCIIPunctuation)
           .toEither
@@ -47,8 +53,11 @@ object HangeulTextElement {
   sealed abstract case class Digits(contents: String) extends HangeulTextElement
 
   object Digits {
-    implicit val parser: Parser[Digits] =
-      Parser.instance[Digits] { input =>
+    private [hangeul] def unvalidatedFrom(input: String): Digits =
+      new Digits(input) {}
+
+    val parser: SequentialParser[Digits] =
+      SequentialParser.instance[Digits] { input =>
         UnicodeBlock
           .validateString(input, UnicodeBlock.ASCIIDigits)
           .toEither
@@ -59,8 +68,8 @@ object HangeulTextElement {
       }
   }
 
-  implicit val parser: Parser[HangeulTextElement] =
-    Parser.instance[HangeulTextElement] { input =>
+  val parser: SequentialParser[HangeulTextElement] =
+    SequentialParser.instance[HangeulTextElement] { input =>
       Digits.parser.parse(input) orElse
         Punctuation.parser.parse(input) orElse
         Word.parser.parse(input)

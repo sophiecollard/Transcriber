@@ -11,6 +11,11 @@ object RomanizedTextElement {
   // TODO make non-empty vector
   final case class Word(letters: Vector[RomanLetter]) extends RomanizedTextElement
 
+  object Word {
+    def fromLetters(l: RomanLetter, ls: RomanLetter*): Word =
+      Word(l +: ls.toVector)
+  }
+
   sealed abstract case class Punctuation(contents: String) extends RomanizedTextElement
 
   object Punctuation {

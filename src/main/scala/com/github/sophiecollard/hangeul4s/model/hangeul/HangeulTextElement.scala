@@ -32,6 +32,9 @@ object HangeulTextElement {
   sealed abstract case class Punctuation(contents: String) extends HangeulTextElement
 
   object Punctuation {
+    private [hangeul] def unvalidatedFrom(input: String): Punctuation =
+      new Punctuation(input) {}
+
     implicit val parser: Parser[Punctuation] =
       Parser.instance[Punctuation] { input =>
         UnicodeBlock
@@ -47,6 +50,9 @@ object HangeulTextElement {
   sealed abstract case class Digits(contents: String) extends HangeulTextElement
 
   object Digits {
+    private [hangeul] def unvalidatedFrom(input: String): Digits =
+      new Digits(input) {}
+
     implicit val parser: Parser[Digits] =
       Parser.instance[Digits] { input =>
         UnicodeBlock

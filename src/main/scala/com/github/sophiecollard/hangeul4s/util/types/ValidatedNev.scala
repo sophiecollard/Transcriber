@@ -56,7 +56,7 @@ object ValidatedNev {
 
   implicit def functor[E]: Functor[ValidatedNev[E, ?]] =
     new Functor[ValidatedNev[E, ?]] {
-      override def map[A, B](fa: ValidatedNev[E, A], f: A => B): ValidatedNev[E, B] =
+      override def map[A, B](f: A => B)(fa: ValidatedNev[E, A]): ValidatedNev[E, B] =
         fa.map(f)
     }
 
@@ -71,8 +71,8 @@ object ValidatedNev {
       override def pure[A](value: A): ValidatedNev[E, A] =
         Valid(value)
 
-      override def map[A, B](fa: ValidatedNev[E, A], f: A => B): ValidatedNev[E, B] =
-        functor.map(fa, f)
+      override def map[A, B](f: A => B)(fa: ValidatedNev[E, A]): ValidatedNev[E, B] =
+        functor.map(f)(fa)
 
       override def product[A, B](fa: ValidatedNev[E, A], fb: ValidatedNev[E, B]): ValidatedNev[E, (A, B)] =
         semigroupal.product(fa, fb)

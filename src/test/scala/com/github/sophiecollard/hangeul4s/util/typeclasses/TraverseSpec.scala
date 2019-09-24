@@ -30,7 +30,7 @@ class TraverseSpec extends Specification {
       override def product[A, B](fa: Option[A], fb: Option[B]): Option[(A, B)] =
         fa.flatMap(a => fb.map(b => (a, b)))
 
-      override def map[A, B](fa: Option[A], f: A => B): Option[B] =
+      override def map[A, B](f: A => B)(fa: Option[A]): Option[B] =
         fa.map(f)
     }
 

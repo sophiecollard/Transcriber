@@ -11,8 +11,7 @@ This project is currently under development.
   - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block))
   - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
   - [x] Implement conversion between [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block)) and [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
-  - [ ] Implement parsing of `HangeulText`
-  - [ ] Provide support for non-Hangeul characters (eg: numerals, punctuation) in `HangeulText`
+  - [x] Implement parsing of `HangeulText`
   - [x] Add CircleCI integration
   - [ ] Add Codecov integration
   - [x] Add Apache 2.0 licence

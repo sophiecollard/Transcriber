@@ -4,7 +4,7 @@ import com.github.sophiecollard.hangeul4s.util.typeclasses.Applicative
 
 package object applicative {
 
-  implicit class ApplicativeOps[A](value: A) {
+  implicit class ApplicativeConstructors[A](value: A) {
     def pure[F[_]](implicit ev: Applicative[F]): F[A] =
       ev.pure(value)
   }

@@ -24,14 +24,11 @@ class TraverseSpec extends Specification {
 
   implicit val optionApplicative: Applicative[Option] =
     new Applicative[Option] {
-      override def pure[A](a: A): Option[A] =
+      def pure[A](a: A): Option[A] =
         Some(a)
 
-      override def product[A, B](fa: Option[A], fb: Option[B]): Option[(A, B)] =
-        fa.flatMap(a => fb.map(b => (a, b)))
-
-      override def map[A, B](fa: Option[A], f: A => B): Option[B] =
-        fa.map(f)
+      def ap[A, B](ff: Option[A => B])(fa: Option[A]): Option[B] =
+        ff.flatMap(f => fa.map(a => f(a)))
     }
 
 }

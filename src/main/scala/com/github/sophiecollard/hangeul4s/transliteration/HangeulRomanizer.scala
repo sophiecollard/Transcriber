@@ -15,7 +15,7 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
   override def transliterate(text: HangeulText): Either[TransliterationError, RomanizedText] =
     text.elements
       .map {
-        case HangeulTextElement.Word(blocks) =>
+        case HangeulTextElement.Captured(blocks) =>
           blocks.toVector
             .zipWithNeighbors
             .map { case (maybePrevBlock, block, maybeNextBlock) =>
@@ -25,17 +25,13 @@ object HangeulRomanizer extends Transliterator[HangeulText, RomanizedText] {
             }
             .traverse[TransliterationResult, Vector[RomanLetter]](identity)
             .map(_.flatten)
-            .map(RomanizedTextElement.Word.apply) // TODO use non-empty vector
-        case punctuation: HangeulTextElement.Punctuation =>
+            .map(RomanizedTextElement.Captured.apply) // TODO use non-empty vector
+        case notCaptured: HangeulTextElement.NotCaptured =>
           RomanizedTextElement
-            .Punctuation.fromHangeul(punctuation)
-            .right[TransliterationError, RomanizedTextElement]
-        case digits: HangeulTextElement.Digits =>
-          RomanizedTextElement
-            .Digits.fromHangeul(digits)
+            .NotCaptured.fromHangeul(notCaptured)
             .right[TransliterationError, RomanizedTextElement]
       }
-      .traverse[TransliterationResult, RomanizedTextElement](identity(_))
-      .map(RomanizedText.apply(_))
+      .traverse[TransliterationResult, RomanizedTextElement](identity)
+      .map(RomanizedText.apply)
 
 }

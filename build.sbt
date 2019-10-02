@@ -3,8 +3,9 @@ name := "transliterator"
 scalaVersion := "2.13.0"
 
 libraryDependencies ++= Seq(
-  "org.typelevel" %% "cats-core" % "2.0.0",
-  "org.specs2" %% "specs2-core" % "4.6.0" % "test"
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2",
+  "org.typelevel"          %% "cats-core"                % "2.0.0",
+  "org.specs2"             %% "specs2-core"              % "4.6.0" % "test"
 )
 
 parallelExecution in Test := false

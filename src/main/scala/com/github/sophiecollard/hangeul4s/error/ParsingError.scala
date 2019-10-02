@@ -21,4 +21,10 @@ object ParsingError {
   final case object Empty
     extends ParsingError("Failed to parse empty input")
 
+  final case class RegexParsingFailure(override val message: String)
+    extends ParsingError(message)
+
+  final case class RegexParsingError(override val message: String)
+    extends ParsingError(message)
+
 }

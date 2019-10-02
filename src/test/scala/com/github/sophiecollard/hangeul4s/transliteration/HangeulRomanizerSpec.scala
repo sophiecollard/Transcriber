@@ -7,7 +7,7 @@ import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulJamo._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock._
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter._
-import com.github.sophiecollard.hangeul4s.syntax.traverse.TraverseOps
+import com.github.sophiecollard.hangeul4s.syntax.traverse.SequenceOps
 import org.specs2.mutable.Specification
 
 class HangeulRomanizerSpec extends Specification {
@@ -33,7 +33,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'불국사' to 'bulguksa'" in {
@@ -51,7 +51,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'묵호' to 'mukho'" in {
@@ -68,7 +68,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'울산' to 'ulsan'" in {
@@ -85,7 +85,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
     }
@@ -107,7 +107,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'설악' to 'seorak'" in {
@@ -124,7 +124,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'감사합니다' to 'gamsahamnida'" in {
@@ -144,7 +144,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'칠곡' to 'chilgok'" in {
@@ -161,7 +161,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'울릉' to 'ulleung'" in {
@@ -178,7 +178,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
       "'종로구' to 'jongnogu'" in {
@@ -196,7 +196,7 @@ class HangeulRomanizerSpec extends Specification {
           )
         )
 
-        input.map(HangeulRomanizer.transliterate).traverse[TransliterationResult, RomanizedTextElement](identity) must beRight(expectedOutput)
+        input.map(HangeulRomanizer.transliterate).sequence must beRight(expectedOutput)
       }
 
     }

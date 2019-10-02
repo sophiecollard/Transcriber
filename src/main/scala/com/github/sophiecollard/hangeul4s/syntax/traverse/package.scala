@@ -9,4 +9,9 @@ package object traverse {
       ev.traverse(fa)(f)
   }
 
+  implicit class SequenceOps[F[_], G[_], A](fga: F[G[A]])(implicit ev1: Traverse[F], ev2: Applicative[G]) {
+    def sequence: G[F[A]] =
+      ev1.sequence[G, A](fga)
+  }
+
 }

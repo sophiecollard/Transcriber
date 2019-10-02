@@ -1,12 +1,12 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
 import com.github.sophiecollard.hangeul4s.encoding.instances.HangeulSyllabicBlockCodec
-import com.github.sophiecollard.hangeul4s.error.{DecodingError, ParsingError}
+import com.github.sophiecollard.hangeul4s.error.ParsingError
 import com.github.sophiecollard.hangeul4s.instances.vector._
 import com.github.sophiecollard.hangeul4s.parsing.Parser
 import com.github.sophiecollard.hangeul4s.syntax.either.{EitherConstructors, EitherOps}
-import com.github.sophiecollard.hangeul4s.syntax.traverse.TraverseOps
-import com.github.sophiecollard.hangeul4s.util.types.{NonEmptyVector, ValidatedNev}
+import com.github.sophiecollard.hangeul4s.syntax.traverse.SequenceOps
+import com.github.sophiecollard.hangeul4s.util.types.NonEmptyVector
 
 sealed trait HangeulTextElement
 
@@ -23,7 +23,7 @@ object HangeulTextElement {
         input
           .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
           .toVector
-          .traverse[ValidatedNev[DecodingError, ?], HangeulSyllabicBlock](identity)
+          .sequence
           .toEither
           .leftMap[ParsingError](ParsingError.ParsingFailedWithDecodingErrors(input, _))
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty))

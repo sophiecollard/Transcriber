@@ -13,10 +13,10 @@ package object parsing {
       Right(value)
   }
 
-  type ParallelParsingResult[A] = ValidatedNev[ParsingError, A]
+  type AccumulativeParsingResult[A] = ValidatedNev[ParsingError, A]
 
   object ParallelParsingResult {
-    def success[A](value: A): ParallelParsingResult[A] =
+    def success[A](value: A): AccumulativeParsingResult[A] =
       Valid(value)
   }
 

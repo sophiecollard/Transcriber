@@ -10,6 +10,9 @@ trait Monoid[A] {
 
 object Monoid {
 
+  def apply[A](implicit ev: Monoid[A]): Monoid[A] =
+    ev
+
   def empty[A](implicit ev: Monoid[A]): A =
     ev.empty
 

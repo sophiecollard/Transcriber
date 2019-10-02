@@ -11,6 +11,9 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
 
 object Apply {
 
+  def apply[F[_]](implicit ev: Apply[F]): Apply[F] =
+    ev
+
   def ap[F[_], A, B](ff: F[A => B])(fa: F[A])(implicit ev: Apply[F]): F[B] =
     ev.ap(ff)(fa)
 

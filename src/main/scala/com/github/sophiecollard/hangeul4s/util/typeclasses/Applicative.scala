@@ -11,6 +11,9 @@ trait Applicative[F[_]] extends Apply[F] {
 
 object Applicative {
 
+  def apply[F[_]](implicit ev: Applicative[F]): Applicative[F] =
+    ev
+
   def pure[F[_], A](value: A)(implicit ev: Applicative[F]): F[A] =
     ev.pure(value)
 

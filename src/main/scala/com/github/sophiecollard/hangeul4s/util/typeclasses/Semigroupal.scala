@@ -8,6 +8,9 @@ trait Semigroupal[F[_]] {
 
 object Semigroupal {
 
+  def apply[F[_]](implicit ev: Semigroupal[F]): Semigroupal[F] =
+    ev
+
   def product[F[_], A, B](fa: F[A], fb: F[B])(implicit ev: Semigroupal[F]): F[(A, B)] =
     ev.product(fa, fb)
 

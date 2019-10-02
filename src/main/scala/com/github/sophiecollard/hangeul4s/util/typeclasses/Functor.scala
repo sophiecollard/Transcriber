@@ -8,6 +8,9 @@ trait Functor[F[_]] {
 
 object Functor {
 
+  def apply[F[_]](implicit ev: Functor[F]): Functor[F] =
+    ev
+
   def map[F[_], A, B](f: A => B)(fa: F[A])(implicit ev: Functor[F]): F[B] =
     ev.map(f)(fa)
 

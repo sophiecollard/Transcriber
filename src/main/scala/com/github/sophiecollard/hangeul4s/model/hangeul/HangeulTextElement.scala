@@ -3,7 +3,7 @@ package com.github.sophiecollard.hangeul4s.model.hangeul
 import com.github.sophiecollard.hangeul4s.encoding.instances.HangeulSyllabicBlockCodec
 import com.github.sophiecollard.hangeul4s.error.{DecodingError, ParsingError}
 import com.github.sophiecollard.hangeul4s.instances.vector._
-import com.github.sophiecollard.hangeul4s.parsing.SequentialParser
+import com.github.sophiecollard.hangeul4s.parsing.Parser
 import com.github.sophiecollard.hangeul4s.syntax.either.{EitherConstructors, EitherOps}
 import com.github.sophiecollard.hangeul4s.syntax.traverse.TraverseOps
 import com.github.sophiecollard.hangeul4s.util.types.{NonEmptyVector, ValidatedNev}
@@ -18,8 +18,8 @@ object HangeulTextElement {
     def fromSyllabicBlocks(b: HangeulSyllabicBlock, bs: HangeulSyllabicBlock*): Captured =
       Captured(NonEmptyVector(b, bs.toVector))
 
-    val parser: SequentialParser[Captured] =
-      SequentialParser.instance[Captured] { input =>
+    val parser: Parser[Captured] =
+      Parser.instance[Captured] { input =>
         input
           .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
           .toVector
@@ -38,14 +38,14 @@ object HangeulTextElement {
       new NotCaptured(input) {}
 
     // TODO validate input
-    val parser: SequentialParser[NotCaptured] =
-      SequentialParser.instance[NotCaptured] { input =>
+    val parser: Parser[NotCaptured] =
+      Parser.instance[NotCaptured] { input =>
         unvalidatedFrom(input).right[ParsingError, NotCaptured]
       }
   }
 
-  val parser: SequentialParser[HangeulTextElement] =
-    SequentialParser.instance[HangeulTextElement] { input =>
+  val parser: Parser[HangeulTextElement] =
+    Parser.instance[HangeulTextElement] { input =>
       Captured.parser.parse(input) orElse
         NotCaptured.parser.parse(input)
     }

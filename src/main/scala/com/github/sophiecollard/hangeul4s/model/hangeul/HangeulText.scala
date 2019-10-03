@@ -17,7 +17,7 @@ object HangeulText {
   def fromElements(e: HangeulTextElement, es: HangeulTextElement*): HangeulText =
     HangeulText(NonEmptyVector(e, es.toVector))
 
-  private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\uAC00-\uD7AF]+)".r
+  private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\\s\uAC00-\uD7AF]+)".r
 
   val parser: AccumulativeParser[HangeulText] =
     AccumulativeParser.instance[HangeulText] { input =>

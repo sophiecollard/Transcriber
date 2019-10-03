@@ -18,40 +18,36 @@ class HangeulTextSpec extends Specification {
           TwoLetter(Initial.ㅅ, Medial.ㅣ),
           ThreeLetter(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅅ, Medial.ㅗ),
           TwoLetter(Initial.ㅈ, Medial.ㅐ),
           TwoLetter(Initial.ㅈ, Medial.ㅣ),
           ThreeLetter(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           ThreeLetter(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
           TwoLetter(Initial.ㄱ, Medial.ㅜ),
           TwoLetter(Initial.ㅇ, Medial.ㅣ),
           TwoLetter(Initial.ㅁ, Medial.ㅕ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(", 25"),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(","),
+        HangeulTextElement.NotCaptured.unvalidatedFrom("25"),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㄱ, Medial.ㅐ),
           TwoLetter(Initial.ㅇ, Medial.ㅢ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅈ, Medial.ㅏ),
           TwoLetter(Initial.ㅊ, Medial.ㅣ),
           TwoLetter(Initial.ㄱ, Medial.ㅜ),
           TwoLetter(Initial.ㄹ, Medial.ㅗ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅇ, Medial.ㅣ),
           TwoLetter(Initial.ㄹ, Medial.ㅜ),
           TwoLetter(Initial.ㅇ, Medial.ㅓ),
           TwoLetter(Initial.ㅈ, Medial.ㅕ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           ThreeLetter(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
           TwoLetter(Initial.ㄷ, Medial.ㅏ)

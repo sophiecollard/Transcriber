@@ -25,7 +25,7 @@ object HangeulText {
         .findAllIn(input).toVector
         .map(HangeulTextElement.parser.parse(_).toValidatedNev)
         .sequence
-        .flatMap(NonEmptyVector.fromVector(_).toValid[ParsingError](ParsingError.Empty))
+        .andThen(NonEmptyVector.fromVector(_).toValid[ParsingError](ParsingError.Empty))
         .map(HangeulText.apply)
     }
 

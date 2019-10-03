@@ -1,13 +1,13 @@
 package com.github.sophiecollard.hangeul4s.transliteration
 
-import com.github.sophiecollard.hangeul4s.instances.either._
-import com.github.sophiecollard.hangeul4s.instances.vector._
+import cats.instances.either._
+import cats.instances.vector._
+import cats.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulJamo._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock._
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter._
-import com.github.sophiecollard.hangeul4s.syntax.traverse.SequenceOps
 import org.specs2.mutable.Specification
 
 class HangeulRomanizerSpec extends Specification {

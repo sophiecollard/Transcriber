@@ -1,12 +1,12 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
+import cats.data.NonEmptyVector
+import cats.instances.vector._
+import cats.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.error.ParsingError
-import com.github.sophiecollard.hangeul4s.instances.vector._
 import com.github.sophiecollard.hangeul4s.parsing.AccumulativeParser
 import com.github.sophiecollard.hangeul4s.syntax.either.EitherOps
 import com.github.sophiecollard.hangeul4s.syntax.option.OptionOps
-import com.github.sophiecollard.hangeul4s.syntax.traverse.SequenceOps
-import com.github.sophiecollard.hangeul4s.util.types.NonEmptyVector
 
 import scala.util.matching.Regex
 

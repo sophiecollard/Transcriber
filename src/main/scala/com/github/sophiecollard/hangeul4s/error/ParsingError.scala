@@ -1,6 +1,6 @@
 package com.github.sophiecollard.hangeul4s.error
 
-import com.github.sophiecollard.hangeul4s.util.types.NonEmptyVector
+import cats.data.NonEmptyVector
 
 sealed abstract class ParsingError(val message: String)
 

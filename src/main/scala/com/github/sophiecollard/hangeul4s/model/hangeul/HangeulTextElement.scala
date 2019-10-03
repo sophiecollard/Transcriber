@@ -1,12 +1,13 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
+import cats.data.NonEmptyVector
+import cats.instances.vector._
+import cats.syntax.either._
+import cats.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.encoding.instances.HangeulSyllabicBlockCodec
 import com.github.sophiecollard.hangeul4s.error.ParsingError
-import com.github.sophiecollard.hangeul4s.instances.vector._
 import com.github.sophiecollard.hangeul4s.parsing.Parser
-import com.github.sophiecollard.hangeul4s.syntax.either.{EitherConstructors, EitherOps}
-import com.github.sophiecollard.hangeul4s.syntax.traverse.SequenceOps
-import com.github.sophiecollard.hangeul4s.util.types.NonEmptyVector
+import com.github.sophiecollard.hangeul4s.syntax.either._
 
 sealed trait HangeulTextElement
 
@@ -40,7 +41,7 @@ object HangeulTextElement {
     // TODO validate input
     val parser: Parser[NotCaptured] =
       Parser.instance[NotCaptured] { input =>
-        unvalidatedFrom(input).right[ParsingError, NotCaptured]
+        unvalidatedFrom(input).asRight[ParsingError]
       }
   }
 

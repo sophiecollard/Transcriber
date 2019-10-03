@@ -1,6 +1,7 @@
 package com.github.sophiecollard.hangeul4s.util.types
 
-import com.github.sophiecollard.hangeul4s.util.typeclasses.{Applicative, Apply, Functor, Semigroupal}
+import cats.{Applicative, Apply, Functor, Semigroupal}
+import cats.data.NonEmptyVector
 
 sealed abstract class ValidatedNev[+E, +A] {
 
@@ -23,7 +24,7 @@ sealed abstract class ValidatedNev[+E, +A] {
       case (Valid(a), Valid(b))         => Valid((a, b))
       case (Invalid(es), Valid(_))      => Invalid(es)
       case (Valid(_), Invalid(es))      => Invalid(es)
-      case (Invalid(es1), Invalid(es2)) => Invalid(es1 concat es2)
+      case (Invalid(es1), Invalid(es2)) => Invalid(es1 ++: es2)
     }
 
   def ap[EE >: E, B](ff: ValidatedNev[EE, A => B]): ValidatedNev[EE, B] =
@@ -31,7 +32,7 @@ sealed abstract class ValidatedNev[+E, +A] {
       case (Valid(a), Valid(f))         => Valid(f(a))
       case (Invalid(es), Valid(_))      => Invalid(es)
       case (Valid(_), Invalid(es))      => Invalid(es)
-      case (Invalid(es1), Invalid(es2)) => Invalid(es1 concat es2)
+      case (Invalid(es1), Invalid(es2)) => Invalid(es1 ++: es2)
     }
 
   def toEither: Either[NonEmptyVector[E], A] = this match {
@@ -60,7 +61,7 @@ object ValidatedNev {
 
   implicit def functor[E]: Functor[ValidatedNev[E, ?]] =
     new Functor[ValidatedNev[E, ?]] {
-      def map[A, B](f: A => B)(fa: ValidatedNev[E, A]): ValidatedNev[E, B] =
+      def map[A, B](fa: ValidatedNev[E, A])(f: A => B): ValidatedNev[E, B] =
         fa.map(f)
     }
 
@@ -75,8 +76,8 @@ object ValidatedNev {
       def ap[A, B](ff: ValidatedNev[E, A => B])(fa: ValidatedNev[E, A]): ValidatedNev[E, B] =
         fa.ap(ff)
 
-      def map[A, B](f: A => B)(fa: ValidatedNev[E, A]): ValidatedNev[E, B] =
-        functor.map(f)(fa)
+      def map[A, B](fa: ValidatedNev[E, A])(f: A => B): ValidatedNev[E, B] =
+        functor.map(fa)(f)
     }
 
   implicit def applicative[E]: Applicative[ValidatedNev[E, ?]] =

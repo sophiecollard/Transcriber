@@ -1,12 +1,12 @@
 package com.github.sophiecollard.hangeul4s.transliteration
 
+import cats.instances.either._
+import cats.instances.vector._
+import cats.syntax.either._
+import cats.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.error.TransliterationError
-import com.github.sophiecollard.hangeul4s.instances.either._
-import com.github.sophiecollard.hangeul4s.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
-import com.github.sophiecollard.hangeul4s.syntax.either.EitherConstructors
-import com.github.sophiecollard.hangeul4s.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.syntax.vector._
 import com.github.sophiecollard.hangeul4s.transliteration.HangeulSyllabicBlockRomanizer._
 
@@ -28,7 +28,7 @@ object HangeulRomanizer extends Transliterator[HangeulTextElement, RomanizedText
       case notCaptured: HangeulTextElement.NotCaptured =>
         RomanizedTextElement
           .NotCaptured.fromHangeul(notCaptured)
-          .right[TransliterationError, RomanizedTextElement]
+          .asRight[TransliterationError]
       }
 
 }

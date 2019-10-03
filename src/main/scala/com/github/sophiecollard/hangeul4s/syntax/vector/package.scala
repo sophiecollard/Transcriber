@@ -7,18 +7,25 @@ package object vector {
     private type Neighbors[A] = (Option[A], A, Option[A])
 
     def zipWithNeighbors: Vector[Neighbors[A]] = {
+      val builder = Vector.newBuilder[Neighbors[A]]
+
       @scala.annotation.tailrec
-      def loop(rem: List[A], prev: Option[A], acc: Vector[Neighbors[A]]): Vector[Neighbors[A]] =
-        rem match {
+      def loop(
+        remainder: List[A],
+        previous: Option[A]
+      ): Vector[Neighbors[A]] =
+        remainder match {
           case Nil =>
-            acc
+            builder.result
           case fst :: Nil =>
-            acc :+ (prev, fst, None)
+            builder += ((previous, fst, None))
+            builder.result
           case fst :: snd :: tail =>
-            loop(snd :: tail, Some(fst), acc :+ (prev, fst, Some(snd)))
+            builder += ((previous, fst, Some(snd)))
+            loop(snd :: tail, Some(fst))
         }
 
-      loop(vector.toList, prev = None, acc = Vector.empty)
+      loop(vector.toList, previous = None)
     }
 
   }

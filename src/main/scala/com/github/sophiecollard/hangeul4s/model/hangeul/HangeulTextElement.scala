@@ -1,13 +1,17 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
 import cats.data.NonEmptyVector
+import cats.instances.either._
 import cats.instances.vector._
 import cats.syntax.either._
 import cats.syntax.traverse._
+import cats.syntax.validated._
 import com.github.sophiecollard.hangeul4s.encoding.instances.HangeulSyllabicBlockCodec
 import com.github.sophiecollard.hangeul4s.error.ParsingError
-import com.github.sophiecollard.hangeul4s.parsing.Parser
+import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser}
 import com.github.sophiecollard.hangeul4s.syntax.either._
+
+import scala.util.matching.Regex
 
 sealed trait HangeulTextElement
 
@@ -19,15 +23,25 @@ object HangeulTextElement {
     def fromSyllabicBlocks(b: HangeulSyllabicBlock, bs: HangeulSyllabicBlock*): Captured =
       Captured(NonEmptyVector(b, bs.toVector))
 
-    val parser: Parser[Captured] =
+    private [hangeul] val failFastParser: Parser[Captured] =
       Parser.instance[Captured] { input =>
         input
-          .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
           .toVector
+          .map(HangeulSyllabicBlockCodec.decode)
+          .map(_.leftMap[ParsingError](e => ParsingError.ParsingFailedWithDecodingErrors(input, NonEmptyVector.one(e))))
           .sequence
-          .toEither
-          .leftMap[ParsingError](ParsingError.ParsingFailedWithDecodingErrors(input, _))
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty))
+          .map(Captured(_))
+      }
+
+    private [hangeul] val accumulativeParser: AccumulativeParser[Captured] =
+      AccumulativeParser.instance[Captured] { input =>
+        input
+          .toVector
+          .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
+          .map(_.leftMap(e => NonEmptyVector.one[ParsingError](ParsingError.ParsingFailedWithDecodingErrors(input, e))))
+          .sequence
+          .andThen(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty).toValidatedNev)
           .map(Captured(_))
       }
   }
@@ -39,16 +53,47 @@ object HangeulTextElement {
       new NotCaptured(input) {}
 
     // TODO validate input
-    val parser: Parser[NotCaptured] =
+    private [hangeul] val failFastParser: Parser[NotCaptured] =
       Parser.instance[NotCaptured] { input =>
         unvalidatedFrom(input).asRight[ParsingError]
       }
+
+    // TODO validate input
+    private [hangeul] val accumulativeParser: AccumulativeParser[NotCaptured] =
+      AccumulativeParser.instance[NotCaptured] { input =>
+        unvalidatedFrom(input).valid[NonEmptyVector[ParsingError]]
+      }
   }
 
-  val parser: Parser[HangeulTextElement] =
-    Parser.instance[HangeulTextElement] { input =>
-      Captured.parser.parse(input) orElse
-        NotCaptured.parser.parse(input)
+  private val failFastElementParser: Parser[HangeulTextElement] =
+    Parser.instance { input =>
+      Captured.failFastParser.parse(input) orElse
+        NotCaptured.failFastParser.parse(input)
+    }
+
+  private val accumulativeElementParser: AccumulativeParser[HangeulTextElement] =
+    AccumulativeParser.instance { input =>
+      Captured.accumulativeParser.parse(input) orElse
+        NotCaptured.accumulativeParser.parse(input)
+    }
+
+  private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\\s\uAC00-\uD7AF]+)".r
+
+  val failFastParser: Parser[Vector[HangeulTextElement]] =
+    Parser.instance { input =>
+      splittingRegex
+        .findAllIn(input)
+        .toVector
+        .map(failFastElementParser.parse)
+        .sequence
+    }
+
+  val accumulativeParser: AccumulativeParser[Vector[HangeulTextElement]] =
+    AccumulativeParser.instance { input =>
+      splittingRegex
+        .findAllIn(input)
+        .toVector.map(accumulativeElementParser.parse)
+        .sequence
     }
 
 }

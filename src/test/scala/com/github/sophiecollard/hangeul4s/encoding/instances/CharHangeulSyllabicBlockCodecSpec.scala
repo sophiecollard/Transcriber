@@ -5,7 +5,7 @@ import com.github.sophiecollard.hangeul4s.error.DecodingError
 import com.github.sophiecollard.hangeul4s.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import org.specs2.mutable.Specification
 
-class HangeulSyllabicBlockCodecSpec extends Specification {
+class CharHangeulSyllabicBlockCodecSpec extends Specification {
 
   "A Codec[Char, HangeulSyllabicBlock] instance" should {
 

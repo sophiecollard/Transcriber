@@ -3,7 +3,6 @@ package com.github.sophiecollard.hangeul4s.encoding
 import java.text.Normalizer
 
 import com.github.sophiecollard.hangeul4s.error.{DecodingError, EncodingError}
-import com.github.sophiecollard.hangeul4s.model._
 import com.github.sophiecollard.hangeul4s.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.hangeul4s.syntax.string._
 
@@ -19,7 +18,7 @@ package object instances {
     *
     * See https://en.wikipedia.org/wiki/Korean_language_and_computers#Hangul_in_Unicode
     */
-  implicit val HangeulSyllabicBlockCodec: Codec[Char, HangeulSyllabicBlock] =
+  implicit val charHangeulSyllabicBlockCodec: Codec[Char, HangeulSyllabicBlock] =
     new Codec[Char, HangeulSyllabicBlock] {
       override def encode(decoded: HangeulSyllabicBlock): Either[EncodingError, Char] = {
         val composition = Normalizer.normalize(decoded.charSequence, Normalizer.Form.NFC)

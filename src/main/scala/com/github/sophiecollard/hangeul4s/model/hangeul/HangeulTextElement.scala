@@ -6,7 +6,8 @@ import cats.instances.vector._
 import cats.syntax.either._
 import cats.syntax.traverse._
 import cats.syntax.validated._
-import com.github.sophiecollard.hangeul4s.encoding.instances.HangeulSyllabicBlockCodec
+import com.github.sophiecollard.hangeul4s.encoding.Decoder
+import com.github.sophiecollard.hangeul4s.encoding.instances._
 import com.github.sophiecollard.hangeul4s.error.ParsingError
 import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser}
 import com.github.sophiecollard.hangeul4s.syntax.either._
@@ -27,7 +28,7 @@ object HangeulTextElement {
       Parser.instance[Captured] { input =>
         input
           .toVector
-          .map(HangeulSyllabicBlockCodec.decode)
+          .map(Decoder[Char, HangeulSyllabicBlock].decode)
           .map(_.leftMap[ParsingError](e => ParsingError.ParsingFailedWithDecodingErrors(input, NonEmptyVector.one(e))))
           .sequence
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty))
@@ -38,7 +39,7 @@ object HangeulTextElement {
       AccumulativeParser.instance[Captured] { input =>
         input
           .toVector
-          .map(HangeulSyllabicBlockCodec.decode(_).toValidatedNev)
+          .map(Decoder[Char, HangeulSyllabicBlock].decode(_).toValidatedNev)
           .map(_.leftMap(e => NonEmptyVector.one[ParsingError](ParsingError.ParsingFailedWithDecodingErrors(input, e))))
           .sequence
           .andThen(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty).toValidatedNev)

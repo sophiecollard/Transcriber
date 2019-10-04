@@ -30,7 +30,6 @@ import com.github.sophiecollard.hangeul4s.parsing.syntax._
 import com.github.sophiecollard.hangeul4s.transliteration.hangeul.instances._
 import com.github.sophiecollard.hangeul4s.transliteration.implicits._
 import com.github.sophiecollard.hangeul4s.transliteration.syntax._
-import com.github.sophiecollard.hangeul4s.transliteration.syntax._
 
 val input = "안녕하세요"
 // input: String = 안녕하세요

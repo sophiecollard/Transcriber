@@ -38,7 +38,7 @@ implicit val hangeulRomanizer: Transliterator[HangeulTextElement, RomanizedTextE
 
 val output = for {
   parsed <- input.parseF[Vector, HangeulTextElement]
-  transliterated <- parsed.transliterate[Vector[RomanizedTextElement]]
+  transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
 } yield transliterated.unparse
 // output: scala.util.Either[Object,String] = Right(annyeonghaseyo)
 ```

@@ -23,7 +23,7 @@ class End2EndSpec extends Specification {
 
       val output = for {
         parsed <- input.parseF[Vector, HangeulTextElement]
-        transliterated <- parsed.transliterate[Vector[RomanizedTextElement]]
+        transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
       } yield transliterated.unparse
 
       output must beRight("annyeonghaseyo")

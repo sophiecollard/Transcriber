@@ -5,7 +5,7 @@ import cats.instances.either._
 import cats.syntax.functor._
 import cats.syntax.traverse._
 
-package object instances {
+package object implicits {
 
   implicit def parserF[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F],

@@ -1,4 +1,4 @@
-package com.github.sophiecollard.hangeul4s.transliteration
+package com.github.sophiecollard.hangeul4s.transliteration.hangeul
 
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulJamo
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter

@@ -1,13 +1,13 @@
-package com.github.sophiecollard.hangeul4s.transliteration
+package com.github.sophiecollard.hangeul4s.transliteration.hangeul
 
 import cats.Monoid
 import cats.instances.vector._
 import com.github.sophiecollard.hangeul4s.error.TransliterationError
-import com.github.sophiecollard.hangeul4s.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock.{ThreeLetter, TwoLetter}
+import com.github.sophiecollard.hangeul4s.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter._
-import com.github.sophiecollard.hangeul4s.transliteration.HangeulJamoRomanizer._
+import com.github.sophiecollard.hangeul4s.transliteration.hangeul.HangeulJamoRomanizer.{transliterateFinal, transliterateInitial, transliterateMedial}
 
 private [transliteration] object HangeulSyllabicBlockRomanizer {
 

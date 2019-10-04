@@ -27,7 +27,8 @@ import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElemen
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement.vectorUntokenizer
 import com.github.sophiecollard.hangeul4s.parsing.instances._
 import com.github.sophiecollard.hangeul4s.parsing.syntax._
-import com.github.sophiecollard.hangeul4s.transliteration.{HangeulRomanizer, Transliterator}
+import com.github.sophiecollard.hangeul4s.transliteration.Transliterator
+import com.github.sophiecollard.hangeul4s.transliteration.hangeul.HangeulRomanizer
 import com.github.sophiecollard.hangeul4s.transliteration.instances._
 import com.github.sophiecollard.hangeul4s.transliteration.syntax._
 

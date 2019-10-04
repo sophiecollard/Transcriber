@@ -1,4 +1,4 @@
-package com.github.sophiecollard.hangeul4s.transliteration
+package com.github.sophiecollard.hangeul4s.transliteration.hangeul
 
 import cats.instances.either._
 import cats.instances.vector._
@@ -8,7 +8,7 @@ import com.github.sophiecollard.hangeul4s.error.TransliterationError
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
 import com.github.sophiecollard.hangeul4s.syntax.vector._
-import com.github.sophiecollard.hangeul4s.transliteration.HangeulSyllabicBlockRomanizer._
+import com.github.sophiecollard.hangeul4s.transliteration.{TransliterationResult, Transliterator}
 
 object HangeulRomanizer extends Transliterator[HangeulTextElement, RomanizedTextElement] {
 
@@ -20,7 +20,7 @@ object HangeulRomanizer extends Transliterator[HangeulTextElement, RomanizedText
           .map { case (maybePrevBlock, block, maybeNextBlock) =>
             val maybePrecedingFinal = maybePrevBlock.flatMap(_.maybeFinal)
             val maybeFollowingInitial = maybeNextBlock.map(_.initial)
-            transliterateSyllabicBlock(maybePrecedingFinal, block, maybeFollowingInitial)
+            HangeulSyllabicBlockRomanizer.transliterateSyllabicBlock(maybePrecedingFinal, block, maybeFollowingInitial)
           }
           .sequence
           .map(_.flatten)

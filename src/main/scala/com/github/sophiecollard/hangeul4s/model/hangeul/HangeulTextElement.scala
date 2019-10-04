@@ -79,7 +79,7 @@ object HangeulTextElement {
 
   private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\\s\uAC00-\uD7AF]+)".r
 
-  val failFastParser: Parser[Vector[HangeulTextElement]] =
+  implicit val failFastParser: Parser[Vector[HangeulTextElement]] =
     Parser.instance { input =>
       splittingRegex
         .findAllIn(input)
@@ -88,7 +88,7 @@ object HangeulTextElement {
         .sequence
     }
 
-  val accumulativeParser: AccumulativeParser[Vector[HangeulTextElement]] =
+  implicit val accumulativeParser: AccumulativeParser[Vector[HangeulTextElement]] =
     AccumulativeParser.instance { input =>
       splittingRegex
         .findAllIn(input)

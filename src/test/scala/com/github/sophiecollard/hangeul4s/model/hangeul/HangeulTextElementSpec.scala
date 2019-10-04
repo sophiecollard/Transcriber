@@ -1,8 +1,11 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
+import cats.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulJamo._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock._
+import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement._
 import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser}
+import com.github.sophiecollard.hangeul4s.parsing.instances._
 import org.specs2.mutable.Specification
 
 class HangeulTextElementSpec extends Specification {

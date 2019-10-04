@@ -1,22 +1,23 @@
 package com.github.sophiecollard.hangeul4s.model.romanization
 
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter._
+import com.github.sophiecollard.hangeul4s.parsing.Unparser
 import org.specs2.mutable.Specification
 
 class RomanizedTextElementSpec extends Specification {
 
-  "RomanizedTextElement#toString" should {
+  "RomanizedTextElement#unparser" should {
 
     "convert a Captured instance to a string" in {
-      val element = RomanizedTextElement.Captured.fromLetters(H, E, L, L, O)
+      val input = RomanizedTextElement.Captured.fromLetters(H, E, L, L, O)
 
-      element.toString ==== "hello"
+      Unparser[RomanizedTextElement].unparse(input) ==== "hello"
     }
 
     "convert a NotCaptured instance to a string" in {
-      val element = RomanizedTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
+      val input = RomanizedTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
 
-      element.toString ==== "!#&0123456789"
+      Unparser[RomanizedTextElement].unparse(input) ==== "!#&0123456789"
     }
 
   }

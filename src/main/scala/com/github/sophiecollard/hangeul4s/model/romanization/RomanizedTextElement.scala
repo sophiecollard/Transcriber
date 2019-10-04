@@ -1,17 +1,9 @@
 package com.github.sophiecollard.hangeul4s.model.romanization
 
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
+import com.github.sophiecollard.hangeul4s.parsing.{Unparser, Untokenizer}
 
-sealed trait RomanizedTextElement {
-
-  import RomanizedTextElement._
-
-  override def toString: String = this match {
-    case Captured(letters)     => letters.map(_.char).mkString
-    case NotCaptured(contents) => contents
-  }
-
-}
+sealed trait RomanizedTextElement
 
 object RomanizedTextElement {
 
@@ -32,5 +24,14 @@ object RomanizedTextElement {
     def fromHangeul(hangeul: HangeulTextElement.NotCaptured): NotCaptured =
       new NotCaptured(hangeul.contents) {}
   }
+
+  implicit val unparser: Unparser[RomanizedTextElement] =
+    Unparser.instance {
+      case Captured(letters)     => letters.map(_.char).mkString
+      case NotCaptured(contents) => contents
+    }
+
+  implicit val vectorUntokenizer: Untokenizer[Vector] =
+    Untokenizer.instance(_.mkString(" "))
 
 }

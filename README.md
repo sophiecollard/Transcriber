@@ -20,21 +20,27 @@ This project is currently under development.
 ## Example
 
 ```scala
-import cats.instances.either._
 import cats.instances.vector._
-import cats.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
-import com.github.sophiecollard.hangeul4s.parsing.Parser
-import com.github.sophiecollard.hangeul4s.transliteration.HangeulRomanizer
+import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement.vectorTokenizer
+import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
+import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement.vectorUntokenizer
+import com.github.sophiecollard.hangeul4s.parsing.instances._
+import com.github.sophiecollard.hangeul4s.parsing.syntax._
+import com.github.sophiecollard.hangeul4s.transliteration.{HangeulRomanizer, Transliterator}
+import com.github.sophiecollard.hangeul4s.transliteration.instances._
+import com.github.sophiecollard.hangeul4s.transliteration.syntax._
 
 val input = "안녕하세요"
 // input: String = 안녕하세요
 
-val result = for {
-  parsed <- Parser[Vector[HangeulTextElement]].parse(input)
-  transliterated <- parsed.map(HangeulRomanizer.transliterate).sequence
-} yield transliterated.map(_.toString).mkString(" ")
-// result: scala.util.Either[Object,String] = Right(annyeonghaseyo)
+implicit val hangeulRomanizer: Transliterator[HangeulTextElement, RomanizedTextElement] = HangeulRomanizer
+
+val output = for {
+  parsed <- input.parseF[Vector, HangeulTextElement]
+  transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
+} yield transliterated.unparse
+// output: scala.util.Either[Object,String] = Right(annyeonghaseyo)
 ```
 
 ## Transliteration rules

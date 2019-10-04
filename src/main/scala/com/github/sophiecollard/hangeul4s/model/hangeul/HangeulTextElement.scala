@@ -8,7 +8,7 @@ import cats.syntax.traverse._
 import cats.syntax.validated._
 import com.github.sophiecollard.hangeul4s.encoding.Decoder
 import com.github.sophiecollard.hangeul4s.error.ParsingError
-import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser}
+import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser, Tokenizer, Untokenizer}
 import com.github.sophiecollard.hangeul4s.syntax.either._
 
 import scala.util.matching.Regex
@@ -74,13 +74,13 @@ object HangeulTextElement {
       }
   }
 
-  private val failFastElementParser: Parser[HangeulTextElement] =
+  implicit val failFastParser: Parser[HangeulTextElement] =
     Parser.instance { input =>
       Captured.failFastParser.parse(input) orElse
         NotCaptured.failFastParser.parse(input)
     }
 
-  private val accumulativeElementParser: AccumulativeParser[HangeulTextElement] =
+  implicit val accumulativeParser: AccumulativeParser[HangeulTextElement] =
     AccumulativeParser.instance { input =>
       Captured.accumulativeParser.parse(input) orElse
         NotCaptured.accumulativeParser.parse(input)
@@ -88,21 +88,12 @@ object HangeulTextElement {
 
   private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\\s\uAC00-\uD7AF]+)".r
 
-  implicit val failFastParser: Parser[Vector[HangeulTextElement]] =
-    Parser.instance { input =>
-      splittingRegex
-        .findAllIn(input)
-        .toVector
-        .map(failFastElementParser.parse)
-        .sequence
+  implicit val vectorTokenizer: Tokenizer[Vector] =
+    Tokenizer.instance { input =>
+      splittingRegex.findAllIn(input).toVector
     }
 
-  implicit val accumulativeParser: AccumulativeParser[Vector[HangeulTextElement]] =
-    AccumulativeParser.instance { input =>
-      splittingRegex
-        .findAllIn(input)
-        .toVector.map(accumulativeElementParser.parse)
-        .sequence
-    }
+  implicit val vectorUntokenizer: Untokenizer[Vector] =
+    Untokenizer.instance(_.mkString(" "))
 
 }

@@ -1,6 +1,6 @@
 package com.github.sophiecollard.hangeul4s.model.romanization
 
-sealed abstract class RomanLetter(char: Char)
+sealed abstract class RomanLetter(val char: Char)
 
 object RomanLetter {
 

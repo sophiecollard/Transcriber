@@ -33,8 +33,8 @@ val input = "안녕하세요"
 val result = for {
   parsed <- Parser[Vector[HangeulTextElement]].parse(input)
   transliterated <- parsed.map(HangeulRomanizer.transliterate).sequence
-} yield transliterated
-// result: scala.util.Either[Object,scala.collection.immutable.Vector[com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement]] = Right(Vector(Captured(Vector(A, N, N, Y, E, O, N, G, H, A, S, E, Y, O))))
+} yield transliterated.map(_.toString).mkString(" ")
+// result: scala.util.Either[Object,String] = Right(annyeonghaseyo)
 ```
 
 ## Transliteration rules

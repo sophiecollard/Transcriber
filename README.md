@@ -17,6 +17,26 @@ This project is currently under development.
   - [x] Add Apache 2.0 licence
   - [ ] Assess performance of parsing and transliteration
 
+## Example
+
+```scala
+import cats.instances.either._
+import cats.instances.vector._
+import cats.syntax.traverse._
+import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
+import com.github.sophiecollard.hangeul4s.parsing.Parser
+import com.github.sophiecollard.hangeul4s.transliteration.HangeulRomanizer
+
+val input = "안녕하세요"
+// input: String = 안녕하세요
+
+val result = for {
+  parsed <- Parser[Vector[HangeulTextElement]].parse(input)
+  transliterated <- parsed.map(HangeulRomanizer.transliterate).sequence
+} yield transliterated
+// result: scala.util.Either[Object,scala.collection.immutable.Vector[com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement]] = Right(Vector(Captured(Vector(A, N, N, Y, E, O, N, G, H, A, S, E, Y, O))))
+```
+
 ## Transliteration rules
 This project is an implementation of the [revised Hangeul romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean). Transliteration rules currently supported are detailed in the tables below.
 

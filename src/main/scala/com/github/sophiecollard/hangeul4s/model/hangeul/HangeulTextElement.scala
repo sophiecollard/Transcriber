@@ -13,7 +13,16 @@ import com.github.sophiecollard.hangeul4s.syntax.either._
 
 import scala.util.matching.Regex
 
-sealed trait HangeulTextElement
+sealed trait HangeulTextElement {
+
+  import HangeulTextElement._
+
+  override def toString: String = this match {
+    case Captured(syllabicBlocks) => syllabicBlocks.toVector.map(_.toString).mkString
+    case NotCaptured(contents)    => contents
+  }
+
+}
 
 object HangeulTextElement {
 

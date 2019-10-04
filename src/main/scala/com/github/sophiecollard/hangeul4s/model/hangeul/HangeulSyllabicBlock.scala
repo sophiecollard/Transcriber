@@ -2,7 +2,7 @@ package com.github.sophiecollard.hangeul4s.model.hangeul
 
 import java.text.Normalizer
 
-import com.github.sophiecollard.hangeul4s.encoding.Codec
+import com.github.sophiecollard.hangeul4s.encoding.{Codec, Encoder}
 import com.github.sophiecollard.hangeul4s.error.{DecodingError, EncodingError}
 import com.github.sophiecollard.hangeul4s.syntax.string.StringOps
 
@@ -21,6 +21,12 @@ sealed trait HangeulSyllabicBlock {
     case HangeulSyllabicBlock.TwoLetter(i, m)      => s"${i.char}${m.char}"
     case HangeulSyllabicBlock.ThreeLetter(i, m, f) => s"${i.char}${m.char}${f.char}"
   }
+
+  override def toString: String =
+    Encoder[Char, HangeulSyllabicBlock]
+      .encode(this)
+      .toOption.getOrElse('?')
+      .toString
 
 }
 

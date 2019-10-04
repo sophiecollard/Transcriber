@@ -26,6 +26,9 @@ object RomanizedTextElement {
   sealed abstract case class NotCaptured(contents: String) extends RomanizedTextElement
 
   object NotCaptured {
+    private [romanization] def unvalidatedFrom(input: String): NotCaptured =
+      new NotCaptured(input) {}
+
     def fromHangeul(hangeul: HangeulTextElement.NotCaptured): NotCaptured =
       new NotCaptured(hangeul.contents) {}
   }

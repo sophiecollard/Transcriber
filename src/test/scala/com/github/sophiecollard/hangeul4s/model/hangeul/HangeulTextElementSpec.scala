@@ -7,6 +7,28 @@ import org.specs2.mutable.Specification
 
 class HangeulTextElementSpec extends Specification {
 
+  "HangeulTextElement#toString" should {
+
+    "convert a Captured instance to a string" in {
+      val element = HangeulTextElement.Captured.fromSyllabicBlocks(
+        ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoLetter(Initial.ㅎ, Medial.ㅏ),
+        TwoLetter(Initial.ㅅ, Medial.ㅔ),
+        TwoLetter(Initial.ㅇ, Medial.ㅛ)
+      )
+
+      element.toString ==== "안녕하세요"
+    }
+
+    "convert a NotCaptured instance to a string" in {
+      val element = HangeulTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
+
+      element.toString ==== "!#&0123456789"
+    }
+
+  }
+
   "HangeulTextElement#failFastParser" should {
 
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {

@@ -19,8 +19,8 @@ class CharHangeulSyllabicBlockCodecSpec extends Specification {
       HangeulSyllabicBlock.ThreeLetter(HangeulJamo.Initial.ㅎ, HangeulJamo.Medial.ㅣ, HangeulJamo.Final.ㅎ)
 
     "encode a syllabic block to a Char" in {
-      decodedTwoLetterBlock.encode[Char] must beRight(encodedTwoLetterBlock)
-      decodedThreeLetterBlock.encode[Char] must beRight(encodedThreeLetterBlock)
+      decodedTwoLetterBlock.encode[Char] ==== encodedTwoLetterBlock
+      decodedThreeLetterBlock.encode[Char] ==== encodedThreeLetterBlock
     }
 
     "decode a Char within the Unicode range [AC00–D7A3] to a syllabic block" in {

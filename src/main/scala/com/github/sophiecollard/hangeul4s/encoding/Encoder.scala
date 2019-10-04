@@ -1,10 +1,8 @@
 package com.github.sophiecollard.hangeul4s.encoding
 
-import com.github.sophiecollard.hangeul4s.error.EncodingError
-
 trait Encoder[E, D] {
 
-  def encode(decoded: D): Either[EncodingError, E]
+  def encode(decoded: D): E
 
 }
 
@@ -13,9 +11,9 @@ object Encoder {
   def apply[E, D](implicit ev: Encoder[E, D]): Encoder[E, D] =
     ev
 
-  def instance[E, D](f: D => Either[EncodingError, E]): Encoder[E, D] =
+  def instance[E, D](f: D => E): Encoder[E, D] =
     new Encoder[E, D] {
-      override def encode(decoded: D): Either[EncodingError, E] =
+      override def encode(decoded: D): E =
         f(decoded)
     }
 

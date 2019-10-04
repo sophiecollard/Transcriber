@@ -7,8 +7,7 @@ import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElemen
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement.vectorUntokenizer
 import com.github.sophiecollard.hangeul4s.parsing.implicits._
 import com.github.sophiecollard.hangeul4s.parsing.syntax._
-import com.github.sophiecollard.hangeul4s.transliteration.Transliterator
-import com.github.sophiecollard.hangeul4s.transliteration.hangeul.HangeulRomanizer
+import com.github.sophiecollard.hangeul4s.transliteration.hangeul.instances._
 import com.github.sophiecollard.hangeul4s.transliteration.implicits._
 import com.github.sophiecollard.hangeul4s.transliteration.syntax._
 import org.specs2.mutable.Specification
@@ -16,8 +15,6 @@ import org.specs2.mutable.Specification
 class End2EndSpec extends Specification {
 
   "This library" should {
-
-    implicit val hangeulRomanizer: Transliterator[HangeulTextElement, RomanizedTextElement] = HangeulRomanizer
 
     "tokenize, parse, transliterate, unparse, untokenize" in {
       val input = "안녕하세요"

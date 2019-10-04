@@ -7,7 +7,6 @@ import cats.syntax.either._
 import cats.syntax.traverse._
 import cats.syntax.validated._
 import com.github.sophiecollard.hangeul4s.encoding.Decoder
-import com.github.sophiecollard.hangeul4s.encoding.instances._
 import com.github.sophiecollard.hangeul4s.error.ParsingError
 import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser}
 import com.github.sophiecollard.hangeul4s.syntax.either._

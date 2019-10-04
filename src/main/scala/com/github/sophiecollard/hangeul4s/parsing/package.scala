@@ -1,8 +1,8 @@
 package com.github.sophiecollard.hangeul4s
 
+import cats.data.Validated.Valid
 import com.github.sophiecollard.hangeul4s.error.ParsingError
 import com.github.sophiecollard.hangeul4s.util.types.ValidatedNev
-import com.github.sophiecollard.hangeul4s.util.types.ValidatedNev.Valid
 
 package object parsing {
 

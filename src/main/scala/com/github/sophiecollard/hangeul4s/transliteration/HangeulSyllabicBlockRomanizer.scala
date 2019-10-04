@@ -1,13 +1,13 @@
 package com.github.sophiecollard.hangeul4s.transliteration
 
+import cats.Monoid
+import cats.instances.vector._
 import com.github.sophiecollard.hangeul4s.error.TransliterationError
-import com.github.sophiecollard.hangeul4s.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock.{ThreeLetter, TwoLetter}
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter._
 import com.github.sophiecollard.hangeul4s.transliteration.HangeulJamoRomanizer._
-import com.github.sophiecollard.hangeul4s.util.typeclasses.Monoid
 
 private [transliteration] object HangeulSyllabicBlockRomanizer {
 
@@ -27,9 +27,11 @@ private [transliteration] object HangeulSyllabicBlockRomanizer {
       case ThreeLetter(initial, medial, final_) =>
         Right(
           Monoid.combineAll(
-            transliterateInitialInContext(maybePrecedingFinal, initial),
-            transliterateMedial(medial),
-            transliterateFinalInContext(final_, maybeFollowingInitial)
+            List(
+              transliterateInitialInContext(maybePrecedingFinal, initial),
+              transliterateMedial(medial),
+              transliterateFinalInContext(final_, maybeFollowingInitial)
+            )
           )
         )
     }

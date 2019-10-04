@@ -1,7 +1,8 @@
 package com.github.sophiecollard.hangeul4s.syntax
 
-import com.github.sophiecollard.hangeul4s.util.types.{NonEmptyVector, ValidatedNev}
-import com.github.sophiecollard.hangeul4s.util.types.ValidatedNev.{Invalid, Valid}
+import cats.data.NonEmptyVector
+import cats.data.Validated.{Invalid, Valid}
+import com.github.sophiecollard.hangeul4s.util.types.ValidatedNev
 
 package object option {
 

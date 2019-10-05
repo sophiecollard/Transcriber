@@ -25,9 +25,9 @@ class HangeulTextElementSpec extends Specification {
     }
 
     "convert a NotCaptured instance to a string" in {
-      val input = HangeulTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
+      val input = HangeulTextElement.NotCaptured.unvalidatedFrom(" !#&0123456789")
 
-      Unparser[HangeulTextElement].unparse(input) ==== "!#&0123456789"
+      Unparser[HangeulTextElement].unparse(input) ==== " !#&0123456789"
     }
 
   }
@@ -35,7 +35,7 @@ class HangeulTextElementSpec extends Specification {
   "HangeulTextElement#failFastParser" should {
 
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {
-      val input = " 안녕하세요"
+      val input = "안녕하세요"
 
       val expectedOutput = Vector[HangeulTextElement](
         HangeulTextElement.Captured.fromSyllabicBlocks(
@@ -53,7 +53,7 @@ class HangeulTextElementSpec extends Specification {
     "parse a single element made of other characters" in {
       val input = " !#&0123456789"
 
-      val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFrom(input.trim))
+      val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFrom(input))
 
       Parser[Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
     }
@@ -68,36 +68,40 @@ class HangeulTextElementSpec extends Specification {
           TwoLetter(Initial.ㅅ, Medial.ㅣ),
           ThreeLetter(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅅ, Medial.ㅗ),
           TwoLetter(Initial.ㅈ, Medial.ㅐ),
           TwoLetter(Initial.ㅈ, Medial.ㅣ),
           ThreeLetter(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           ThreeLetter(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
           TwoLetter(Initial.ㄱ, Medial.ㅜ),
           TwoLetter(Initial.ㅇ, Medial.ㅣ),
           TwoLetter(Initial.ㅁ, Medial.ㅕ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(","),
-        HangeulTextElement.NotCaptured.unvalidatedFrom("25"),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(", 25"),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㄱ, Medial.ㅐ),
           TwoLetter(Initial.ㅇ, Medial.ㅢ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅈ, Medial.ㅏ),
           TwoLetter(Initial.ㅊ, Medial.ㅣ),
           TwoLetter(Initial.ㄱ, Medial.ㅜ),
           TwoLetter(Initial.ㄹ, Medial.ㅗ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅇ, Medial.ㅣ),
           TwoLetter(Initial.ㄹ, Medial.ㅜ),
           TwoLetter(Initial.ㅇ, Medial.ㅓ),
           TwoLetter(Initial.ㅈ, Medial.ㅕ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           ThreeLetter(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
           TwoLetter(Initial.ㄷ, Medial.ㅏ)
@@ -113,7 +117,7 @@ class HangeulTextElementSpec extends Specification {
   "HangeulTextElement#accumulativeParser" should {
 
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {
-      val input = " 안녕하세요"
+      val input = "안녕하세요"
 
       val expectedOutput = Vector[HangeulTextElement](
         HangeulTextElement.Captured.fromSyllabicBlocks(
@@ -131,7 +135,7 @@ class HangeulTextElementSpec extends Specification {
     "parse a single element made of other characters" in {
       val input = " !#&0123456789"
 
-      val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFrom(input.trim))
+      val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFrom(input))
 
       AccumulativeParser[Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
     }
@@ -146,36 +150,40 @@ class HangeulTextElementSpec extends Specification {
           TwoLetter(Initial.ㅅ, Medial.ㅣ),
           ThreeLetter(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅅ, Medial.ㅗ),
           TwoLetter(Initial.ㅈ, Medial.ㅐ),
           TwoLetter(Initial.ㅈ, Medial.ㅣ),
           ThreeLetter(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           ThreeLetter(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
           TwoLetter(Initial.ㄱ, Medial.ㅜ),
           TwoLetter(Initial.ㅇ, Medial.ㅣ),
           TwoLetter(Initial.ㅁ, Medial.ㅕ)
         ),
-        HangeulTextElement.NotCaptured.unvalidatedFrom(","),
-        HangeulTextElement.NotCaptured.unvalidatedFrom("25"),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(", 25"),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㄱ, Medial.ㅐ),
           TwoLetter(Initial.ㅇ, Medial.ㅢ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅈ, Medial.ㅏ),
           TwoLetter(Initial.ㅊ, Medial.ㅣ),
           TwoLetter(Initial.ㄱ, Medial.ㅜ),
           TwoLetter(Initial.ㄹ, Medial.ㅗ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           TwoLetter(Initial.ㅇ, Medial.ㅣ),
           TwoLetter(Initial.ㄹ, Medial.ㅜ),
           TwoLetter(Initial.ㅇ, Medial.ㅓ),
           TwoLetter(Initial.ㅈ, Medial.ㅕ)
         ),
+        HangeulTextElement.NotCaptured.unvalidatedFrom(" "),
         HangeulTextElement.Captured.fromSyllabicBlocks(
           ThreeLetter(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
           TwoLetter(Initial.ㄷ, Medial.ㅏ)

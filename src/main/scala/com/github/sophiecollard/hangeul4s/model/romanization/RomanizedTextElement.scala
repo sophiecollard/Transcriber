@@ -32,6 +32,6 @@ object RomanizedTextElement {
     }
 
   implicit val vectorUntokenizer: Untokenizer[Vector] =
-    Untokenizer.instance(_.mkString(" "))
+    Untokenizer.instance(_.mkString)
 
 }

@@ -16,15 +16,28 @@ class End2EndSpec extends Specification {
 
   "This library" should {
 
-    "tokenize, parse, transliterate, unparse, untokenize" in {
+    "tokenize, parse, transliterate, unparse and untokenize a single Hangeul word" in {
       val input = "안녕하세요"
+
+      val output = for {
+        parsed <- input.parse[HangeulTextElement]
+        transliterated <- parsed.transliterate[RomanizedTextElement]
+      } yield transliterated.unparse
+
+      output must beRight("annyeonghaseyo")
+    }
+
+    "tokenize, parse, transliterate, unparse and untokenize Hangeul text" in {
+      // first sentence of second paragraph of the Korean Wikipedia article on Seoul (retrieved 2019-09-22)
+      // See https://ko.wikipedia.org/wiki/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C
+      val input = "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다."
 
       val output = for {
         parsed <- input.parseF[Vector, HangeulTextElement]
         transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
       } yield transliterated.unparse
 
-      output must beRight("annyeonghaseyo")
+      output must beRight("sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.")
     }
 
   }

@@ -2,7 +2,7 @@ package com.github.sophiecollard.hangeul4s.transliteration.hangeul
 
 import cats.Monoid
 import cats.instances.vector._
-import com.github.sophiecollard.hangeul4s.error.TransliterationError
+import com.github.sophiecollard.hangeul4s.error.TransliterationFailure
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock.{ThreeLetter, TwoLetter}
 import com.github.sophiecollard.hangeul4s.model.hangeul.{HangeulJamo, HangeulSyllabicBlock}
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter
@@ -15,7 +15,7 @@ private [transliteration] object HangeulSyllabicBlockRomanizer {
     maybePrecedingFinal: Option[HangeulJamo.Final],
     block: HangeulSyllabicBlock,
     maybeFollowingInitial: Option[HangeulJamo.Initial]
-  ): Either[TransliterationError, Vector[RomanLetter]] =
+  ): Either[TransliterationFailure, Vector[RomanLetter]] =
     block match {
       case TwoLetter(initial, medial) =>
         Right(

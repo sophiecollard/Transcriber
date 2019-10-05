@@ -2,17 +2,17 @@ package com.github.sophiecollard.hangeul4s.error
 
 import cats.data.NonEmptyVector
 
-sealed abstract class ParsingError(val message: String) extends Error
+sealed abstract class ParsingFailure(val message: String) extends Error
 
-object ParsingError {
+object ParsingFailure {
 
   final case class ParsingFailedWithDecodingErrors(input: String, decodingErrors: NonEmptyVector[DecodingError])
-    extends ParsingError({
+    extends ParsingFailure({
       val errorMessages = decodingErrors.toVector.map(_.message).mkString("\n")
       s"Failed to parse '$input' with:\n$errorMessages"
     })
 
   final case object Empty
-    extends ParsingError("Failed to parse empty input")
+    extends ParsingFailure("Failed to parse empty input")
 
 }

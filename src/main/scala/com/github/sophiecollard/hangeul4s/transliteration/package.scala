@@ -1,9 +1,9 @@
 package com.github.sophiecollard.hangeul4s
 
-import com.github.sophiecollard.hangeul4s.error.TransliterationError
+import com.github.sophiecollard.hangeul4s.error.TransliterationFailure
 
 package object transliteration {
 
-  type TransliterationResult[A] = Either[TransliterationError, A]
+  type TransliterationResult[A] = Either[TransliterationFailure, A]
 
 }

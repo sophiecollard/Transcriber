@@ -4,7 +4,7 @@ import cats.instances.either._
 import cats.instances.vector._
 import cats.syntax.either._
 import cats.syntax.traverse._
-import com.github.sophiecollard.hangeul4s.error.TransliterationError
+import com.github.sophiecollard.hangeul4s.error.TransliterationFailure
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
 import com.github.sophiecollard.hangeul4s.syntax.vector._
@@ -28,7 +28,7 @@ object HangeulRomanizer extends Transliterator[HangeulTextElement, RomanizedText
       case notCaptured: HangeulTextElement.NotCaptured =>
         RomanizedTextElement
           .NotCaptured.fromHangeul(notCaptured)
-          .asRight[TransliterationError]
+          .asRight[TransliterationFailure]
       }
 
 }

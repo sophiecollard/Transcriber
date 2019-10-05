@@ -7,7 +7,7 @@ import cats.syntax.either._
 import cats.syntax.traverse._
 import cats.syntax.validated._
 import com.github.sophiecollard.hangeul4s.encoding.Decoder
-import com.github.sophiecollard.hangeul4s.error.ParsingError
+import com.github.sophiecollard.hangeul4s.error.ParsingFailure
 import com.github.sophiecollard.hangeul4s.parsing._
 import com.github.sophiecollard.hangeul4s.syntax.either._
 
@@ -28,9 +28,9 @@ object HangeulTextElement {
         input
           .toVector
           .map(Decoder[Char, HangeulSyllabicBlock].decode)
-          .map(_.leftMap[ParsingError](e => ParsingError.ParsingFailedWithDecodingErrors(input, NonEmptyVector.one(e))))
+          .map(_.leftMap[ParsingFailure](e => ParsingFailure.ParsingFailedWithDecodingErrors(input, NonEmptyVector.one(e))))
           .sequence
-          .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty))
+          .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingFailure.Empty))
           .map(Captured(_))
       }
 
@@ -39,9 +39,9 @@ object HangeulTextElement {
         input
           .toVector
           .map(Decoder[Char, HangeulSyllabicBlock].decode(_).toValidatedNev)
-          .map(_.leftMap(e => NonEmptyVector.one[ParsingError](ParsingError.ParsingFailedWithDecodingErrors(input, e))))
+          .map(_.leftMap(e => NonEmptyVector.one[ParsingFailure](ParsingFailure.ParsingFailedWithDecodingErrors(input, e))))
           .sequence
-          .andThen(NonEmptyVector.fromVector(_).toRight(ParsingError.Empty).toValidatedNev)
+          .andThen(NonEmptyVector.fromVector(_).toRight(ParsingFailure.Empty).toValidatedNev)
           .map(Captured(_))
       }
   }
@@ -55,13 +55,13 @@ object HangeulTextElement {
     // TODO validate input
     private [hangeul] val failFastParser: Parser[NotCaptured] =
       Parser.instance[NotCaptured] { input =>
-        unvalidatedFrom(input).asRight[ParsingError]
+        unvalidatedFrom(input).asRight[ParsingFailure]
       }
 
     // TODO validate input
     private [hangeul] val accumulativeParser: AccumulativeParser[NotCaptured] =
       AccumulativeParser.instance[NotCaptured] { input =>
-        unvalidatedFrom(input).valid[NonEmptyVector[ParsingError]]
+        unvalidatedFrom(input).valid[NonEmptyVector[ParsingFailure]]
       }
   }
 

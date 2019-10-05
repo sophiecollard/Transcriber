@@ -85,12 +85,17 @@ object HangeulTextElement {
 
   private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\uAC00-\uD7AF]+)".r
 
-  implicit val vectorTokenizer: Tokenizer[Vector] =
+  implicit val vectorTokenizer: Tokenizer[Vector, HangeulTextElement] =
     Tokenizer.instance { input =>
-      splittingRegex.findAllIn(input).toVector
+      splittingRegex
+        .findAllIn(input)
+        .map(Token.apply[HangeulTextElement])
+        .toVector
     }
 
-  implicit val vectorUntokenizer: Untokenizer[Vector] =
-    Untokenizer.instance(_.mkString)
+  implicit val vectorUntokenizer: Untokenizer[Vector, HangeulTextElement] =
+    Untokenizer.instance { input =>
+      input.map(_.contents).mkString
+    }
 
 }

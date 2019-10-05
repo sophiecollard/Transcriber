@@ -31,7 +31,9 @@ object RomanizedTextElement {
       case NotCaptured(contents) => contents
     }
 
-  implicit val vectorUntokenizer: Untokenizer[Vector] =
-    Untokenizer.instance(_.mkString)
+  implicit val vectorUntokenizer: Untokenizer[Vector, RomanizedTextElement] =
+    Untokenizer.instance { input =>
+      input.map(_.contents).mkString
+    }
 
 }

@@ -1,19 +1,19 @@
 package com.github.sophiecollard.hangeul4s.parsing
 
-trait Untokenizer[F[_]] {
+trait Untokenizer[F[_], A] {
 
-  def untokenize(input: F[String]): String
+  def untokenize(input: F[Token[A]]): String
 
 }
 
 object Untokenizer {
 
-  def apply[F[_]](implicit ev: Untokenizer[F]): Untokenizer[F] =
+  def apply[F[_], A](implicit ev: Untokenizer[F, A]): Untokenizer[F, A] =
     ev
 
-  def instance[F[_]](f: F[String] => String): Untokenizer[F] =
-    new Untokenizer[F] {
-      override def untokenize(input: F[String]): String =
+  def instance[F[_], A](f: F[Token[A]] => String): Untokenizer[F, A] =
+    new Untokenizer[F, A] {
+      override def untokenize(input: F[Token[A]]): String =
         f(input)
     }
 

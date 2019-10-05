@@ -1,6 +1,6 @@
 package com.github.sophiecollard.hangeul4s.error
 
-sealed abstract class DecodingError(val message: String)
+sealed abstract class DecodingError(val message: String) extends Error
 
 object DecodingError {
 

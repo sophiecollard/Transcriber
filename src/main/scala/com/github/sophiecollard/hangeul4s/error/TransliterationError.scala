@@ -1,6 +1,6 @@
 package com.github.sophiecollard.hangeul4s.error
 
-sealed abstract class TransliterationError(val message: String)
+sealed abstract class TransliterationError(val message: String) extends Error
 
 object TransliterationError {
 

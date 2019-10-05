@@ -2,7 +2,7 @@ package com.github.sophiecollard.hangeul4s.error
 
 import cats.data.NonEmptyVector
 
-sealed abstract class ParsingError(val message: String)
+sealed abstract class ParsingError(val message: String) extends Error
 
 object ParsingError {
 

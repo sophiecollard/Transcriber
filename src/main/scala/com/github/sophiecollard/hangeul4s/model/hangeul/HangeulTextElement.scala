@@ -8,21 +8,12 @@ import cats.syntax.traverse._
 import cats.syntax.validated._
 import com.github.sophiecollard.hangeul4s.encoding.Decoder
 import com.github.sophiecollard.hangeul4s.error.ParsingError
-import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser, Tokenizer, Untokenizer}
+import com.github.sophiecollard.hangeul4s.parsing._
 import com.github.sophiecollard.hangeul4s.syntax.either._
 
 import scala.util.matching.Regex
 
-sealed trait HangeulTextElement {
-
-  import HangeulTextElement._
-
-  override def toString: String = this match {
-    case Captured(syllabicBlocks) => syllabicBlocks.toVector.map(_.toString).mkString
-    case NotCaptured(contents)    => contents
-  }
-
-}
+sealed trait HangeulTextElement
 
 object HangeulTextElement {
 
@@ -84,6 +75,12 @@ object HangeulTextElement {
     AccumulativeParser.instance { input =>
       Captured.accumulativeParser.parse(input) orElse
         NotCaptured.accumulativeParser.parse(input)
+    }
+
+  implicit val unparser: Unparser[HangeulTextElement] =
+    Unparser.instance {
+      case Captured(syllabicBlocks) => syllabicBlocks.toVector.map(_.toString).mkString
+      case NotCaptured(contents)    => contents
     }
 
   private val splittingRegex: Regex = "([\uAC00-\uD7AF]+)|([^\\s\uAC00-\uD7AF]+)".r

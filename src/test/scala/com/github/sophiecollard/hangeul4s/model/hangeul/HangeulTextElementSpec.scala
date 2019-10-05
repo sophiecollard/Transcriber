@@ -4,16 +4,16 @@ import cats.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulJamo._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement._
-import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser}
+import com.github.sophiecollard.hangeul4s.parsing.{AccumulativeParser, Parser, Unparser}
 import com.github.sophiecollard.hangeul4s.parsing.implicits._
 import org.specs2.mutable.Specification
 
 class HangeulTextElementSpec extends Specification {
 
-  "HangeulTextElement#toString" should {
+  "HangeulTextElement#unparser" should {
 
     "convert a Captured instance to a string" in {
-      val element = HangeulTextElement.Captured.fromSyllabicBlocks(
+      val input = HangeulTextElement.Captured.fromSyllabicBlocks(
         ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
         ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
         TwoLetter(Initial.ㅎ, Medial.ㅏ),
@@ -21,13 +21,13 @@ class HangeulTextElementSpec extends Specification {
         TwoLetter(Initial.ㅇ, Medial.ㅛ)
       )
 
-      element.toString ==== "안녕하세요"
+      Unparser[HangeulTextElement].unparse(input) ==== "안녕하세요"
     }
 
     "convert a NotCaptured instance to a string" in {
-      val element = HangeulTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
+      val input = HangeulTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
 
-      element.toString ==== "!#&0123456789"
+      Unparser[HangeulTextElement].unparse(input) ==== "!#&0123456789"
     }
 
   }

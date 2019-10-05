@@ -6,10 +6,8 @@ import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement.vecto
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement.vectorUntokenizer
 import com.github.sophiecollard.hangeul4s.parsing.implicits._
-import com.github.sophiecollard.hangeul4s.parsing.syntax._
 import com.github.sophiecollard.hangeul4s.transliteration.hangeul.instances._
 import com.github.sophiecollard.hangeul4s.transliteration.implicits._
-import com.github.sophiecollard.hangeul4s.transliteration.syntax._
 import org.specs2.mutable.Specification
 
 class End2EndSpec extends Specification {

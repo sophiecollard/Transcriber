@@ -1,3 +1,3 @@
 package com.github.sophiecollard.hangeul4s.parsing
 
-package object syntax extends Syntax
+package object generic extends Generic

@@ -23,26 +23,26 @@ trait Generic {
   ): Unparser[A, Token[A]] =
     unparser.map(Token.apply[A])
 
-  implicit def tokenizerParser[F[_]: Traverse, A, B](
+  implicit def tokenizerParser[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F, A],
-    parser: Parser[Token[A], B]
-  ): Parser[String, F[B]] =
+    parser: Parser[Token[A], A]
+  ): Parser[String, F[A]] =
     Parser.instance { input =>
       tokenizer.tokenize(input).map(parser.parse).sequence
     }
 
-  implicit def tokenizerAccumulativeParser[F[_]: Traverse, A, B](
+  implicit def tokenizerAccumulativeParser[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F, A],
-    parser: AccumulativeParser[Token[A], B]
-  ): AccumulativeParser[String, F[B]] =
+    parser: AccumulativeParser[Token[A], A]
+  ): AccumulativeParser[String, F[A]] =
     AccumulativeParser.instance { input =>
       tokenizer.tokenize(input).map(parser.parse).sequence
     }
 
-  implicit def unparserUntokenizer[F[_]: Functor, B, A](
-    implicit unparser: Unparser[B, Token[A]],
+  implicit def unparserUntokenizer[F[_]: Functor, A](
+    implicit unparser: Unparser[A, Token[A]],
     untokenizer: Untokenizer[F, A]
-  ): Unparser[F[B], String] =
+  ): Unparser[F[A], String] =
     Unparser.instance { input =>
       untokenizer.untokenize(input.map(unparser.unparse))
     }

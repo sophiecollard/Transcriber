@@ -22,6 +22,10 @@ class RomanizedTextElementSpec extends Specification {
       RomanizedTextElement.NotCaptured.fromString(input) must beNone
     }
 
+    "fail to construct a NotCaptured instance from an empty string" in {
+      RomanizedTextElement.NotCaptured.fromString("") must beNone
+    }
+
   }
 
   "RomanizedTextElement#unparser" should {
@@ -52,6 +56,10 @@ class RomanizedTextElementSpec extends Specification {
       Tokenizer[Vector, RomanizedTextElement].tokenize(input) ==== expectedOutput
     }
 
+    "return an empty vector when passed an empty string" in {
+      Tokenizer[Vector, RomanizedTextElement].tokenize("") must beEmpty[Vector[Token[RomanizedTextElement]]]
+    }
+
   }
 
   "RomanizedTextElement#vectorUntokenizer" should {
@@ -62,6 +70,10 @@ class RomanizedTextElementSpec extends Specification {
       )
 
       Untokenizer[Vector, RomanizedTextElement].untokenize(input) ==== "Hello! 안녕하세요!"
+    }
+
+    "return an empty string when passed an empty vector" in {
+      Untokenizer[Vector, RomanizedTextElement].untokenize(Vector.empty) must beEmpty[String]
     }
 
   }

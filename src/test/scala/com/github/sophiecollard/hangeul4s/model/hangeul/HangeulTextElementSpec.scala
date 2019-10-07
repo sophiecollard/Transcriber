@@ -1,6 +1,8 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
+import cats.data.NonEmptyVector
 import cats.instances.vector._
+import com.github.sophiecollard.hangeul4s.error.ParsingFailure
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulJamo._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement._
@@ -26,6 +28,10 @@ class HangeulTextElementSpec extends Specification {
       HangeulTextElement.NotCaptured.fromString(input) must beNone
     }
 
+    "fail to construct a NotCaptured instance from an empty string" in {
+      HangeulTextElement.NotCaptured.fromString("") must beNone
+    }
+
   }
 
   "HangeulTextElement#failFastParser" should {
@@ -33,25 +39,27 @@ class HangeulTextElementSpec extends Specification {
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {
       val input = "안녕하세요"
 
-      val expectedOutput = Vector[HangeulTextElement](
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-          ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-          TwoLetter(Initial.ㅎ, Medial.ㅏ),
-          TwoLetter(Initial.ㅅ, Medial.ㅔ),
-          TwoLetter(Initial.ㅇ, Medial.ㅛ)
-        )
+      val expectedOutput: HangeulTextElement = HangeulTextElement.Captured.fromSyllabicBlocks(
+        ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoLetter(Initial.ㅎ, Medial.ㅏ),
+        TwoLetter(Initial.ㅅ, Medial.ㅔ),
+        TwoLetter(Initial.ㅇ, Medial.ㅛ)
       )
 
-      Parser[String, Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
+      Parser[String, HangeulTextElement].parse(input) must beRight(expectedOutput)
     }
 
     "parse a single element made of other characters" in {
       val input = " !#&0123456789"
 
-      val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFromString(input))
+      val expectedOutput: HangeulTextElement = HangeulTextElement.NotCaptured.unvalidatedFromString(input)
 
-      Parser[String, Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
+      Parser[String, HangeulTextElement].parse(input) must beRight(expectedOutput)
+    }
+
+    "fail to parse a single element from an empty string" in {
+      Parser[String, HangeulTextElement].parse("") must beLeft[ParsingFailure]
     }
 
     "parse whitespace-separated Hangeul text elements" in {
@@ -106,6 +114,10 @@ class HangeulTextElementSpec extends Specification {
       )
 
       Parser[String, Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
+    }
+
+    "return an empty vector when given an empty string" in {
+      Parser[String, Vector[HangeulTextElement]].parse("") must beRight(Vector.empty[HangeulTextElement])
     }
 
   }
@@ -115,25 +127,27 @@ class HangeulTextElementSpec extends Specification {
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {
       val input = "안녕하세요"
 
-      val expectedOutput = Vector[HangeulTextElement](
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-          ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-          TwoLetter(Initial.ㅎ, Medial.ㅏ),
-          TwoLetter(Initial.ㅅ, Medial.ㅔ),
-          TwoLetter(Initial.ㅇ, Medial.ㅛ)
-        )
+      val expectedOutput: HangeulTextElement = HangeulTextElement.Captured.fromSyllabicBlocks(
+        ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoLetter(Initial.ㅎ, Medial.ㅏ),
+        TwoLetter(Initial.ㅅ, Medial.ㅔ),
+        TwoLetter(Initial.ㅇ, Medial.ㅛ)
       )
 
-      AccumulativeParser[String, Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
+      AccumulativeParser[String, HangeulTextElement].parse(input).toEither must beRight(expectedOutput)
     }
 
     "parse a single element made of other characters" in {
       val input = " !#&0123456789"
 
-      val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFromString(input))
+      val expectedOutput: HangeulTextElement = HangeulTextElement.NotCaptured.unvalidatedFromString(input)
 
-      AccumulativeParser[String, Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
+      AccumulativeParser[String, HangeulTextElement].parse(input).toEither must beRight(expectedOutput)
+    }
+
+    "fail to parse a single element from an empty string" in {
+      AccumulativeParser[String, HangeulTextElement].parse("").toEither must beLeft[NonEmptyVector[ParsingFailure]]
     }
 
     "parse whitespace-separated Hangeul text elements" in {
@@ -188,6 +202,10 @@ class HangeulTextElementSpec extends Specification {
       )
 
       AccumulativeParser[String, Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
+    }
+
+    "return an empty vector when given an empty string" in {
+      AccumulativeParser[String, Vector[HangeulTextElement]].parse("").toEither must beRight(Vector.empty[HangeulTextElement])
     }
 
   }
@@ -226,6 +244,10 @@ class HangeulTextElementSpec extends Specification {
       Tokenizer[Vector, HangeulTextElement].tokenize(input) ==== expectedOutput
     }
 
+    "return an empty vector when passed an empty string" in {
+      Tokenizer[Vector, HangeulTextElement].tokenize("") must beEmpty[Vector[Token[HangeulTextElement]]]
+    }
+
   }
 
   "HangeulTextElement#vectorUntokenizer" should {
@@ -236,6 +258,10 @@ class HangeulTextElementSpec extends Specification {
       )
 
       Untokenizer[Vector, HangeulTextElement].untokenize(input) ==== "Hello! 안녕하세요!"
+    }
+
+    "return an empty string when passed an empty vector" in {
+      Untokenizer[Vector, HangeulTextElement].untokenize(Vector.empty) must beEmpty[String]
     }
 
   }

@@ -1,7 +1,7 @@
 package com.github.sophiecollard.hangeul4s.model.romanization
 
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanLetter._
-import com.github.sophiecollard.hangeul4s.parsing.{Token, Unparser, Untokenizer}
+import com.github.sophiecollard.hangeul4s.parsing.{Token, Tokenizer, Unparser, Untokenizer}
 import org.specs2.mutable.Specification
 
 class RomanizedTextElementSpec extends Specification {
@@ -40,14 +40,28 @@ class RomanizedTextElementSpec extends Specification {
 
   }
 
+  "RomanizedTextElement#vectorTokenizer" should {
+
+    "split a string into tokens" in {
+      val input = "Hello! 안녕하세요!"
+
+      val expectedOutput = Vector[Token[RomanizedTextElement]](
+        Token("Hello"), Token("! 안녕하세요!")
+      )
+
+      Tokenizer[Vector, RomanizedTextElement].tokenize(input) ==== expectedOutput
+    }
+
+  }
+
   "RomanizedTextElement#vectorUntokenizer" should {
 
     "aggregate tokens into a string" in {
       val input = Vector[Token[RomanizedTextElement]](
-        Token("hello"), Token(", "), Token("world"), Token("!")
+        Token("Hello"), Token("! 안녕하세요!")
       )
 
-      Untokenizer[Vector, RomanizedTextElement].untokenize(input) ==== "hello, world!"
+      Untokenizer[Vector, RomanizedTextElement].untokenize(input) ==== "Hello! 안녕하세요!"
     }
 
   }

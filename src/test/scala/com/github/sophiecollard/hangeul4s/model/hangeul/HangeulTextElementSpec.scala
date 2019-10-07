@@ -217,10 +217,10 @@ class HangeulTextElementSpec extends Specification {
   "HangeulTextElement#vectorTokenizer" should {
 
     "split a string into tokens" in {
-      val input = "안녕하세요!"
+      val input = "Hello! 안녕하세요!"
 
       val expectedOutput = Vector[Token[HangeulTextElement]](
-        Token("안녕하세요"), Token("!")
+        Token("Hello! "), Token("안녕하세요"), Token("!")
       )
 
       Tokenizer[Vector, HangeulTextElement].tokenize(input) ==== expectedOutput
@@ -232,10 +232,10 @@ class HangeulTextElementSpec extends Specification {
 
     "aggregate tokens into a string" in {
       val input = Vector[Token[HangeulTextElement]](
-        Token("안녕하세요"), Token("!")
+        Token("Hello! "), Token("안녕하세요"), Token("!")
       )
 
-      Untokenizer[Vector, HangeulTextElement].untokenize(input) ==== "안녕하세요!"
+      Untokenizer[Vector, HangeulTextElement].untokenize(input) ==== "Hello! 안녕하세요!"
     }
 
   }

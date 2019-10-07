@@ -33,7 +33,7 @@ val input = "안녕하세요"
 val output = for {
   parsed <- input.parse[HangeulTextElement]
   transliterated <- parsed.transliterate[RomanizedTextElement]
-} yield transliterated.unparse
+} yield transliterated.unparse[String]
 // output: scala.util.Either[com.github.sophiecollard.hangeul4s.error.Error,String] = Right(annyeonghaseyo)
 ```
 
@@ -42,9 +42,9 @@ Text transliteration example:
 ```scala
 import cats.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
-import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement.vectorTokenizer
+import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement._
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
-import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement.vectorUntokenizer
+import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement._
 import com.github.sophiecollard.hangeul4s.parsing.implicits._
 import com.github.sophiecollard.hangeul4s.transliteration.hangeul.instances._
 import com.github.sophiecollard.hangeul4s.transliteration.implicits._
@@ -57,7 +57,7 @@ val input = "시청 소재지는 중구이며, 25개의 자치구로 이루어�
 val output = for {
   parsed <- input.parseF[Vector, HangeulTextElement]
   transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
-} yield transliterated.unparse
+} yield transliterated.unparse[String]
 // output: scala.util.Either[com.github.sophiecollard.hangeul4s.error.Error,String] = Right(sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.)
 ```
 

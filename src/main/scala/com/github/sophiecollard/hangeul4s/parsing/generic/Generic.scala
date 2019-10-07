@@ -8,26 +8,41 @@ import com.github.sophiecollard.hangeul4s.parsing._
 
 trait Generic {
 
-  implicit def tokenizerParser[F[_]: Traverse, A](
-    implicit tokenizer: Tokenizer[F],
-    parser: Parser[String, A]
-  ): Parser[String, F[A]] =
+  implicit def tokenParser[A](
+    implicit parser: Parser[String, A]
+  ): Parser[Token[A], A] =
+    parser.contramap(_.contents)
+
+  implicit def tokenAccumulativeParser[A](
+    implicit parser: AccumulativeParser[String, A]
+  ): AccumulativeParser[Token[A], A] =
+    parser.contramap(_.contents)
+
+  implicit def tokenUnparser[A](
+    implicit unparser: Unparser[A, String]
+  ): Unparser[A, Token[A]] =
+    unparser.map(Token.apply[A])
+
+  implicit def tokenizerParser[F[_]: Traverse, A, B](
+    implicit tokenizer: Tokenizer[F, A],
+    parser: Parser[Token[A], B]
+  ): Parser[String, F[B]] =
     Parser.instance { input =>
       tokenizer.tokenize(input).map(parser.parse).sequence
     }
 
-  implicit def tokenizerAccumulativeParser[F[_]: Traverse, A](
-    implicit tokenizer: Tokenizer[F],
-    parser: AccumulativeParser[String, A]
-  ): AccumulativeParser[String, F[A]] =
+  implicit def tokenizerAccumulativeParser[F[_]: Traverse, A, B](
+    implicit tokenizer: Tokenizer[F, A],
+    parser: AccumulativeParser[Token[A], B]
+  ): AccumulativeParser[String, F[B]] =
     AccumulativeParser.instance { input =>
       tokenizer.tokenize(input).map(parser.parse).sequence
     }
 
-  implicit def unparserUntokenizer[F[_]: Functor, A](
-    implicit untokenizer: Untokenizer[F],
-    unparser: Unparser[A, String]
-  ): Unparser[F[A], String] =
+  implicit def unparserUntokenizer[F[_]: Functor, B, A](
+    implicit unparser: Unparser[B, Token[A]],
+    untokenizer: Untokenizer[F, A]
+  ): Unparser[F[B], String] =
     Unparser.instance { input =>
       untokenizer.untokenize(input.map(unparser.unparse))
     }

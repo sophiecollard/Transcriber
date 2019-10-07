@@ -2,9 +2,9 @@ package com.github.sophiecollard.hangeul4s.e2e
 
 import cats.instances.vector._
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement
-import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement.vectorTokenizer
+import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulTextElement._
 import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement
-import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement.vectorUntokenizer
+import com.github.sophiecollard.hangeul4s.model.romanization.RomanizedTextElement._
 import com.github.sophiecollard.hangeul4s.parsing.implicits._
 import com.github.sophiecollard.hangeul4s.transliteration.hangeul.instances._
 import com.github.sophiecollard.hangeul4s.transliteration.implicits._
@@ -20,7 +20,7 @@ class End2EndSpec extends Specification {
       val output = for {
         parsed <- input.parse[HangeulTextElement]
         transliterated <- parsed.transliterate[RomanizedTextElement]
-      } yield transliterated.unparse
+      } yield transliterated.unparse[String]
 
       output must beRight("annyeonghaseyo")
     }
@@ -33,7 +33,7 @@ class End2EndSpec extends Specification {
       val output = for {
         parsed <- input.parseF[Vector, HangeulTextElement]
         transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
-      } yield transliterated.unparse
+      } yield transliterated.unparse[String] // OR transliterated.unparseF[Vector, Token[RomanizedTextElement]].untokenize
 
       output must beRight("sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.")
     }

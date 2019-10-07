@@ -5,12 +5,12 @@ import com.github.sophiecollard.hangeul4s.parsing._
 trait Syntax {
 
   implicit class TokenizingOps(input: String) {
-    def tokenize[F[_]](implicit tokenizer: Tokenizer[F]): F[String] =
+    def tokenize[F[_], A](implicit tokenizer: Tokenizer[F, A]): F[Token[A]] =
       tokenizer.tokenize(input)
   }
 
-  implicit class UntokenizingOps[F[_]](input: F[String]) {
-    def untokenize(implicit untokenizer: Untokenizer[F]): String =
+  implicit class UntokenizingOps[F[_], A](input: F[Token[A]]) {
+    def untokenize(implicit untokenizer: Untokenizer[F, A]): String =
       untokenizer.untokenize(input)
   }
 

@@ -47,4 +47,19 @@ trait Generic {
       untokenizer.untokenize(input.map(unparser.unparse))
     }
 
+  implicit def liftedParser[F[_]: Traverse, A, B](
+    implicit parser: Parser[A, B]
+  ): Parser[F[A], F[B]] =
+    parser.lift[F]
+
+  implicit def liftedAccumulativeParser[F[_]: Traverse, A, B](
+    implicit parser: AccumulativeParser[A, B]
+  ): AccumulativeParser[F[A], F[B]] =
+    parser.lift[F]
+
+  implicit def liftedUnparser[F[_]: Functor, B, A](
+    implicit unparser: Unparser[B, A]
+  ): Unparser[F[B], F[A]] =
+    unparser.lift[F]
+
 }

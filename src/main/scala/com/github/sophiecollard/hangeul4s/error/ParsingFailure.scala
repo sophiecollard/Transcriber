@@ -17,7 +17,7 @@ object ParsingFailure {
   final case class FailedToMatchRegex(input: String, regex: Regex)
     extends ParsingFailure(s"Input '$input' does not match regex pattern '${regex.toString}'")
 
-  final case object Empty
+  final case object EmptyInput
     extends ParsingFailure("Empty input")
 
 }

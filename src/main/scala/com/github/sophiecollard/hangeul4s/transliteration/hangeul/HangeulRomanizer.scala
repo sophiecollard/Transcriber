@@ -1,5 +1,6 @@
 package com.github.sophiecollard.hangeul4s.transliteration.hangeul
 
+import cats.data.NonEmptyVector
 import cats.instances.either._
 import cats.instances.vector._
 import cats.syntax.either._
@@ -24,7 +25,8 @@ object HangeulRomanizer extends Transliterator[HangeulTextElement, RomanizedText
           }
           .sequence
           .map(_.flatten)
-          .map(RomanizedTextElement.Captured.apply) // TODO use non-empty vector
+          .flatMap(NonEmptyVector.fromVector(_).toRight[TransliterationFailure](TransliterationFailure.EmptyResult))
+          .map(RomanizedTextElement.Captured(_))
       case notCaptured: HangeulTextElement.NotCaptured =>
         RomanizedTextElement
           .NotCaptured.fromHangeul(notCaptured)

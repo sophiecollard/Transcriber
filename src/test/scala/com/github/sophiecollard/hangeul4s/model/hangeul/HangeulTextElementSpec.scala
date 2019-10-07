@@ -21,13 +21,13 @@ class HangeulTextElementSpec extends Specification {
         TwoLetter(Initial.ㅇ, Medial.ㅛ)
       )
 
-      Unparser[HangeulTextElement].unparse(input) ==== "안녕하세요"
+      Unparser[HangeulTextElement, String].unparse(input) ==== "안녕하세요"
     }
 
     "convert a NotCaptured instance to a string" in {
       val input = HangeulTextElement.NotCaptured.unvalidatedFrom(" !#&0123456789")
 
-      Unparser[HangeulTextElement].unparse(input) ==== " !#&0123456789"
+      Unparser[HangeulTextElement, String].unparse(input) ==== " !#&0123456789"
     }
 
   }
@@ -47,7 +47,7 @@ class HangeulTextElementSpec extends Specification {
         )
       )
 
-      Parser[Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
+      Parser[String, Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
     }
 
     "parse a single element made of other characters" in {
@@ -55,7 +55,7 @@ class HangeulTextElementSpec extends Specification {
 
       val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFrom(input))
 
-      Parser[Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
+      Parser[String, Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
     }
 
     "parse whitespace-separated Hangeul text elements" in {
@@ -109,7 +109,7 @@ class HangeulTextElementSpec extends Specification {
         HangeulTextElement.NotCaptured.unvalidatedFrom(".")
       )
 
-      Parser[Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
+      Parser[String, Vector[HangeulTextElement]].parse(input) must beRight(expectedOutput)
     }
 
   }
@@ -129,7 +129,7 @@ class HangeulTextElementSpec extends Specification {
         )
       )
 
-      AccumulativeParser[Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
+      AccumulativeParser[String, Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
     }
 
     "parse a single element made of other characters" in {
@@ -137,7 +137,7 @@ class HangeulTextElementSpec extends Specification {
 
       val expectedOutput = Vector[HangeulTextElement](HangeulTextElement.NotCaptured.unvalidatedFrom(input))
 
-      AccumulativeParser[Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
+      AccumulativeParser[String, Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
     }
 
     "parse whitespace-separated Hangeul text elements" in {
@@ -191,7 +191,7 @@ class HangeulTextElementSpec extends Specification {
         HangeulTextElement.NotCaptured.unvalidatedFrom(".")
       )
 
-      AccumulativeParser[Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
+      AccumulativeParser[String, Vector[HangeulTextElement]].parse(input).toEither must beRight(expectedOutput)
     }
 
   }

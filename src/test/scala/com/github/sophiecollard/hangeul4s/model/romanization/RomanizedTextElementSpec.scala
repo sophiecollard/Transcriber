@@ -11,13 +11,13 @@ class RomanizedTextElementSpec extends Specification {
     "convert a Captured instance to a string" in {
       val input = RomanizedTextElement.Captured.fromLetters(H, E, L, L, O)
 
-      Unparser[RomanizedTextElement].unparse(input) ==== "hello"
+      Unparser[RomanizedTextElement, String].unparse(input) ==== "hello"
     }
 
     "convert a NotCaptured instance to a string" in {
       val input = RomanizedTextElement.NotCaptured.unvalidatedFrom("!#&0123456789")
 
-      Unparser[RomanizedTextElement].unparse(input) ==== "!#&0123456789"
+      Unparser[RomanizedTextElement, String].unparse(input) ==== "!#&0123456789"
     }
 
   }

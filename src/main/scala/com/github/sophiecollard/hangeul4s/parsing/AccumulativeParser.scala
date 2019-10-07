@@ -1,19 +1,38 @@
 package com.github.sophiecollard.hangeul4s.parsing
 
-trait AccumulativeParser[A] {
+import cats.Traverse
+import cats.syntax.functor._
+import cats.syntax.traverse._
 
-  def parse(input: String): AccumulativeParsingResult[A]
+trait AccumulativeParser[A, B] {
+
+  def parse(input: A): AccumulativeParsingResult[B]
+
+  final def contramap[C](f: C => A): AccumulativeParser[C, B] =
+    AccumulativeParser.instance { input =>
+      parse(f(input))
+    }
+
+  final def map[C](f: B => C): AccumulativeParser[A, C] =
+    AccumulativeParser.instance { input =>
+      parse(input).map(f)
+    }
+
+  final def lift[F[_]: Traverse]: AccumulativeParser[F[A], F[B]] =
+    AccumulativeParser.instance { input =>
+      input.map(parse).sequence
+    }
 
 }
 
 object AccumulativeParser {
 
-  def apply[A](implicit ev: AccumulativeParser[A]): AccumulativeParser[A] =
+  def apply[A, B](implicit ev: AccumulativeParser[A, B]): AccumulativeParser[A, B] =
     ev
 
-  def instance[A](f: String => AccumulativeParsingResult[A]): AccumulativeParser[A] =
-    new AccumulativeParser[A] {
-      override def parse(input: String): AccumulativeParsingResult[A] =
+  def instance[A, B](f: A => AccumulativeParsingResult[B]): AccumulativeParser[A, B] =
+    new AccumulativeParser[A, B] {
+      override def parse(input: A): AccumulativeParsingResult[B] =
         f(input)
     }
 

@@ -14,17 +14,20 @@ trait Syntax {
       untokenizer.untokenize(input)
   }
 
-  implicit class ParsingOps(input: String) {
-    def parse[A](implicit parser: Parser[A]): ParsingResult[A] =
+  implicit class ParsingOps[A](input: A) {
+    def parse[B](implicit parser: Parser[A, B]): ParsingResult[B] =
       parser.parse(input)
 
-    def parseF[F[_], A](implicit parserF: Parser[F[A]]): ParsingResult[F[A]] =
+    def parseF[F[_], B](implicit parserF: Parser[A, F[B]]): ParsingResult[F[B]] =
       parserF.parse(input)
   }
 
-  implicit class UnparsingOps[A](input: A) {
-    def unparse(implicit unparser: Unparser[A]): String =
+  implicit class UnparsingOps[B](input: B) {
+    def unparse[A](implicit unparser: Unparser[B, A]): A =
       unparser.unparse(input)
+
+    def unparseF[F[_], A](implicit unparserF: Unparser[B, F[A]]): F[A] =
+      unparserF.unparse(input)
   }
 
 }

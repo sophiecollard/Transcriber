@@ -23,8 +23,8 @@ object HangeulTextElement {
     def fromSyllabicBlocks(b: HangeulSyllabicBlock, bs: HangeulSyllabicBlock*): Captured =
       Captured(NonEmptyVector(b, bs.toVector))
 
-    private [hangeul] val failFastParser: Parser[Captured] =
-      Parser.instance[Captured] { input =>
+    private [hangeul] val failFastParser: Parser[String, Captured] =
+      Parser.instance[String, Captured] { input =>
         input
           .toVector
           .map(Decoder[Char, HangeulSyllabicBlock].decode)
@@ -34,8 +34,8 @@ object HangeulTextElement {
           .map(Captured(_))
       }
 
-    private [hangeul] val accumulativeParser: AccumulativeParser[Captured] =
-      AccumulativeParser.instance[Captured] { input =>
+    private [hangeul] val accumulativeParser: AccumulativeParser[String, Captured] =
+      AccumulativeParser.instance[String, Captured] { input =>
         input
           .toVector
           .map(Decoder[Char, HangeulSyllabicBlock].decode(_).toValidatedNev)
@@ -53,31 +53,31 @@ object HangeulTextElement {
       new NotCaptured(input) {}
 
     // TODO validate input
-    private [hangeul] val failFastParser: Parser[NotCaptured] =
-      Parser.instance[NotCaptured] { input =>
+    private [hangeul] val failFastParser: Parser[String, NotCaptured] =
+      Parser.instance[String, NotCaptured] { input =>
         unvalidatedFrom(input).asRight[ParsingFailure]
       }
 
     // TODO validate input
-    private [hangeul] val accumulativeParser: AccumulativeParser[NotCaptured] =
-      AccumulativeParser.instance[NotCaptured] { input =>
+    private [hangeul] val accumulativeParser: AccumulativeParser[String, NotCaptured] =
+      AccumulativeParser.instance[String, NotCaptured] { input =>
         unvalidatedFrom(input).valid[NonEmptyVector[ParsingFailure]]
       }
   }
 
-  implicit val failFastParser: Parser[HangeulTextElement] =
+  implicit val failFastParser: Parser[String, HangeulTextElement] =
     Parser.instance { input =>
       Captured.failFastParser.parse(input) orElse
         NotCaptured.failFastParser.parse(input)
     }
 
-  implicit val accumulativeParser: AccumulativeParser[HangeulTextElement] =
+  implicit val accumulativeParser: AccumulativeParser[String, HangeulTextElement] =
     AccumulativeParser.instance { input =>
       Captured.accumulativeParser.parse(input) orElse
         NotCaptured.accumulativeParser.parse(input)
     }
 
-  implicit val unparser: Unparser[HangeulTextElement] =
+  implicit val unparser: Unparser[HangeulTextElement, String] =
     Unparser.instance {
       case Captured(syllabicBlocks) => syllabicBlocks.toVector.map(_.toString).mkString
       case NotCaptured(contents)    => contents

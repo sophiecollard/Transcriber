@@ -8,26 +8,26 @@ import com.github.sophiecollard.hangeul4s.parsing._
 
 trait Generic {
 
-  implicit def parserF[F[_]: Traverse, A](
+  implicit def tokenizerParser[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F],
-    parser: Parser[A]
-  ): Parser[F[A]] =
+    parser: Parser[String, A]
+  ): Parser[String, F[A]] =
     Parser.instance { input =>
       tokenizer.tokenize(input).map(parser.parse).sequence
     }
 
-  implicit def accumulativeParserF[F[_]: Traverse, A](
+  implicit def tokenizerAccumulativeParser[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F],
-    parser: AccumulativeParser[A]
-  ): AccumulativeParser[F[A]] =
+    parser: AccumulativeParser[String, A]
+  ): AccumulativeParser[String, F[A]] =
     AccumulativeParser.instance { input =>
       tokenizer.tokenize(input).map(parser.parse).sequence
     }
 
-  implicit def unparserF[F[_]: Functor, A](
+  implicit def unparserUntokenizer[F[_]: Functor, A](
     implicit untokenizer: Untokenizer[F],
-    unparser: Unparser[A]
-  ): Unparser[F[A]] =
+    unparser: Unparser[A, String]
+  ): Unparser[F[A], String] =
     Unparser.instance { input =>
       untokenizer.untokenize(input.map(unparser.unparse))
     }

@@ -25,7 +25,7 @@ object RomanizedTextElement {
       new NotCaptured(hangeul.contents) {}
   }
 
-  implicit val unparser: Unparser[RomanizedTextElement] =
+  implicit val unparser: Unparser[RomanizedTextElement, String] =
     Unparser.instance {
       case Captured(letters)     => letters.map(_.char).mkString
       case NotCaptured(contents) => contents

@@ -1,19 +1,37 @@
 package com.github.sophiecollard.hangeul4s.parsing
 
-trait Unparser[A] {
+import cats.Functor
+import cats.syntax.functor._
 
-  def unparse(input: A): String
+trait Unparser[B, A] {
+
+  def unparse(input: B): A
+
+  final def contramap[C](f: C => B): Unparser[C, A] =
+    Unparser.instance { input =>
+      unparse(f(input))
+    }
+
+  final def map[C](f: A => C): Unparser[B, C] =
+    Unparser.instance { input =>
+      f(unparse(input))
+    }
+
+  final def lift[F[_]: Functor]: Unparser[F[B], F[A]] =
+    Unparser.instance { input =>
+      input.map(unparse)
+    }
 
 }
 
 object Unparser {
 
-  def apply[A](implicit ev: Unparser[A]): Unparser[A] =
+  def apply[B, A](implicit ev: Unparser[B, A]): Unparser[B, A] =
     ev
 
-  def instance[A](f: A => String): Unparser[A] =
-    new Unparser[A] {
-      override def unparse(input: A): String =
+  def instance[B, A](f: B => A): Unparser[B, A] =
+    new Unparser[B, A] {
+      override def unparse(input: B): A =
         f(input)
     }
 

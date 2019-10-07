@@ -2,7 +2,7 @@ package com.github.sophiecollard.hangeul4s.error
 
 import com.github.sophiecollard.hangeul4s.model.hangeul.HangeulSyllabicBlock
 
-sealed abstract class EncodingError(val message: String) extends Error
+sealed abstract class EncodingError(val message: String) extends Hangeul4sError
 
 object EncodingError {
 

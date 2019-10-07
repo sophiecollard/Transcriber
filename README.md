@@ -34,7 +34,7 @@ val output = for {
   parsed <- input.parse[HangeulTextElement]
   transliterated <- parsed.transliterate[RomanizedTextElement]
 } yield transliterated.unparse[String]
-// output: scala.util.Either[com.github.sophiecollard.hangeul4s.error.Error,String] = Right(annyeonghaseyo)
+// output: scala.util.Either[com.github.sophiecollard.hangeul4s.error.Hangeul4sError,String] = Right(annyeonghaseyo)
 ```
 
 Text transliteration example:
@@ -58,7 +58,7 @@ val output = for {
   parsed <- input.parseF[Vector, HangeulTextElement]
   transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
 } yield transliterated.unparse[String]
-// output: scala.util.Either[com.github.sophiecollard.hangeul4s.error.Error,String] = Right(sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.)
+// output: scala.util.Either[com.github.sophiecollard.hangeul4s.error.Hangeul4sError,String] = Right(sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.)
 ```
 
 ## Transliteration rules

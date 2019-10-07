@@ -21,7 +21,7 @@ class HangeulTextElementSpec extends Specification {
     }
 
     "fail to construct a NotCaptured instance from characters within the Hangeul Syllables Unicode block" in {
-      val input = "안녕하세요"
+      val input = "Hello! 안녕하세요!"
 
       HangeulTextElement.NotCaptured.fromString(input) must beNone
     }

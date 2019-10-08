@@ -3,7 +3,7 @@ package com.github.sophiecollard.hangeul4s.model.hangeul
 import java.text.Normalizer
 
 import com.github.sophiecollard.hangeul4s.encoding.{Codec, Encoder}
-import com.github.sophiecollard.hangeul4s.error.DecodingError
+import com.github.sophiecollard.hangeul4s.error.DecodingFailure
 import com.github.sophiecollard.hangeul4s.syntax.string.StringOps
 
 sealed trait HangeulSyllabicBlock {
@@ -67,7 +67,7 @@ object HangeulSyllabicBlock {
     */
   implicit val charCodec: Codec[Char, HangeulSyllabicBlock] =
     new Codec[Char, HangeulSyllabicBlock] {
-      override def decode(encoded: Char): Either[DecodingError, HangeulSyllabicBlock] = {
+      override def decode(encoded: Char): Either[DecodingFailure, HangeulSyllabicBlock] = {
         val decomposition = Normalizer.normalize(encoded.toString, Normalizer.Form.NFD)
 
         (
@@ -80,7 +80,7 @@ object HangeulSyllabicBlock {
           case (Some(initial), Some(medial), Some(_final)) =>
             Right(HangeulSyllabicBlock.ThreeLetter(initial, medial, _final))
           case _ =>
-            Left(DecodingError.FailedToDecodeHangeulSyllabicBlock(encoded))
+            Left(DecodingFailure.FailedToDecodeHangeulSyllabicBlock(encoded))
         }
       }
 

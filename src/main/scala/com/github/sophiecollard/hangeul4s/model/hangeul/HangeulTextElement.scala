@@ -28,7 +28,6 @@ object HangeulTextElement {
         input
           .toVector
           .map(Decoder[Char, HangeulSyllabicBlock].decode)
-          .map(_.leftMap[ParsingFailure](e => ParsingFailure.FailedWithDecodingErrors(input, NonEmptyVector.one(e))))
           .sequence
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput))
           .map(Captured(_))
@@ -39,7 +38,6 @@ object HangeulTextElement {
         input
           .toVector
           .map(Decoder[Char, HangeulSyllabicBlock].decode(_).toValidatedNev)
-          .map(_.leftMap(e => NonEmptyVector.one[ParsingFailure](ParsingFailure.FailedWithDecodingErrors(input, e))))
           .sequence
           .andThen(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput).toValidatedNev)
           .map(Captured(_))

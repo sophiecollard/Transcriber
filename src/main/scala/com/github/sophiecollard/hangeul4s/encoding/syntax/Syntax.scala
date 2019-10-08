@@ -1,12 +1,12 @@
 package com.github.sophiecollard.hangeul4s.encoding.syntax
 
 import com.github.sophiecollard.hangeul4s.encoding.{Decoder, Encoder}
-import com.github.sophiecollard.hangeul4s.error.DecodingError
+import com.github.sophiecollard.hangeul4s.error.DecodingFailure
 
 trait Syntax {
 
   implicit class DecoderOps[A](value: A) {
-    def decodeAs[B](implicit ev: Decoder[A, B]): Either[DecodingError, B] =
+    def decodeAs[B](implicit ev: Decoder[A, B]): Either[DecodingFailure, B] =
       ev.decode(value)
   }
 

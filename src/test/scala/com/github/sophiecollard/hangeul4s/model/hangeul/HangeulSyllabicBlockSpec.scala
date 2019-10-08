@@ -1,7 +1,7 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
 import com.github.sophiecollard.hangeul4s.encoding.{Decoder, Encoder}
-import com.github.sophiecollard.hangeul4s.error.DecodingError
+import com.github.sophiecollard.hangeul4s.error.DecodingFailure
 import org.specs2.mutable.Specification
 
 class HangeulSyllabicBlockSpec extends Specification {
@@ -22,7 +22,7 @@ class HangeulSyllabicBlockSpec extends Specification {
     }
 
     "fail to decode a character outside the Unicode range [AC00–D7A3]" in {
-      Decoder[Char, HangeulSyllabicBlock].decode('A') must beLeft[DecodingError]
+      Decoder[Char, HangeulSyllabicBlock].decode('A') must beLeft[DecodingFailure]
     }
 
     "encode to a Char" in {

@@ -12,13 +12,22 @@ object ParsingFailure {
     extends ParsingFailure("Empty input")
 
   final case class FailedToMatchRegex(input: String, regex: Regex)
-    extends ParsingFailure(s"Input '$input' does not match regex pattern '${regex.toString}'")
+    extends ParsingFailure(s"Input [$input] does not match regex pattern [${regex.toString}]")
 
 }
 
 sealed abstract class DecodingFailure(override val message: String) extends ParsingFailure(message)
 
 object DecodingFailure {
+
+  final case class FailedToDecodeHangeulJamoInitial(char: Char)
+    extends DecodingFailure(s"Failed to decode HangeulJamo.Initial from Char [$char] with decimal code point [${char.toInt}]")
+
+  final case class FailedToDecodeHangeulJamoMedial(char: Char)
+    extends DecodingFailure(s"Failed to decode HangeulJamo.Medial from Char [$char] with decimal code point [${char.toInt}]")
+
+  final case class FailedToDecodeHangeulJamoFinal(char: Char)
+    extends DecodingFailure(s"Failed to decode HangeulJamo.Final from Char [$char] with decimal code point [${char.toInt}]")
 
   final case class FailedToDecodeHangeulSyllabicBlock(char: Char)
     extends DecodingFailure(s"Failed to decode HangeulSyllabicBlock from Char [$char] with decimal code point [${char.toInt}]")

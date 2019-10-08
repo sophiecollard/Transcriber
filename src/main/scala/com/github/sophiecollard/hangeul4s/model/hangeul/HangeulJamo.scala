@@ -1,5 +1,8 @@
 package com.github.sophiecollard.hangeul4s.model.hangeul
 
+import com.github.sophiecollard.hangeul4s.encoding.Decoder
+import com.github.sophiecollard.hangeul4s.error.DecodingFailure
+
 sealed abstract class HangeulJamo(val char: Char)
 
 object HangeulJamo {
@@ -28,28 +31,28 @@ object HangeulJamo {
     final case object ㅍ extends Initial('ᄑ')
     final case object ㅎ extends Initial('ᄒ')
 
-    def fromChar(char: Char): Option[Initial] =
-      char match {
-        case 'ᄀ' => Some(ㄱ)
-        case 'ᄁ' => Some(ㄲ)
-        case 'ᄂ' => Some(ㄴ)
-        case 'ᄃ' => Some(ㄷ)
-        case 'ᄄ' => Some(ㄸ)
-        case 'ᄅ' => Some(ㄹ)
-        case 'ᄆ' => Some(ㅁ)
-        case 'ᄇ' => Some(ㅂ)
-        case 'ᄈ' => Some(ㅃ)
-        case 'ᄉ' => Some(ㅅ)
-        case 'ᄊ' => Some(ㅆ)
-        case 'ᄋ' => Some(ㅇ)
-        case 'ᄌ' => Some(ㅈ)
-        case 'ᄍ' => Some(ㅉ)
-        case 'ᄎ' => Some(ㅊ)
-        case 'ᄏ' => Some(ㅋ)
-        case 'ᄐ' => Some(ㅌ)
-        case 'ᄑ' => Some(ㅍ)
-        case 'ᄒ' => Some(ㅎ)
-        case _   => None
+    implicit val charDecoder: Decoder[Char, Initial] =
+      Decoder.instance[Char, Initial] {
+        case 'ᄀ' => Right(ㄱ)
+        case 'ᄁ' => Right(ㄲ)
+        case 'ᄂ' => Right(ㄴ)
+        case 'ᄃ' => Right(ㄷ)
+        case 'ᄄ' => Right(ㄸ)
+        case 'ᄅ' => Right(ㄹ)
+        case 'ᄆ' => Right(ㅁ)
+        case 'ᄇ' => Right(ㅂ)
+        case 'ᄈ' => Right(ㅃ)
+        case 'ᄉ' => Right(ㅅ)
+        case 'ᄊ' => Right(ㅆ)
+        case 'ᄋ' => Right(ㅇ)
+        case 'ᄌ' => Right(ㅈ)
+        case 'ᄍ' => Right(ㅉ)
+        case 'ᄎ' => Right(ㅊ)
+        case 'ᄏ' => Right(ㅋ)
+        case 'ᄐ' => Right(ㅌ)
+        case 'ᄑ' => Right(ㅍ)
+        case 'ᄒ' => Right(ㅎ)
+        case c   => Left(DecodingFailure.FailedToDecodeHangeulJamoInitial(c))
       }
 
   }
@@ -80,30 +83,30 @@ object HangeulJamo {
     final case object ㅢ extends Medial('ᅴ')
     final case object ㅣ extends Medial('ᅵ')
 
-    def fromChar(char: Char): Option[Medial] =
-      char match {
-        case 'ᅡ' => Some(ㅏ)
-        case 'ᅢ' => Some(ㅐ)
-        case 'ᅣ' => Some(ㅑ)
-        case 'ᅤ' => Some(ㅒ)
-        case 'ᅥ' => Some(ㅓ)
-        case 'ᅦ' => Some(ㅔ)
-        case 'ᅧ' => Some(ㅕ)
-        case 'ᅨ' => Some(ㅖ)
-        case 'ᅩ' => Some(ㅗ)
-        case 'ᅪ' => Some(ㅘ)
-        case 'ᅫ' => Some(ㅙ)
-        case 'ᅬ' => Some(ㅚ)
-        case 'ᅭ' => Some(ㅛ)
-        case 'ᅮ' => Some(ㅜ)
-        case 'ᅯ' => Some(ㅝ)
-        case 'ᅰ' => Some(ㅞ)
-        case 'ᅱ' => Some(ㅟ)
-        case 'ᅲ' => Some(ㅠ)
-        case 'ᅳ' => Some(ㅡ)
-        case 'ᅴ' => Some(ㅢ)
-        case 'ᅵ' => Some(ㅣ)
-        case _   => None
+    implicit val charDecoder: Decoder[Char, Medial] =
+      Decoder.instance[Char, Medial] {
+        case 'ᅡ' => Right(ㅏ)
+        case 'ᅢ' => Right(ㅐ)
+        case 'ᅣ' => Right(ㅑ)
+        case 'ᅤ' => Right(ㅒ)
+        case 'ᅥ' => Right(ㅓ)
+        case 'ᅦ' => Right(ㅔ)
+        case 'ᅧ' => Right(ㅕ)
+        case 'ᅨ' => Right(ㅖ)
+        case 'ᅩ' => Right(ㅗ)
+        case 'ᅪ' => Right(ㅘ)
+        case 'ᅫ' => Right(ㅙ)
+        case 'ᅬ' => Right(ㅚ)
+        case 'ᅭ' => Right(ㅛ)
+        case 'ᅮ' => Right(ㅜ)
+        case 'ᅯ' => Right(ㅝ)
+        case 'ᅰ' => Right(ㅞ)
+        case 'ᅱ' => Right(ㅟ)
+        case 'ᅲ' => Right(ㅠ)
+        case 'ᅳ' => Right(ㅡ)
+        case 'ᅴ' => Right(ㅢ)
+        case 'ᅵ' => Right(ㅣ)
+        case c   => Left(DecodingFailure.FailedToDecodeHangeulJamoMedial(c))
       }
 
   }
@@ -140,36 +143,36 @@ object HangeulJamo {
     final case object ㅍ extends Final('ᇁ')
     final case object ㅎ extends Final('ᇂ')
 
-    def fromChar(char: Char): Option[Final] =
-      char match {
-        case 'ᆨ' => Some(ㄱ)
-        case 'ᆩ' => Some(ㄲ)
-        case 'ᆪ' => Some(ㄳ)
-        case 'ᆫ' => Some(ㄴ)
-        case 'ᆬ' => Some(ㄵ)
-        case 'ᆭ' => Some(ㄶ)
-        case 'ᆮ' => Some(ㄷ)
-        case 'ᆯ' => Some(ㄹ)
-        case 'ᆰ' => Some(ㄺ)
-        case 'ᆱ' => Some(ㄻ)
-        case 'ᆲ' => Some(ㄼ)
-        case 'ᆳ' => Some(ㄽ)
-        case 'ᆴ' => Some(ㄾ)
-        case 'ᆵ' => Some(ㄿ)
-        case 'ᆶ' => Some(ㅀ)
-        case 'ᆷ' => Some(ㅁ)
-        case 'ᆸ' => Some(ㅂ)
-        case 'ᆹ' => Some(ㅄ)
-        case 'ᆺ' => Some(ㅅ)
-        case 'ᆻ' => Some(ㅆ)
-        case 'ᆼ' => Some(ㅇ)
-        case 'ᆽ' => Some(ㅈ)
-        case 'ᆾ' => Some(ㅊ)
-        case 'ᆿ' => Some(ㅋ)
-        case 'ᇀ' => Some(ㅌ)
-        case 'ᇁ' => Some(ㅍ)
-        case 'ᇂ' => Some(ㅎ)
-        case _   => None
+    implicit val charDecoder: Decoder[Char, Final] =
+      Decoder.instance[Char, Final] {
+        case 'ᆨ' => Right(ㄱ)
+        case 'ᆩ' => Right(ㄲ)
+        case 'ᆪ' => Right(ㄳ)
+        case 'ᆫ' => Right(ㄴ)
+        case 'ᆬ' => Right(ㄵ)
+        case 'ᆭ' => Right(ㄶ)
+        case 'ᆮ' => Right(ㄷ)
+        case 'ᆯ' => Right(ㄹ)
+        case 'ᆰ' => Right(ㄺ)
+        case 'ᆱ' => Right(ㄻ)
+        case 'ᆲ' => Right(ㄼ)
+        case 'ᆳ' => Right(ㄽ)
+        case 'ᆴ' => Right(ㄾ)
+        case 'ᆵ' => Right(ㄿ)
+        case 'ᆶ' => Right(ㅀ)
+        case 'ᆷ' => Right(ㅁ)
+        case 'ᆸ' => Right(ㅂ)
+        case 'ᆹ' => Right(ㅄ)
+        case 'ᆺ' => Right(ㅅ)
+        case 'ᆻ' => Right(ㅆ)
+        case 'ᆼ' => Right(ㅇ)
+        case 'ᆽ' => Right(ㅈ)
+        case 'ᆾ' => Right(ㅊ)
+        case 'ᆿ' => Right(ㅋ)
+        case 'ᇀ' => Right(ㅌ)
+        case 'ᇁ' => Right(ㅍ)
+        case 'ᇂ' => Right(ㅎ)
+        case c   => Left(DecodingFailure.FailedToDecodeHangeulJamoFinal(c))
       }
 
   }

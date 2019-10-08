@@ -3,7 +3,6 @@ package com.github.sophiecollard.hangeul4s.model.hangeul
 import cats.data.NonEmptyVector
 import cats.instances.either._
 import cats.instances.vector._
-import cats.syntax.either._
 import cats.syntax.traverse._
 import com.github.sophiecollard.hangeul4s.encoding.Decoder
 import com.github.sophiecollard.hangeul4s.error.ParsingFailure

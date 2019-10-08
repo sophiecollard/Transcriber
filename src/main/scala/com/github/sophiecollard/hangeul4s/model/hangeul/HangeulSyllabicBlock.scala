@@ -2,7 +2,7 @@ package com.github.sophiecollard.hangeul4s.model.hangeul
 
 import java.text.Normalizer
 
-import com.github.sophiecollard.hangeul4s.encoding.{Codec, Encoder}
+import com.github.sophiecollard.hangeul4s.encoding.{Codec, Decoder, Encoder}
 import com.github.sophiecollard.hangeul4s.error.DecodingFailure
 import com.github.sophiecollard.hangeul4s.syntax.string.StringOps
 
@@ -71,9 +71,9 @@ object HangeulSyllabicBlock {
         val decomposition = Normalizer.normalize(encoded.toString, Normalizer.Form.NFD)
 
         (
-          decomposition.safeCharAt(0).flatMap(HangeulJamo.Initial.fromChar),
-          decomposition.safeCharAt(1).flatMap(HangeulJamo.Medial.fromChar),
-          decomposition.safeCharAt(2).flatMap(HangeulJamo.Final.fromChar)
+          decomposition.safeCharAt(0).flatMap(Decoder[Char, HangeulJamo.Initial].decode(_).toOption),
+          decomposition.safeCharAt(1).flatMap(Decoder[Char, HangeulJamo.Medial].decode(_).toOption),
+          decomposition.safeCharAt(2).flatMap(Decoder[Char, HangeulJamo.Final].decode(_).toOption)
         ) match {
           case (Some(initial), Some(medial), None) =>
             Right(HangeulSyllabicBlock.TwoLetter(initial, medial))

@@ -2,20 +2,20 @@ package com.github.sophiecollard.hangeul4s.encoding
 
 import com.github.sophiecollard.hangeul4s.error.DecodingError
 
-trait Decoder[E, D] {
+trait Decoder[A, B] {
 
-  def decode(encoded: E): Either[DecodingError, D]
+  def decode(encoded: A): Either[DecodingError, B]
 
 }
 
 object Decoder {
 
-  def apply[E, D](implicit ev: Decoder[E, D]): Decoder[E, D] =
+  def apply[A, B](implicit ev: Decoder[A, B]): Decoder[A, B] =
     ev
 
-  def instance[E, D](g: E => Either[DecodingError, D]): Decoder[E, D] =
-    new Decoder[E, D] {
-      override def decode(encoded: E): Either[DecodingError, D] =
+  def instance[A, B](g: A => Either[DecodingError, B]): Decoder[A, B] =
+    new Decoder[A, B] {
+      override def decode(encoded: A): Either[DecodingError, B] =
         g(encoded)
     }
 

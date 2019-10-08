@@ -2,23 +2,23 @@ package com.github.sophiecollard.hangeul4s.encoding
 
 import com.github.sophiecollard.hangeul4s.error.{DecodingError, EncodingError}
 
-trait Codec[E, D] extends Encoder[E, D] with Decoder[E, D]
+trait Codec[A, B] extends Decoder[A, B] with Encoder[B, A]
 
 object Codec {
 
-  def apply[E, D](implicit ev: Codec[E, D]): Codec[E, D] =
+  def apply[A, B](implicit ev: Codec[A, B]): Codec[A, B] =
     ev
 
-  def apply[E, D](implicit ev1: Encoder[E, D], ev2: Decoder[E, D]): Codec[E, D] =
-    Codec.instance(ev1.encode, ev2.decode)
+  def apply[A, B](implicit ev1: Decoder[A, B], ev2: Encoder[B, A]): Codec[A, B] =
+    Codec.instance(ev1.decode, ev2.encode)
 
-  def instance[E, D](f: D => Either[EncodingError, E], g: E => Either[DecodingError, D]): Codec[E, D] =
-    new Codec[E, D] {
-      override def encode(decoded: D): Either[EncodingError, E] =
-        f(decoded)
+  def instance[A, B](f: A => Either[DecodingError, B], g: B => Either[EncodingError, A]): Codec[A, B] =
+    new Codec[A, B] {
+      override def decode(encoded: A): Either[DecodingError, B] =
+        f(encoded)
 
-      override def decode(encoded: E): Either[DecodingError, D] =
-        g(encoded)
+      override def encode(decoded: B): Either[EncodingError, A] =
+        g(decoded)
     }
 
 }

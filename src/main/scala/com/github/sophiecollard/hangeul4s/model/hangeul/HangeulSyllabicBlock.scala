@@ -23,7 +23,7 @@ sealed trait HangeulSyllabicBlock {
   }
 
   override def toString: String =
-    Encoder[Char, HangeulSyllabicBlock]
+    Encoder[HangeulSyllabicBlock, Char]
       .encode(this)
       .toOption.getOrElse('?')
       .toString
@@ -55,15 +55,6 @@ object HangeulSyllabicBlock {
     */
   implicit val charCodec: Codec[Char, HangeulSyllabicBlock] =
     new Codec[Char, HangeulSyllabicBlock] {
-      override def encode(decoded: HangeulSyllabicBlock): Either[EncodingError, Char] = {
-        val composition = Normalizer.normalize(decoded.charSequence, Normalizer.Form.NFC)
-
-        composition.safeCharAt(0) match {
-          case Some(char) => Right(char)
-          case None       => Left(EncodingError.FailedToEncodeHangeulSyllabicBlock(decoded))
-        }
-      }
-
       override def decode(encoded: Char): Either[DecodingError, HangeulSyllabicBlock] = {
         val decomposition: String = Normalizer.normalize(encoded.toString, Normalizer.Form.NFD)
 
@@ -78,6 +69,15 @@ object HangeulSyllabicBlock {
             Right(HangeulSyllabicBlock.ThreeLetter(initial, medial, final_))
           case _ =>
             Left(DecodingError.FailedToDecodeHangeulSyllabicBlock(encoded))
+        }
+      }
+
+      override def encode(decoded: HangeulSyllabicBlock): Either[EncodingError, Char] = {
+        val composition = Normalizer.normalize(decoded.charSequence, Normalizer.Form.NFC)
+
+        composition.safeCharAt(0) match {
+          case Some(char) => Right(char)
+          case None       => Left(EncodingError.FailedToEncodeHangeulSyllabicBlock(decoded))
         }
       }
     }

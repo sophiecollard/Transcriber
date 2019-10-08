@@ -39,8 +39,21 @@ object HangeulSyllabicBlock {
   final case class ThreeLetter(
     initial: HangeulJamo.Initial,
     medial: HangeulJamo.Medial,
-    `final`: HangeulJamo.Final
+    _final: HangeulJamo.Final
   ) extends HangeulSyllabicBlock
+
+  def twoLetter(
+    initial: HangeulJamo.Initial,
+    medial: HangeulJamo.Medial
+  ): HangeulSyllabicBlock =
+    TwoLetter(initial, medial)
+
+  def threeLetter(
+    initial: HangeulJamo.Initial,
+    medial: HangeulJamo.Medial,
+    _final: HangeulJamo.Final
+  ): HangeulSyllabicBlock =
+    ThreeLetter(initial, medial, _final)
 
   /**
     * Instance for decoding/encoding [[HangeulSyllabicBlock]] from/to Char
@@ -64,8 +77,8 @@ object HangeulSyllabicBlock {
         ) match {
           case (Some(initial), Some(medial), None) =>
             Right(HangeulSyllabicBlock.TwoLetter(initial, medial))
-          case (Some(initial), Some(medial), Some(final_)) =>
-            Right(HangeulSyllabicBlock.ThreeLetter(initial, medial, final_))
+          case (Some(initial), Some(medial), Some(_final)) =>
+            Right(HangeulSyllabicBlock.ThreeLetter(initial, medial, _final))
           case _ =>
             Left(DecodingError.FailedToDecodeHangeulSyllabicBlock(encoded))
         }

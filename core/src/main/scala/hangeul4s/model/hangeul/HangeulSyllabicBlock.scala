@@ -2,6 +2,7 @@ package hangeul4s.model.hangeul
 
 import java.text.Normalizer
 
+import cats.syntax.either._ // required for toOption method in Scala 2.11
 import hangeul4s.encoding.{Codec, Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
 import hangeul4s.syntax.string.StringOps

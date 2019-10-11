@@ -3,6 +3,7 @@ package hangeul4s.model.hangeul
 import cats.data.NonEmptyVector
 import cats.instances.either._
 import cats.instances.vector._
+import cats.syntax.either._ // required for orElse method in Scala 2.11 and 2.12
 import cats.syntax.traverse._
 import hangeul4s.encoding.Decoder
 import hangeul4s.error.ParsingFailure

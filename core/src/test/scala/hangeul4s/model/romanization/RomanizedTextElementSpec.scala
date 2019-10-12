@@ -6,9 +6,35 @@ import org.specs2.mutable.Specification
 
 class RomanizedTextElementSpec extends Specification {
 
+  "RomanizedTextElement#Captured#regex" should {
+
+    "only match characters within the range [A-EG-PR-UWYa-eg-pr-uwy]" in {
+      val input = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+      val expectedOutput = List("ABCDE", "GHIJKLMNOP", "RSTU", "W", "Y", "abcde", "ghijklmnop", "rstu", "w", "y")
+
+      RomanizedTextElement.Captured.regex.findAllIn(input).toList must
+        containTheSameElementsAs(expectedOutput)
+    }
+
+  }
+
+  "RomanizedTextElement#NotCaptured#regex" should {
+
+    "only match characters outside the range [A-EG-PR-UWYa-eg-pr-uwy]" in {
+      val input = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+      val expectedOutput = List("F", "Q", "V", "X", "Z", "f", "q", "v", "x", "z")
+
+      RomanizedTextElement.NotCaptured.regex.findAllIn(input).toList must
+        containTheSameElementsAs(expectedOutput)
+    }
+
+  }
+
   "RomanizedTextElement#NotCaptured#fromString" should {
 
-    "successfully construct a NotCaptured instance from characters outside of the [A-Za-z] range" in {
+    "successfully construct a NotCaptured instance from characters not matching the [A-EG-PR-UWYa-eg-pr-uwy] regex" in {
       val input = " !#&0123456789"
 
       val expectedOutput = RomanizedTextElement.NotCaptured.unvalidatedFromString(input)
@@ -16,7 +42,7 @@ class RomanizedTextElementSpec extends Specification {
       RomanizedTextElement.NotCaptured.fromString(input) must beSome(expectedOutput)
     }
 
-    "fail to construct a NotCaptured instance from characters within the [A-Za-z] range" in {
+    "fail to construct a NotCaptured instance from characters matching the [A-EG-PR-UWYa-eg-pr-uwy] regex" in {
       val input = "ABCdef !#&0123456789"
 
       RomanizedTextElement.NotCaptured.fromString(input) must beNone

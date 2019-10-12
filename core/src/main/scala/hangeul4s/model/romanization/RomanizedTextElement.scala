@@ -16,7 +16,7 @@ object RomanizedTextElement {
     def fromLetters(l: RomanLetter, ls: RomanLetter*): Captured =
       Captured(NonEmptyVector(l, ls.toVector))
 
-    private [romanization] val regex: Regex = "[A-Za-z]+".r
+    private [romanization] val regex: Regex = "[A-EG-PR-UWYa-eg-pr-uwy]+".r
   }
 
   sealed abstract case class NotCaptured(contents: String) extends RomanizedTextElement
@@ -33,7 +33,7 @@ object RomanizedTextElement {
     private [romanization] def unvalidatedFromString(input: String): NotCaptured =
       new NotCaptured(input) {}
 
-    private [romanization] val regex: Regex = "[^A-Za-z]+".r
+    private [romanization] val regex: Regex = "[^A-EG-PR-UWYa-eg-pr-uwy]+".r
   }
 
   implicit val unparser: Unparser[RomanizedTextElement, String] =

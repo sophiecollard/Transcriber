@@ -1,6 +1,5 @@
 package hangeul4s.model.hangeul
 
-import cats.arrow.FunctionK
 import cats.data.NonEmptyVector
 import cats.instances.either._
 import cats.instances.vector._
@@ -89,28 +88,16 @@ object HangeulTextElement {
       case NotCaptured(contents)    => contents
     }
 
-  private val iteratorTokenizer: Tokenizer[Iterator, HangeulTextElement] =
+  implicit val iteratorTokenizer: Tokenizer[Iterator, HangeulTextElement] =
     Tokenizer.instance { input =>
       s"(${Captured.regex})|(${NotCaptured.regex})".r
         .findAllIn(input)
         .map(Token.apply[HangeulTextElement])
     }
 
-  implicit val listTokenizer: Tokenizer[List, HangeulTextElement] =
-    iteratorTokenizer.mapK(λ[FunctionK[Iterator, List]](_.toList))
-
-  implicit val vectorTokenizer: Tokenizer[Vector, HangeulTextElement] =
-    iteratorTokenizer.mapK(λ[FunctionK[Iterator, Vector]](_.toVector))
-
-  private val iteratorUntokenizer: Untokenizer[Iterator, HangeulTextElement] =
+  implicit val iteratorUntokenizer: Untokenizer[Iterator, HangeulTextElement] =
     Untokenizer.instance { input =>
       input.map(_.contents).mkString
     }
-
-  implicit val listUntokenizer: Untokenizer[List, HangeulTextElement] =
-    iteratorUntokenizer.contramapK(λ[FunctionK[List, Iterator]](_.iterator))
-
-  implicit val vectorUntokenizer: Untokenizer[Vector, HangeulTextElement] =
-    iteratorUntokenizer.contramapK(λ[FunctionK[Vector, Iterator]](_.iterator))
 
 }

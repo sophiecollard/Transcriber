@@ -2,6 +2,7 @@ package hangeul4s.model.romanization
 
 import hangeul4s.model.romanization.RomanLetter._
 import hangeul4s.parsing.{Token, Tokenizer, Unparser, Untokenizer}
+import hangeul4s.parsing.generic._
 import org.specs2.mutable.Specification
 
 class RomanizedTextElementSpec extends Specification {

@@ -45,7 +45,12 @@ lazy val scalaSettings = Seq(
 )
 
 lazy val scalacSettings = Seq(
-  scalacOptions ++= {
+  scalacOptions ++= Seq(
+    "-deprecation",
+    "-feature",
+    "-language:higherKinds",
+    "-Xfatal-warnings"
+  ) ++ {
     if (priorTo213(scalaVersion.value))
       Seq("-Ypartial-unification") // required by cats for Scala 2.11 and 2.12
     else

@@ -1,5 +1,6 @@
 package hangeul4s.model.romanization
 
+import cats.arrow.FunctionK
 import cats.data.NonEmptyVector
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.parsing.{Token, Tokenizer, Unparser, Untokenizer}
@@ -42,17 +43,28 @@ object RomanizedTextElement {
       case NotCaptured(contents) => contents
     }
 
-  implicit val vectorTokenizer: Tokenizer[Vector, RomanizedTextElement] =
+  private val iteratorTokenizer: Tokenizer[Iterator, RomanizedTextElement] =
     Tokenizer.instance { input =>
       s"(${Captured.regex})|(${NotCaptured.regex})".r
         .findAllIn(input)
         .map(Token.apply[RomanizedTextElement])
-        .toVector
     }
 
-  implicit val vectorUntokenizer: Untokenizer[Vector, RomanizedTextElement] =
+  implicit val listTokenizer: Tokenizer[List, RomanizedTextElement] =
+    iteratorTokenizer.mapK(λ[FunctionK[Iterator, List]](_.toList))
+
+  implicit val vectorTokenizer: Tokenizer[Vector, RomanizedTextElement] =
+    iteratorTokenizer.mapK(λ[FunctionK[Iterator, Vector]](_.toVector))
+
+  private val iteratorUntokenizer: Untokenizer[Iterator, RomanizedTextElement] =
     Untokenizer.instance { input =>
       input.map(_.contents).mkString
     }
+
+  implicit val listUntokenizer: Untokenizer[List, RomanizedTextElement] =
+    iteratorUntokenizer.contramapK(λ[FunctionK[List, Iterator]](_.iterator))
+
+  implicit val vectorUntokenizer: Untokenizer[Vector, RomanizedTextElement] =
+    iteratorUntokenizer.contramapK(λ[FunctionK[Vector, Iterator]](_.iterator))
 
 }

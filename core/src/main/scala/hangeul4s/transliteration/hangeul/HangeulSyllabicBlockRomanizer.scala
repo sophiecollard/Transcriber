@@ -46,6 +46,8 @@ private [transliteration] object HangeulSyllabicBlockRomanizer {
         Vector(G)
       case (Final.ㄱ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
         Vector(N, G)
+      case (Final.ㄴ, Some(Initial.ㄹ)) =>
+        Vector(L)
       case (Final.ㄷ, Some(Initial.ㅇ)) =>
         Vector(D) // Also sometimes J
       case (Final.ㄷ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
@@ -60,6 +62,22 @@ private [transliteration] object HangeulSyllabicBlockRomanizer {
         Vector(S)
       case (Final.ㅅ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
         Vector(N)
+      case (Final.ㅈ, Some(Initial.ㅇ)) =>
+        Vector(J)
+      case (Final.ㅈ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
+        Vector(N)
+      case (Final.ㅊ, Some(Initial.ㅇ)) =>
+        Vector(C, H)
+      case (Final.ㅊ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
+        Vector(N)
+      case (Final.ㅌ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
+        Vector(N)
+      case (Final.ㅎ, Some(Initial.ㅇ)) =>
+        Vector(H)
+      case (Final.ㅎ, Some(Initial.ㄱ)) =>
+        Vector.empty
+      case (Final.ㅎ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
+        Vector(N)
       case _ =>
         transliterateFinal(_final)
     }
@@ -69,16 +87,21 @@ private [transliteration] object HangeulSyllabicBlockRomanizer {
     initial: Initial
   ): Vector[RomanLetter] =
     (maybePrecedingFinal, initial) match {
-      case (Some(Final.ㄱ) | Some(Final.ㄷ) | Some(Final.ㅂ), Initial.ㄹ) =>
-        Vector(N)
+      case (Some(Final.ㅎ), Initial.ㄱ) =>
+        Vector(K)
       case (Some(Final.ㄹ), Initial.ㄴ) =>
         Vector(L) // Also sometimes NN instead of LL
-      case (Some(Final.ㄹ), Initial.ㄹ) =>
-        Vector(L)
-      case (Some(Final.ㅅ) | Some(Final.ㅇ), Initial.ㄹ) =>
+      case (Some(Final.ㅎ), Initial.ㄷ) =>
+        Vector.empty
+      case (Some(Final.ㅇ) | Some(Final.ㄱ) | Some(Final.ㄷ) | Some(Final.ㅁ) | Some(Final.ㅂ) | Some(Final.ㅅ) |
+            Some(Final.ㅈ) | Some(Final.ㅊ) | Some(Final.ㅌ) | Some(Final.ㅎ), Initial.ㄹ) =>
         Vector(N)
+      case (Some(Final.ㄴ) | Some(Final.ㄹ), Initial.ㄹ) =>
+        Vector(L)
       case (Some(Final.ㅂ), Initial.ㅁ) =>
         Vector(M)
+      case (Some(Final.ㅎ), Initial.ㅎ) =>
+        Vector.empty
       case _ =>
         transliterateInitial(initial)
     }

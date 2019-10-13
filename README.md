@@ -13,8 +13,8 @@ This project is currently under development.
   - [x] Implement conversion between [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block)) and [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
   - [x] Implement parsing of `HangeulText`
   - [x] Add CircleCI integration
+  - [x] Add Codecov integration
   - [x] Cross-build for Scala 2.11, 2.12 and 2.13
-  - [ ] Add Codecov integration
   - [x] Add Apache 2.0 licence
   - [ ] Assess performance of parsing and transliteration
 

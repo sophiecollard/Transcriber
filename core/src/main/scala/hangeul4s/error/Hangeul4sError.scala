@@ -38,7 +38,13 @@ sealed abstract class TransliterationFailure(override val message: String) exten
 
 object TransliterationFailure {
 
+  final case object EmptyInput
+    extends TransliterationFailure("Empty input")
+
   final case object EmptyResult
     extends TransliterationFailure("Empty result")
+
+  final case class InvalidInput(input: String)
+    extends TransliterationFailure(s"Invalid input: $input")
 
 }

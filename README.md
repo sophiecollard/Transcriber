@@ -85,19 +85,24 @@ This project is an implementation of the [revised Hangeul romanization](https://
 ### Special provisions for final / initial consonant pairs
 Rows and columns correspond to final and initial consonants, respectively. Final / initial consonants pairs with irregular transliteration are displayed in bold.
 
-| I/F    | ㅇ                   | ㄱ   | ㄴ                     | ㄷ  | ㄹ                     | ㅁ      |
-| :----: | -------------------- | --- | ---------------------- | --- | ---------------------- | ------- |
-| **ㄱ** | **g**                | kg  | **ngn**                | kd  | **ngn**                | **ngm** |
-| **ㄴ** | n                    | ng  | nn                     | nd  | **ll, nn**<sup>2</sup> | nm      |
-| **ㄷ** | **d, j**<sup>1</sup> | tg  | **nn**                 | td  | **nn**                 | **nm**  |
-| **ㄹ** | **r**                | lg  | **ll, nn**<sup>2</sup> | ld  | **ll**                 | lm      |
-| **ㅁ** | m                    | mg  | mn                     | md  | **mn**                 | mm      |
-| **ㅂ** | **b**                | pg  | **mn**                 | pd  | **mn**                 | **mm**  |
-| **ㅅ** | **s**                | tg  | **nn**                 | td  | **nn**                 | **nm**  |
-| **ㅇ** | ng                   | ngg | ngn                    | ngd | **ngn**                | ngm     |
+| F/I    | ㅇ                    | ㄱ     | ㄴ                     | ㄷ    | ㄹ                      | ㅁ      |
+| :----: | --------------------- | ----- | ---------------------- | ----- | ---------------------- | ------- |
+| **ㄱ** | **g**                 | kg    | **ngn**                | kd    | **ngn**                | **ngm** |
+| **ㄴ** | n                     | ng    | nn                     | nd    | **ll, nn**<sup>2</sup> | nm      |
+| **ㄷ** | **d, j**<sup>1</sup>  | tg    | **nn**                 | td    | **nn**                 | **nm**  |
+| **ㄹ** | **r**                 | lg    | **ll, nn**<sup>2</sup> | ld    | **ll**                 | lm      |
+| **ㅁ** | m                     | mg    | mn                     | md    | **mn**                 | mm      |
+| **ㅂ** | **b**                 | pg    | **mn**                 | pd    | **mn**                 | **mm**  |
+| **ㅅ** | **s**                 | tg    | **nn**                 | td    | **nn**                 | **nm**  |
+| **ㅇ** | ng                    | ngg   | ngn                    | ngd   | **ngn**                | ngm     |
+| **ㅈ** | **j**                 | tg    | **nn**                 | td    | **nn**                 | **nm**  |
+| **ㅊ** | **ch**                | tg    | **nn**                 | td    | **nn**                 | **nm**  |
+| **ㅌ** | **t, ch**<sup>3</sup> | tg    | **nn**                 | td    | **nn**                 | **nm**  |
+| **ㅎ** | **h**                 | **k** | **nn**                 | **t** | **nn**                 | **nm**  |
 
 <sup>1</sup> Always transliterated as **d** in the current implementation  
-<sup>2</sup> Always transliterated as **ll** in the current implementation
+<sup>2</sup> Always transliterated as **ll** in the current implementation  
+<sup>3</sup> Always transliterated as **t** in the current implementation
 
 ## Licence
 Copyright 2019 Sophie Collard \<https://github.com/sophiecollard>

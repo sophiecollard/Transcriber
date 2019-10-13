@@ -21,11 +21,13 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: cat /dev/null | sbt +test:compile
+      - run: cat /dev/null | sbt +test:clean +test:compile
 
       - save_cache:
           paths:
             - ~/.m2
           key: v1-dependencies--{{ checksum "build.sbt" }}
 
-      - run: cat /dev/null | sbt +test:test
+      - run: cat /dev/null | sbt coverage +test:test coverageReport
+
+      - run: bash <(curl -s https://codecov.io/bash)

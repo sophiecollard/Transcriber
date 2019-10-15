@@ -1,24 +1,23 @@
-# Hangeul Transliterator 4s
+# Hangeul4s
 
-![CircleCI](https://img.shields.io/circleci/build/github/sophiecollard/hangeul-transliterator-4s/master) 
-![codecov](https://codecov.io/gh/sophiecollard/hangeul-transliterator-4s/branch/master/graph/badge.svg)
-![GitHub](https://img.shields.io/github/license/sophiecollard/hangeul-transliterator-4s)
+![CircleCI](https://img.shields.io/circleci/build/github/sophiecollard/hangeul4s/master) 
+![codecov](https://codecov.io/gh/sophiecollard/hangeul4s/branch/master/graph/badge.svg)
+![GitHub](https://img.shields.io/github/license/sophiecollard/hangeul4s)
 
-An attempt at creating a library for transliteration between [Hangeul](https://en.wikipedia.org/wiki/Hangul), the [Latin alphabet](https://en.wikipedia.org/wiki/Latin_alphabet), and possibly more later.
+A functional library for [Hangeul](https://en.wikipedia.org/wiki/Hangul) transliteration
 
 ## Status
 This project is currently under development.
 
 ### Roadmap to first release
-  - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block))
-  - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
-  - [x] Implement conversion between [jamos](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block)) and [syllabic blocks](https://en.wikipedia.org/wiki/Hangul_Syllables)
-  - [x] Implement parsing of `HangeulText`
+  - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [jamo](https://en.wikipedia.org/wiki/Hangul_Jamo_(Unicode_block))
+  - [x] Implement [romanization](https://en.wikipedia.org/wiki/Revised_Romanization_of_Korean) of [syllables](https://en.wikipedia.org/wiki/Hangul_Syllables)
+  - [x] Implement conversion between jamo and syllables
+  - [x] Implement parsing of Hangeul text
   - [x] Add CircleCI integration
   - [x] Add Codecov integration
   - [x] Cross-build for Scala 2.11, 2.12 and 2.13
   - [x] Add Apache 2.0 licence
-  - [ ] Assess performance of parsing and transliteration
 
 ## Examples
 Single-word transliteration example:

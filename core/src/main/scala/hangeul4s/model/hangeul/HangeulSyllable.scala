@@ -7,57 +7,60 @@ import hangeul4s.encoding.{Codec, Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
 import hangeul4s.syntax.string.StringOps
 
-sealed trait HangeulSyllabicBlock {
+/**
+  * Type representing a character from the Hangeul Syllables Unicode block
+  */
+sealed trait HangeulSyllable {
 
   def initial: HangeulJamo.Initial
 
   def medial: HangeulJamo.Medial
 
   def maybeFinal: Option[HangeulJamo.Final] = this match {
-    case HangeulSyllabicBlock.TwoLetter(_, _)      => None
-    case HangeulSyllabicBlock.ThreeLetter(_, _, f) => Some(f)
+    case HangeulSyllable.TwoJamo(_, _)      => None
+    case HangeulSyllable.ThreeJamo(_, _, f) => Some(f)
   }
 
   def charSequence: CharSequence = this match {
-    case HangeulSyllabicBlock.TwoLetter(i, m)      => s"${i.char}${m.char}"
-    case HangeulSyllabicBlock.ThreeLetter(i, m, f) => s"${i.char}${m.char}${f.char}"
+    case HangeulSyllable.TwoJamo(i, m)      => s"${i.char}${m.char}"
+    case HangeulSyllable.ThreeJamo(i, m, f) => s"${i.char}${m.char}${f.char}"
   }
 
   override def toString: String =
-    Encoder[HangeulSyllabicBlock, Char]
+    Encoder[HangeulSyllable, Char]
       .encode(this)
       .toString
 
 }
 
-object HangeulSyllabicBlock {
+object HangeulSyllable {
 
-  final case class TwoLetter(
+  final case class TwoJamo(
     initial: HangeulJamo.Initial,
     medial: HangeulJamo.Medial
-  ) extends HangeulSyllabicBlock
+  ) extends HangeulSyllable
 
-  final case class ThreeLetter(
+  final case class ThreeJamo(
     initial: HangeulJamo.Initial,
     medial: HangeulJamo.Medial,
     _final: HangeulJamo.Final
-  ) extends HangeulSyllabicBlock
+  ) extends HangeulSyllable
 
-  def twoLetter(
+  def twoJamo(
     initial: HangeulJamo.Initial,
     medial: HangeulJamo.Medial
-  ): HangeulSyllabicBlock =
-    TwoLetter(initial, medial)
+  ): HangeulSyllable =
+    TwoJamo(initial, medial)
 
-  def threeLetter(
+  def threeJamo(
     initial: HangeulJamo.Initial,
     medial: HangeulJamo.Medial,
     _final: HangeulJamo.Final
-  ): HangeulSyllabicBlock =
-    ThreeLetter(initial, medial, _final)
+  ): HangeulSyllable =
+    ThreeJamo(initial, medial, _final)
 
   /**
-    * Instance for decoding/encoding [[HangeulSyllabicBlock]] from/to Char
+    * Instance for decoding/encoding [[HangeulSyllable]] from/to Char
     *
     * The decimal code point of precomposed Hangeul syllables in the Hangul Syllables Unicode block can be derived from
     * the indices of their constituent [[HangeulJamo]] characters using the following formula:
@@ -66,9 +69,9 @@ object HangeulSyllabicBlock {
     *
     * See https://en.wikipedia.org/wiki/Korean_language_and_computers#Hangul_in_Unicode
     */
-  implicit val charCodec: Codec[Char, HangeulSyllabicBlock] =
-    new Codec[Char, HangeulSyllabicBlock] {
-      override def decode(encoded: Char): Either[DecodingFailure, HangeulSyllabicBlock] = {
+  implicit val charCodec: Codec[Char, HangeulSyllable] =
+    new Codec[Char, HangeulSyllable] {
+      override def decode(encoded: Char): Either[DecodingFailure, HangeulSyllable] = {
         val decomposition = Normalizer.normalize(encoded.toString, Normalizer.Form.NFD)
 
         (
@@ -77,15 +80,15 @@ object HangeulSyllabicBlock {
           decomposition.safeCharAt(2).flatMap(Decoder[Char, HangeulJamo.Final].decode(_).toOption)
         ) match {
           case (Some(initial), Some(medial), None) =>
-            Right(HangeulSyllabicBlock.TwoLetter(initial, medial))
+            Right(HangeulSyllable.TwoJamo(initial, medial))
           case (Some(initial), Some(medial), Some(_final)) =>
-            Right(HangeulSyllabicBlock.ThreeLetter(initial, medial, _final))
+            Right(HangeulSyllable.ThreeJamo(initial, medial, _final))
           case _ =>
-            Left(DecodingFailure.FailedToDecodeHangeulSyllabicBlock(encoded))
+            Left(DecodingFailure.FailedToDecodeHangeulSyllable(encoded))
         }
       }
 
-      override def encode(decoded: HangeulSyllabicBlock): Char =
+      override def encode(decoded: HangeulSyllable): Char =
         Normalizer.normalize(decoded.charSequence, Normalizer.Form.NFC).charAt(0)
     }
 

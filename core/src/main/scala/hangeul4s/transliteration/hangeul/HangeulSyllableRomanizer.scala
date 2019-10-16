@@ -4,28 +4,28 @@ import cats.Monoid
 import cats.instances.vector._
 import hangeul4s.error.TransliterationFailure
 import hangeul4s.model.hangeul.HangeulJamo.{Final, Initial}
-import hangeul4s.model.hangeul.HangeulSyllabicBlock
-import hangeul4s.model.hangeul.HangeulSyllabicBlock.{ThreeLetter, TwoLetter}
+import hangeul4s.model.hangeul.HangeulSyllable
+import hangeul4s.model.hangeul.HangeulSyllable.{ThreeJamo, TwoJamo}
 import hangeul4s.model.romanization.RomanLetter
 import hangeul4s.model.romanization.RomanLetter._
 import hangeul4s.transliteration.hangeul.HangeulJamoRomanizer._
 
-private [transliteration] object HangeulSyllabicBlockRomanizer {
+private [transliteration] object HangeulSyllableRomanizer {
 
-  def transliterateSyllabicBlock(
+  def transliterateSyllable(
     maybePrecedingFinal: Option[Final],
-    block: HangeulSyllabicBlock,
+    syllable: HangeulSyllable,
     maybeFollowingInitial: Option[Initial]
   ): Either[TransliterationFailure, Vector[RomanLetter]] =
-    block match {
-      case TwoLetter(initial, medial) =>
+    syllable match {
+      case TwoJamo(initial, medial) =>
         Right(
           Monoid.combine(
             transliterateInitialInContext(maybePrecedingFinal, initial),
             transliterateMedial(medial)
           )
         )
-      case ThreeLetter(initial, medial, final_) =>
+      case ThreeJamo(initial, medial, final_) =>
         Right(
           Monoid.combineAll(
             List(

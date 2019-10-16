@@ -29,8 +29,8 @@ object DecodingFailure {
   final case class FailedToDecodeHangeulJamoFinal(char: Char)
     extends DecodingFailure(s"Failed to decode HangeulJamo.Final from Char [$char] with decimal code point [${char.toInt}]")
 
-  final case class FailedToDecodeHangeulSyllabicBlock(char: Char)
-    extends DecodingFailure(s"Failed to decode HangeulSyllabicBlock from Char [$char] with decimal code point [${char.toInt}]")
+  final case class FailedToDecodeHangeulSyllable(char: Char)
+    extends DecodingFailure(s"Failed to decode HangeulSyllable from Char [$char] with decimal code point [${char.toInt}]")
 
 }
 

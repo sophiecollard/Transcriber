@@ -4,7 +4,7 @@ import cats.data.NonEmptyVector
 import cats.instances.vector._
 import hangeul4s.error.ParsingFailure
 import hangeul4s.model.hangeul.HangeulJamo._
-import hangeul4s.model.hangeul.HangeulSyllabicBlock._
+import hangeul4s.model.hangeul.HangeulSyllable._
 import hangeul4s.model.hangeul.HangeulTextElement._
 import hangeul4s.parsing._
 import hangeul4s.parsing.implicits._
@@ -39,12 +39,12 @@ class HangeulTextElementSpec extends Specification {
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {
       val input = "안녕하세요"
 
-      val expectedOutput: HangeulTextElement = HangeulTextElement.Captured.fromSyllabicBlocks(
-        ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-        ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-        TwoLetter(Initial.ㅎ, Medial.ㅏ),
-        TwoLetter(Initial.ㅅ, Medial.ㅔ),
-        TwoLetter(Initial.ㅇ, Medial.ㅛ)
+      val expectedOutput: HangeulTextElement = HangeulTextElement.Captured.fromSyllables(
+        ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoJamo(Initial.ㅎ, Medial.ㅏ),
+        TwoJamo(Initial.ㅅ, Medial.ㅔ),
+        TwoJamo(Initial.ㅇ, Medial.ㅛ)
       )
 
       Parser[String, HangeulTextElement].parse(input) must beRight(expectedOutput)
@@ -68,47 +68,47 @@ class HangeulTextElementSpec extends Specification {
       val input = "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다."
 
       val expectedOutput = Vector[HangeulTextElement](
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅅ, Medial.ㅣ),
-          ThreeLetter(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅅ, Medial.ㅣ),
+          ThreeJamo(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅅ, Medial.ㅗ),
-          TwoLetter(Initial.ㅈ, Medial.ㅐ),
-          TwoLetter(Initial.ㅈ, Medial.ㅣ),
-          ThreeLetter(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅅ, Medial.ㅗ),
+          TwoJamo(Initial.ㅈ, Medial.ㅐ),
+          TwoJamo(Initial.ㅈ, Medial.ㅣ),
+          ThreeJamo(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          ThreeLetter(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
-          TwoLetter(Initial.ㄱ, Medial.ㅜ),
-          TwoLetter(Initial.ㅇ, Medial.ㅣ),
-          TwoLetter(Initial.ㅁ, Medial.ㅕ)
+        HangeulTextElement.Captured.fromSyllables(
+          ThreeJamo(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
+          TwoJamo(Initial.ㄱ, Medial.ㅜ),
+          TwoJamo(Initial.ㅇ, Medial.ㅣ),
+          TwoJamo(Initial.ㅁ, Medial.ㅕ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(", 25"),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㄱ, Medial.ㅐ),
-          TwoLetter(Initial.ㅇ, Medial.ㅢ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㄱ, Medial.ㅐ),
+          TwoJamo(Initial.ㅇ, Medial.ㅢ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅈ, Medial.ㅏ),
-          TwoLetter(Initial.ㅊ, Medial.ㅣ),
-          TwoLetter(Initial.ㄱ, Medial.ㅜ),
-          TwoLetter(Initial.ㄹ, Medial.ㅗ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅈ, Medial.ㅏ),
+          TwoJamo(Initial.ㅊ, Medial.ㅣ),
+          TwoJamo(Initial.ㄱ, Medial.ㅜ),
+          TwoJamo(Initial.ㄹ, Medial.ㅗ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅇ, Medial.ㅣ),
-          TwoLetter(Initial.ㄹ, Medial.ㅜ),
-          TwoLetter(Initial.ㅇ, Medial.ㅓ),
-          TwoLetter(Initial.ㅈ, Medial.ㅕ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅇ, Medial.ㅣ),
+          TwoJamo(Initial.ㄹ, Medial.ㅜ),
+          TwoJamo(Initial.ㅇ, Medial.ㅓ),
+          TwoJamo(Initial.ㅈ, Medial.ㅕ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          ThreeLetter(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
-          TwoLetter(Initial.ㄷ, Medial.ㅏ)
+        HangeulTextElement.Captured.fromSyllables(
+          ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
+          TwoJamo(Initial.ㄷ, Medial.ㅏ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(".")
       )
@@ -127,12 +127,12 @@ class HangeulTextElementSpec extends Specification {
     "parse a single element made of characters from the Hangeul Syllables Unicode block" in {
       val input = "안녕하세요"
 
-      val expectedOutput: HangeulTextElement = HangeulTextElement.Captured.fromSyllabicBlocks(
-        ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-        ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-        TwoLetter(Initial.ㅎ, Medial.ㅏ),
-        TwoLetter(Initial.ㅅ, Medial.ㅔ),
-        TwoLetter(Initial.ㅇ, Medial.ㅛ)
+      val expectedOutput: HangeulTextElement = HangeulTextElement.Captured.fromSyllables(
+        ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoJamo(Initial.ㅎ, Medial.ㅏ),
+        TwoJamo(Initial.ㅅ, Medial.ㅔ),
+        TwoJamo(Initial.ㅇ, Medial.ㅛ)
       )
 
       AccumulativeParser[String, HangeulTextElement].parse(input).toEither must beRight(expectedOutput)
@@ -156,47 +156,47 @@ class HangeulTextElementSpec extends Specification {
       val input = "시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다."
 
       val expectedOutput = Vector[HangeulTextElement](
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅅ, Medial.ㅣ),
-          ThreeLetter(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅅ, Medial.ㅣ),
+          ThreeJamo(Initial.ㅊ, Medial.ㅓ, Final.ㅇ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅅ, Medial.ㅗ),
-          TwoLetter(Initial.ㅈ, Medial.ㅐ),
-          TwoLetter(Initial.ㅈ, Medial.ㅣ),
-          ThreeLetter(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅅ, Medial.ㅗ),
+          TwoJamo(Initial.ㅈ, Medial.ㅐ),
+          TwoJamo(Initial.ㅈ, Medial.ㅣ),
+          ThreeJamo(Initial.ㄴ, Medial.ㅡ, Final.ㄴ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          ThreeLetter(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
-          TwoLetter(Initial.ㄱ, Medial.ㅜ),
-          TwoLetter(Initial.ㅇ, Medial.ㅣ),
-          TwoLetter(Initial.ㅁ, Medial.ㅕ)
+        HangeulTextElement.Captured.fromSyllables(
+          ThreeJamo(Initial.ㅈ, Medial.ㅜ, Final.ㅇ),
+          TwoJamo(Initial.ㄱ, Medial.ㅜ),
+          TwoJamo(Initial.ㅇ, Medial.ㅣ),
+          TwoJamo(Initial.ㅁ, Medial.ㅕ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(", 25"),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㄱ, Medial.ㅐ),
-          TwoLetter(Initial.ㅇ, Medial.ㅢ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㄱ, Medial.ㅐ),
+          TwoJamo(Initial.ㅇ, Medial.ㅢ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅈ, Medial.ㅏ),
-          TwoLetter(Initial.ㅊ, Medial.ㅣ),
-          TwoLetter(Initial.ㄱ, Medial.ㅜ),
-          TwoLetter(Initial.ㄹ, Medial.ㅗ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅈ, Medial.ㅏ),
+          TwoJamo(Initial.ㅊ, Medial.ㅣ),
+          TwoJamo(Initial.ㄱ, Medial.ㅜ),
+          TwoJamo(Initial.ㄹ, Medial.ㅗ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          TwoLetter(Initial.ㅇ, Medial.ㅣ),
-          TwoLetter(Initial.ㄹ, Medial.ㅜ),
-          TwoLetter(Initial.ㅇ, Medial.ㅓ),
-          TwoLetter(Initial.ㅈ, Medial.ㅕ)
+        HangeulTextElement.Captured.fromSyllables(
+          TwoJamo(Initial.ㅇ, Medial.ㅣ),
+          TwoJamo(Initial.ㄹ, Medial.ㅜ),
+          TwoJamo(Initial.ㅇ, Medial.ㅓ),
+          TwoJamo(Initial.ㅈ, Medial.ㅕ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(" "),
-        HangeulTextElement.Captured.fromSyllabicBlocks(
-          ThreeLetter(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
-          TwoLetter(Initial.ㄷ, Medial.ㅏ)
+        HangeulTextElement.Captured.fromSyllables(
+          ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
+          TwoJamo(Initial.ㄷ, Medial.ㅏ)
         ),
         HangeulTextElement.NotCaptured.unvalidatedFromString(".")
       )
@@ -213,12 +213,12 @@ class HangeulTextElementSpec extends Specification {
   "HangeulTextElement#unparser" should {
 
     "convert a Captured instance to a string" in {
-      val input = HangeulTextElement.Captured.fromSyllabicBlocks(
-        ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-        ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-        TwoLetter(Initial.ㅎ, Medial.ㅏ),
-        TwoLetter(Initial.ㅅ, Medial.ㅔ),
-        TwoLetter(Initial.ㅇ, Medial.ㅛ)
+      val input = HangeulTextElement.Captured.fromSyllables(
+        ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoJamo(Initial.ㅎ, Medial.ㅏ),
+        TwoJamo(Initial.ㅅ, Medial.ㅔ),
+        TwoJamo(Initial.ㅇ, Medial.ㅛ)
       )
 
       Unparser[HangeulTextElement, String].unparse(input) ==== "안녕하세요"

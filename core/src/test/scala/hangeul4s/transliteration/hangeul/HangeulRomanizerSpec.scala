@@ -1,7 +1,7 @@
 package hangeul4s.transliteration.hangeul
 
 import hangeul4s.model.hangeul.HangeulJamo._
-import hangeul4s.model.hangeul.HangeulSyllabicBlock._
+import hangeul4s.model.hangeul.HangeulSyllable._
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.model.romanization.RomanLetter._
 import hangeul4s.model.romanization.RomanizedTextElement
@@ -16,9 +16,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄱ+ㅇ => g)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
-            TwoLetter(Initial.ㅇ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
+            TwoJamo(Initial.ㅇ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -30,9 +30,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄱ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
-            TwoLetter(Initial.ㄱ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
+            TwoJamo(Initial.ㄱ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -43,9 +43,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "학년 => hangnyeon (ㄱ+ㄴ => ngn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅏ, Final.ㄱ),
-            ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㄴ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅏ, Final.ㄱ),
+            ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㄴ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -59,9 +59,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄱ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
-            TwoLetter(Initial.ㄷ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
+            TwoJamo(Initial.ㄷ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -73,9 +73,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄱ+ㄹ => ngn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
-            TwoLetter(Initial.ㄹ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
+            TwoJamo(Initial.ㄹ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -87,9 +87,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄱ+ㅁ => ngm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
-            TwoLetter(Initial.ㅁ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
+            TwoJamo(Initial.ㅁ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -100,10 +100,10 @@ class HangeulRomanizerSpec extends Specification {
 
       "불국사 => bulguksa (ㄱ+ㅅ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅂ, Medial.ㅜ, Final.ㄹ),
-            ThreeLetter(Initial.ㄱ, Medial.ㅜ, Final.ㄱ),
-            TwoLetter(Initial.ㅅ, Medial.ㅏ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅜ, Final.ㄹ),
+            ThreeJamo(Initial.ㄱ, Medial.ㅜ, Final.ㄱ),
+            TwoJamo(Initial.ㅅ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -116,9 +116,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "묵호 => mukho (ㄱ+ㅎ => kh/k)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅁ, Medial.ㅜ, Final.ㄱ),
-            TwoLetter(Initial.ㅎ, Medial.ㅗ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅜ, Final.ㄱ),
+            TwoJamo(Initial.ㅎ, Medial.ㅗ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -135,10 +135,10 @@ class HangeulRomanizerSpec extends Specification {
 
       "성산읍 => seongsaneup (ㄴ+ㅇ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅓ, Final.ㅇ),
-            ThreeLetter(Initial.ㅅ, Medial.ㅏ, Final.ㄴ),
-            ThreeLetter(Initial.ㅇ, Medial.ㅡ, Final.ㅂ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅓ, Final.ㅇ),
+            ThreeJamo(Initial.ㅅ, Medial.ㅏ, Final.ㄴ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㅂ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -152,9 +152,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄴ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
-            TwoLetter(Initial.ㄱ, Medial.ㅢ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
+            TwoJamo(Initial.ㄱ, Medial.ㅢ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -165,12 +165,12 @@ class HangeulRomanizerSpec extends Specification {
 
       "안녕하세요 => annyeonghaseyo (ㄴ+ㄴ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-            ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-            TwoLetter(Initial.ㅎ, Medial.ㅏ),
-            TwoLetter(Initial.ㅅ, Medial.ㅔ),
-            TwoLetter(Initial.ㅇ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+            ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+            TwoJamo(Initial.ㅎ, Medial.ㅏ),
+            TwoJamo(Initial.ㅅ, Medial.ㅔ),
+            TwoJamo(Initial.ㅇ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -184,9 +184,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄴ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
-            TwoLetter(Initial.ㄷ, Medial.ㅢ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
+            TwoJamo(Initial.ㄷ, Medial.ㅢ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -198,9 +198,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄴ+ㄹ => ll/nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
-            TwoLetter(Initial.ㄹ, Medial.ㅢ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
+            TwoJamo(Initial.ㄹ, Medial.ㅢ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -212,9 +212,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄴ+ㅁ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
-            TwoLetter(Initial.ㅁ, Medial.ㅢ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
+            TwoJamo(Initial.ㅁ, Medial.ㅢ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -226,9 +226,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄴ+ㅎ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
-            TwoLetter(Initial.ㅎ, Medial.ㅢ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
+            TwoJamo(Initial.ㅎ, Medial.ㅢ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -244,9 +244,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㅇ => d/j)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㅇ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㅇ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -258,9 +258,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㄱ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㄱ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -272,9 +272,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㄴ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㄴ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㄴ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -286,9 +286,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㄷ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㄷ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -300,9 +300,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㄹ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㄹ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㄹ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -314,9 +314,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㅁ => nm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㅁ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㅁ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -328,9 +328,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄷ+ㅎ => th/t/ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoLetter(Initial.ㅎ, Medial.ㅡ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
+            TwoJamo(Initial.ㅎ, Medial.ㅡ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -345,9 +345,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "설악 => seorak (ㄹ+ㅇ => r)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅅ, Medial.ㅓ, Final.ㄹ),
-            ThreeLetter(Initial.ㅇ, Medial.ㅏ, Final.ㄱ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅓ, Final.ㄹ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄱ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -360,9 +360,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "딸기 => ttalgi (ㄹ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅏ, Final.ㄹ),
-            TwoLetter(Initial.ㄱ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅏ, Final.ㄹ),
+            TwoJamo(Initial.ㄱ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -373,9 +373,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "칠곡 => chilgok (ㄹ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅊ, Medial.ㅣ, Final.ㄹ),
-            ThreeLetter(Initial.ㄱ, Medial.ㅗ, Final.ㄱ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅊ, Medial.ㅣ, Final.ㄹ),
+            ThreeJamo(Initial.ㄱ, Medial.ㅗ, Final.ㄱ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -388,9 +388,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "일년 => illyeon (ㄹ+ㄴ => ll/nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅇ, Medial.ㅣ, Final.ㄹ),
-            ThreeLetter(Initial.ㄴ, Medial.ㅕ, Final.ㄴ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㄹ),
+            ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㄴ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -404,9 +404,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄹ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅊ, Medial.ㅒ, Final.ㄹ),
-            TwoLetter(Initial.ㄷ, Medial.ㅠ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅊ, Medial.ㅒ, Final.ㄹ),
+            TwoJamo(Initial.ㄷ, Medial.ㅠ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -417,9 +417,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "울릉 => ulleung (ㄹ+ㄹ => ll)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅇ, Medial.ㅜ, Final.ㄹ),
-            ThreeLetter(Initial.ㄹ, Medial.ㅡ, Final.ㅇ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅜ, Final.ㄹ),
+            ThreeJamo(Initial.ㄹ, Medial.ㅡ, Final.ㅇ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -433,9 +433,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄹ+ㅁ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅊ, Medial.ㅒ, Final.ㄹ),
-            TwoLetter(Initial.ㅁ, Medial.ㅠ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅊ, Medial.ㅒ, Final.ㄹ),
+            TwoJamo(Initial.ㅁ, Medial.ㅠ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -446,9 +446,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "울산 => ulsan (ㄹ+ㅅ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅇ, Medial.ㅜ, Final.ㄹ),
-            ThreeLetter(Initial.ㅅ, Medial.ㅏ, Final.ㄴ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅜ, Final.ㄹ),
+            ThreeJamo(Initial.ㅅ, Medial.ㅏ, Final.ㄴ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -462,9 +462,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㄹ+ㅎ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅊ, Medial.ㅒ, Final.ㄹ),
-            TwoLetter(Initial.ㅎ, Medial.ㅠ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅊ, Medial.ㅒ, Final.ㄹ),
+            TwoJamo(Initial.ㅎ, Medial.ㅠ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -480,9 +480,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㅇ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㅇ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㅇ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -494,9 +494,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㄱ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㄱ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -508,9 +508,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㄴ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㄴ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㄴ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -522,9 +522,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㄷ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㄷ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -536,9 +536,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㄹ => mn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㄹ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㄹ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -550,9 +550,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㅁ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㅁ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㅁ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -564,9 +564,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅁ+ㅎ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoLetter(Initial.ㅎ, Medial.ㅟ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
+            TwoJamo(Initial.ㅎ, Medial.ㅟ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -582,9 +582,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅂ+ㅇ => b)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
-            TwoLetter(Initial.ㅇ, Medial.ㅞ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
+            TwoJamo(Initial.ㅇ, Medial.ㅞ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -596,9 +596,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅂ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
-            TwoLetter(Initial.ㄱ, Medial.ㅞ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
+            TwoJamo(Initial.ㄱ, Medial.ㅞ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -609,12 +609,12 @@ class HangeulRomanizerSpec extends Specification {
 
       "감사합니다 => gamsahamnida (ㅂ+ㄴ => mn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄱ, Medial.ㅏ, Final.ㅁ),
-            TwoLetter(Initial.ㅅ, Medial.ㅏ),
-            ThreeLetter(Initial.ㅎ, Medial.ㅏ, Final.ㅂ),
-            TwoLetter(Initial.ㄴ, Medial.ㅣ),
-            TwoLetter(Initial.ㄷ, Medial.ㅏ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄱ, Medial.ㅏ, Final.ㅁ),
+            TwoJamo(Initial.ㅅ, Medial.ㅏ),
+            ThreeJamo(Initial.ㅎ, Medial.ㅏ, Final.ㅂ),
+            TwoJamo(Initial.ㄴ, Medial.ㅣ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -628,9 +628,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅂ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
-            TwoLetter(Initial.ㄷ, Medial.ㅞ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
+            TwoJamo(Initial.ㄷ, Medial.ㅞ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -642,9 +642,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅂ+ㄹ => mn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
-            TwoLetter(Initial.ㄹ, Medial.ㅞ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
+            TwoJamo(Initial.ㄹ, Medial.ㅞ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -656,9 +656,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅂ+ㅁ => mm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
-            TwoLetter(Initial.ㅁ, Medial.ㅞ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
+            TwoJamo(Initial.ㅁ, Medial.ㅞ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -669,9 +669,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "잡혀 => japyeo (ㅂ+ㅎ => ph/p)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅏ, Final.ㅂ),
-            TwoLetter(Initial.ㅎ, Medial.ㅕ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅏ, Final.ㅂ),
+            TwoJamo(Initial.ㅎ, Medial.ㅕ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -687,9 +687,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㅇ => s)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㅇ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㅇ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -701,9 +701,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㄱ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㄱ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -715,9 +715,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㄴ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㄴ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㄴ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -729,9 +729,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㄷ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㄷ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -743,9 +743,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㄹ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㄹ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㄹ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -757,9 +757,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㅁ => nm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㅁ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㅁ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -771,9 +771,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅅ+ㅎ => th/t/ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoLetter(Initial.ㅎ, Medial.ㅝ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
+            TwoJamo(Initial.ㅎ, Medial.ㅝ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -789,9 +789,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅇ+ㅇ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoLetter(Initial.ㅇ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
+            TwoJamo(Initial.ㅇ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -803,9 +803,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅇ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoLetter(Initial.ㄱ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
+            TwoJamo(Initial.ㄱ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -817,9 +817,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅇ+ㄴ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoLetter(Initial.ㄴ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
+            TwoJamo(Initial.ㄴ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -831,9 +831,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅇ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoLetter(Initial.ㄷ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
+            TwoJamo(Initial.ㄷ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -844,10 +844,10 @@ class HangeulRomanizerSpec extends Specification {
 
       "종로구 => jongnogu (ㅇ+ㄹ => ngn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅗ, Final.ㅇ),
-            TwoLetter(Initial.ㄹ, Medial.ㅗ),
-            TwoLetter(Initial.ㄱ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅗ, Final.ㅇ),
+            TwoJamo(Initial.ㄹ, Medial.ㅗ),
+            TwoJamo(Initial.ㄱ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -861,9 +861,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅇ+ㅁ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoLetter(Initial.ㅁ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
+            TwoJamo(Initial.ㅁ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -875,9 +875,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅇ+ㅎ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoLetter(Initial.ㅎ, Medial.ㅜ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
+            TwoJamo(Initial.ㅎ, Medial.ㅜ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -893,9 +893,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㅇ => j)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㅇ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㅇ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -907,9 +907,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㄱ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㄱ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -921,9 +921,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㄴ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㄴ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㄴ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -935,9 +935,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㄷ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㄷ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -949,9 +949,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㄹ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㄹ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㄹ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -963,9 +963,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㅁ => nm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㅁ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㅁ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -977,9 +977,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅈ+ㅎ => th/t/ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoLetter(Initial.ㅎ, Medial.ㅛ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
+            TwoJamo(Initial.ㅎ, Medial.ㅛ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -995,9 +995,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㅇ => ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㅇ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㅇ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1009,9 +1009,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㄱ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㄱ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1023,9 +1023,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㄴ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㄴ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㄴ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1037,9 +1037,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㄷ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㄷ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1051,9 +1051,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㄹ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㄹ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㄹ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1065,9 +1065,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㅁ => nm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㅁ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㅁ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1079,9 +1079,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅊ+ㅎ => th/t/ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoLetter(Initial.ㅎ, Medial.ㅚ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
+            TwoJamo(Initial.ㅎ, Medial.ㅚ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1097,9 +1097,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㅇ => t/ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㅇ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㅇ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1111,9 +1111,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㄱ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㄱ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㄱ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1125,9 +1125,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㄴ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㄴ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㄴ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1139,9 +1139,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㄷ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㄷ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㄷ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1153,9 +1153,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㄹ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㄹ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㄹ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1167,9 +1167,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㅁ => nm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㅁ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㅁ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1181,9 +1181,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅌ+ㅎ => th/t/ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoLetter(Initial.ㅎ, Medial.ㅙ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
+            TwoJamo(Initial.ㅎ, Medial.ㅙ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1199,9 +1199,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find better example
       "(ㅎ+ㅇ)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
-            TwoLetter(Initial.ㅇ, Medial.ㅘ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
+            TwoJamo(Initial.ㅇ, Medial.ㅘ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1212,9 +1212,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "좋고 => joko (ㅎ+ㄱ => k)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅈ, Medial.ㅗ, Final.ㅎ),
-            TwoLetter(Initial.ㄱ, Medial.ㅗ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅈ, Medial.ㅗ, Final.ㅎ),
+            TwoJamo(Initial.ㄱ, Medial.ㅗ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1226,9 +1226,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅎ+ㄴ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
-            TwoLetter(Initial.ㄴ, Medial.ㅘ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
+            TwoJamo(Initial.ㄴ, Medial.ㅘ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1239,9 +1239,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "놓다 => nota (ㅎ+ㄷ => t)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄴ, Medial.ㅗ, Final.ㅎ),
-            TwoLetter(Initial.ㄷ, Medial.ㅏ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅗ, Final.ㅎ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1253,9 +1253,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅎ+ㄹ => nn)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
-            TwoLetter(Initial.ㄴ, Medial.ㅘ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
+            TwoJamo(Initial.ㄴ, Medial.ㅘ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1267,9 +1267,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅎ+ㅁ => nm)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
-            TwoLetter(Initial.ㅁ, Medial.ㅘ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
+            TwoJamo(Initial.ㅁ, Medial.ㅘ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1280,9 +1280,9 @@ class HangeulRomanizerSpec extends Specification {
 
       "낳지 => nachi (ㅎ+ㅈ => ch)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㄴ, Medial.ㅏ, Final.ㅎ),
-            TwoLetter(Initial.ㅈ, Medial.ㅣ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅏ, Final.ㅎ),
+            TwoJamo(Initial.ㅈ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
@@ -1294,9 +1294,9 @@ class HangeulRomanizerSpec extends Specification {
       // TODO find a better example
       "(ㅎ+ㅎ => t)" in {
         val input: HangeulTextElement =
-          HangeulTextElement.Captured.fromSyllabicBlocks(
-            ThreeLetter(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
-            TwoLetter(Initial.ㅎ, Medial.ㅘ)
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
+            TwoJamo(Initial.ㅎ, Medial.ㅘ)
           )
 
         val expectedOutput: RomanizedTextElement =

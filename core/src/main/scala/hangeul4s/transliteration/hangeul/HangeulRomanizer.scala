@@ -15,13 +15,13 @@ object HangeulRomanizer extends Transliterator[HangeulTextElement, RomanizedText
 
   override def transliterate(input: HangeulTextElement): TransliterationResult[RomanizedTextElement] =
     input match {
-      case HangeulTextElement.Captured(blocks) =>
-        blocks.toVector
+      case HangeulTextElement.Captured(syllables) =>
+        syllables.toVector
           .zipWithNeighbors
-          .map { case (maybePrevBlock, block, maybeNextBlock) =>
-            val maybePrecedingFinal = maybePrevBlock.flatMap(_.maybeFinal)
-            val maybeFollowingInitial = maybeNextBlock.map(_.initial)
-            HangeulSyllabicBlockRomanizer.transliterateSyllabicBlock(maybePrecedingFinal, block, maybeFollowingInitial)
+          .map { case (maybePrevSyllable, syllable, maybeNextSyllable) =>
+            val maybePrecedingFinal = maybePrevSyllable.flatMap(_.maybeFinal)
+            val maybeFollowingInitial = maybeNextSyllable.map(_.initial)
+            HangeulSyllableRomanizer.transliterateSyllable(maybePrecedingFinal, syllable, maybeFollowingInitial)
           }
           .sequence
           .map(_.flatten)

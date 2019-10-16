@@ -17,17 +17,17 @@ sealed trait HangeulTextElement
 
 object HangeulTextElement {
 
-  final case class Captured(syllabicBlocks: NonEmptyVector[HangeulSyllabicBlock]) extends HangeulTextElement
+  final case class Captured(syllables: NonEmptyVector[HangeulSyllable]) extends HangeulTextElement
 
   object Captured {
-    def fromSyllabicBlocks(b: HangeulSyllabicBlock, bs: HangeulSyllabicBlock*): Captured =
+    def fromSyllables(b: HangeulSyllable, bs: HangeulSyllable*): Captured =
       Captured(NonEmptyVector(b, bs.toVector))
 
     private [hangeul] val failFastParser: Parser[String, Captured] =
       Parser.instance[String, Captured] { input =>
         input
           .toVector
-          .map(Decoder[Char, HangeulSyllabicBlock].decode)
+          .map(Decoder[Char, HangeulSyllable].decode)
           .sequence
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput))
           .map(Captured(_))
@@ -37,7 +37,7 @@ object HangeulTextElement {
       AccumulativeParser.instance[String, Captured] { input =>
         input
           .toVector
-          .map(Decoder[Char, HangeulSyllabicBlock].decode(_).toValidatedNev)
+          .map(Decoder[Char, HangeulSyllable].decode(_).toValidatedNev)
           .sequence
           .andThen(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput).toValidatedNev)
           .map(Captured(_))
@@ -84,7 +84,7 @@ object HangeulTextElement {
 
   implicit val unparser: Unparser[HangeulTextElement, String] =
     Unparser.instance {
-      case Captured(syllabicBlocks) => syllabicBlocks.toVector.map(_.toString).mkString
+      case Captured(syllables) => syllables.toVector.map(_.toString).mkString
       case NotCaptured(contents)    => contents
     }
 

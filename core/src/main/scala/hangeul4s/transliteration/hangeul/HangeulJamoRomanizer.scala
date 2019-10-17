@@ -69,7 +69,7 @@ private [transliteration] object HangeulJamoRomanizer {
       case HangeulJamo.Final.ㄼ => Vector(P) // Treated as ㅂ
       case HangeulJamo.Final.ㄽ => Vector(L) // Treated as ㄹ
       case HangeulJamo.Final.ㄾ => Vector(L) // Treated as ㄹ
-      case HangeulJamo.Final.ㄿ => Vector(P) // Treated as ㅍ or ㅂ
+      case HangeulJamo.Final.ㄿ => Vector(P) // Treated as ㅍ
       case HangeulJamo.Final.ㅀ => Vector(L) // Treated as ㄹ
       case HangeulJamo.Final.ㅁ => Vector(M)
       case HangeulJamo.Final.ㅂ => Vector(P)

@@ -1,5 +1,6 @@
 package hangeul4s.model.hangeul
 
+import cats.syntax.either._ // required for orElse method in Scala 2.11 and 2.12
 import hangeul4s.encoding.{Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
 

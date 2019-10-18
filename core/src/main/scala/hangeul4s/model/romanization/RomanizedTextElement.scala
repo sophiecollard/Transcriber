@@ -50,7 +50,7 @@ object RomanizedTextElement {
 
   implicit val unparser: Unparser[RomanizedTextElement, String] =
     Unparser.instance {
-      case Captured(letters)     => letters.toVector.map(_.char).mkString
+      case Captured(letters)     => letters.toVector.map(RomanLetter.charEncoder.encode).mkString
       case NotCaptured(contents) => contents
     }
 

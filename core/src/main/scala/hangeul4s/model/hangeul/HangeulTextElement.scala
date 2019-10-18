@@ -95,7 +95,7 @@ object HangeulTextElement {
 
   implicit val unparser: Unparser[HangeulTextElement, String] =
     Unparser.instance {
-      case Captured(syllables)   => syllables.toVector.map(HangeulSyllable.charEncoder.encode(_).toString).mkString
+      case Captured(syllables)   => syllables.toVector.map(HangeulSyllable.charEncoder.encode).mkString
       case NotCaptured(contents) => contents
     }
 

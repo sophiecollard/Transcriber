@@ -6,7 +6,7 @@ import hangeul4s.transliteration.Transliterator
 
 package object instances {
 
-  implicit val romanizer: Transliterator[HangeulTextElement, RomanizedTextElement] =
-    HangeulRomanizer
+  implicit val revisedRomanizationTransliterator: Transliterator[HangeulTextElement, RomanizedTextElement] =
+    RevisedRomanization.transliterator
 
 }

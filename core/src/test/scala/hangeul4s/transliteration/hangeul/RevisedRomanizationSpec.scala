@@ -7,9 +7,9 @@ import hangeul4s.model.romanization.RomanLetter._
 import hangeul4s.model.romanization.RomanizedTextElement
 import org.specs2.mutable.Specification
 
-class HangeulRomanizerSpec extends Specification {
+class RevisedRomanizationSpec extends Specification {
 
-  "HangeulRomanizer" should {
+  "RevisedRomanization#transliterator" should {
 
     "romanize words with ㄱ in final position" in {
 
@@ -24,7 +24,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(B, A, G, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -38,7 +38,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(B, A, K, G, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "학년 => hangnyeon (ㄱ+ㄴ => ngn)" in {
@@ -53,7 +53,7 @@ class HangeulRomanizerSpec extends Specification {
             H, A, N, G, N, Y, E, O, N
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -67,7 +67,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(B, A, K, D, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -81,7 +81,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(B, A, N, G, N, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -95,7 +95,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(B, A, N, G, M, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "불국사 => bulguksa (ㄱ+ㅅ)" in {
@@ -111,7 +111,7 @@ class HangeulRomanizerSpec extends Specification {
             B, U, L, G, U, K, S, A
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "묵호 => mukho (ㄱ+ㅎ => kh/k)" in {
@@ -126,7 +126,7 @@ class HangeulRomanizerSpec extends Specification {
             M, U, K, H, O
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -146,7 +146,7 @@ class HangeulRomanizerSpec extends Specification {
             S, E, O, N, G, S, A, N, E, U, P
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -160,7 +160,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, A, E, N, G, U, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "안녕하세요 => annyeonghaseyo (ㄴ+ㄴ)" in {
@@ -178,7 +178,7 @@ class HangeulRomanizerSpec extends Specification {
             A, N, N, Y, E, O, N, G, H, A, S, E, Y, O
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -192,7 +192,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, A, E, N, D, U, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -206,7 +206,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, A, E, L, L, U, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -220,7 +220,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, A, E, N, M, U, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -234,7 +234,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, A, E, N, H, U, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -252,7 +252,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, D, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -266,7 +266,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, T, G, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -280,7 +280,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, N, N, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -294,7 +294,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, T, D, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -308,7 +308,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, N, N, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -322,7 +322,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, N, M, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -336,7 +336,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, Y, A, T, H, E, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -355,7 +355,7 @@ class HangeulRomanizerSpec extends Specification {
             S, E, O, R, A, K
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "딸기 => ttalgi (ㄹ+ㄱ)" in {
@@ -368,7 +368,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, A, L, G, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "칠곡 => chilgok (ㄹ+ㄱ)" in {
@@ -383,7 +383,7 @@ class HangeulRomanizerSpec extends Specification {
             C, H, I, L, G, O, K
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "일년 => illyeon (ㄹ+ㄴ => ll/nn)" in {
@@ -398,7 +398,7 @@ class HangeulRomanizerSpec extends Specification {
             I, L, L, Y, E, O, N
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -412,7 +412,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(C, H, Y, A, E, L, D, Y, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "울릉 => ulleung (ㄹ+ㄹ => ll)" in {
@@ -427,7 +427,7 @@ class HangeulRomanizerSpec extends Specification {
             U, L, L, E, U, N, G
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -441,7 +441,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(C, H, Y, A, E, L, M, Y, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "울산 => ulsan (ㄹ+ㅅ)" in {
@@ -456,7 +456,7 @@ class HangeulRomanizerSpec extends Specification {
             U, L, S, A, N
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -470,7 +470,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(C, H, Y, A, E, L, H, Y, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -488,7 +488,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -502,7 +502,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, G, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -516,7 +516,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, N, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -530,7 +530,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, D, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -544,7 +544,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, N, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -558,7 +558,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, M, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -572,7 +572,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, E, O, M, H, W, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -590,7 +590,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, E, B, W, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -604,7 +604,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, E, P, G, W, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "감사합니다 => gamsahamnida (ㅂ+ㄴ => mn)" in {
@@ -622,7 +622,7 @@ class HangeulRomanizerSpec extends Specification {
             G, A, M, S, A, H, A, M, N, I, D, A
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -636,7 +636,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, E, P, D, W, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -650,7 +650,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, E, M, N, W, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -664,7 +664,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, E, M, M, W, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "잡혀 => japyeo (ㅂ+ㅎ => ph/p)" in {
@@ -677,7 +677,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, A, P, Y, E, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }.pendingUntilFixed
 
     }
@@ -695,7 +695,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, S, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -709,7 +709,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, T, G, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -723,7 +723,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, N, N, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -737,7 +737,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, T, D, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -751,7 +751,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, N, N, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -765,7 +765,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, N, M, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -779,7 +779,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, Y, E, O, T, H, W, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -797,7 +797,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -811,7 +811,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, G, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -825,7 +825,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, N, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -839,7 +839,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, D, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "종로구 => jongnogu (ㅇ+ㄹ => ngn)" in {
@@ -855,7 +855,7 @@ class HangeulRomanizerSpec extends Specification {
             J, O, N, G, N, O, G, U
           )
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -869,7 +869,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, M, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -883,7 +883,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, H, U)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -901,7 +901,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, J, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -915,7 +915,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, T, G, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -929,7 +929,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, N, N, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -943,7 +943,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, T, D, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -957,7 +957,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, N, N, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -971,7 +971,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, N, M, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -985,7 +985,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(K, K, O, T, H, Y, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -1003,7 +1003,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, C, H, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1017,7 +1017,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, T, G, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1031,7 +1031,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, N, N, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1045,7 +1045,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, T, D, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1059,7 +1059,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, N, N, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1073,7 +1073,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, N, M, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1087,7 +1087,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(T, T, W, A, T, H, O, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -1105,7 +1105,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, T, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1119,7 +1119,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, T, G, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1133,7 +1133,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, N, N, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1147,7 +1147,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, T, D, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1161,7 +1161,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, N, N, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1175,7 +1175,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, N, M, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1189,7 +1189,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, T, H, W, A, E)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }
@@ -1207,7 +1207,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, S, O, E, H, W, A)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "좋고 => joko (ㅎ+ㄱ => k)" in {
@@ -1220,7 +1220,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(J, O, K, O)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1234,7 +1234,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, S, O, E, N, N, W, A)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "놓다 => nota (ㅎ+ㄷ => t)" in {
@@ -1247,7 +1247,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(N, O, T, A)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1261,7 +1261,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, S, O, E, N, N, W, A)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       // TODO find a better example
@@ -1275,7 +1275,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, S, O, E, N, M, W, A)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
       "낳지 => nachi (ㅎ+ㅈ => ch)" in {
@@ -1288,7 +1288,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(N, A, C, H, I)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }.pendingUntilFixed
 
       // TODO find a better example
@@ -1302,7 +1302,7 @@ class HangeulRomanizerSpec extends Specification {
         val expectedOutput: RomanizedTextElement =
           RomanizedTextElement.Captured.fromLetters(S, S, O, E, T, W, A)
 
-        HangeulRomanizer.transliterate(input) must beRight(expectedOutput)
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
     }

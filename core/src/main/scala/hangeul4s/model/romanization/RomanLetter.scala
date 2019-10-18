@@ -7,7 +7,12 @@ import hangeul4s.encoding.Encoder
   *
   * Note that letters F, Q, V, X and Z are never and therefore omitted.
   */
-sealed abstract class RomanLetter private [romanization] (val char: Char)
+sealed abstract class RomanLetter private [romanization] (val char: Char) {
+
+  override def toString: String =
+    s"hangeul4s.model.romanization.RomanLetter($char)"
+
+}
 
 object RomanLetter {
 

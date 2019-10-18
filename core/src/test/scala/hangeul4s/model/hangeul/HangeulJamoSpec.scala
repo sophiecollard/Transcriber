@@ -9,15 +9,15 @@ class HangeulJamoSpec extends Specification {
 
   "HangeulJamo#toString" should {
 
-    "Return a String representation of a HangeulJamo.Initial instance" in {
+    "return a String representation of a HangeulJamo.Initial instance" in {
       HangeulJamo.Initial.ㄲ.toString ==== "hangeul4s.model.hangeul.HangeulJamo.Initial(ᄁ)"
     }
 
-    "Return a String representation of a HangeulJamo.Medial instance" in {
+    "return a String representation of a HangeulJamo.Medial instance" in {
       HangeulJamo.Medial.ㅐ.toString === "hangeul4s.model.hangeul.HangeulJamo.Medial(ᅢ)"
     }
 
-    "Return a String representation of a HangeulJamo.Final instance" in {
+    "return a String representation of a HangeulJamo.Final instance" in {
       HangeulJamo.Final.ㄲ.toString ==== "hangeul4s.model.hangeul.HangeulJamo.Final(ᆩ)"
     }
 
@@ -25,17 +25,17 @@ class HangeulJamoSpec extends Specification {
 
   "HangeulJamo#show" should {
 
-    "Return the character representing an initial consonant" in {
+    "return the character representing an initial consonant" in {
       Show[HangeulJamo.Initial].show(HangeulJamo.Initial.ㄲ) ==== "ᄁ"
       Show[HangeulJamo].show(HangeulJamo.Initial.ㄲ) ==== "ᄁ"
     }
 
-    "Return the character representing a medial" in {
+    "return the character representing a medial" in {
       Show[HangeulJamo.Medial].show(HangeulJamo.Medial.ㅐ) ==== "ᅢ"
       Show[HangeulJamo].show(HangeulJamo.Medial.ㅐ) ==== "ᅢ"
     }
 
-    "Return the character representing a final consonant" in {
+    "return the character representing a final consonant" in {
       Show[HangeulJamo.Final].show(HangeulJamo.Final.ㄲ) ==== "ᆩ"
       Show[HangeulJamo].show(HangeulJamo.Final.ㄲ) ==== "ᆩ"
     }

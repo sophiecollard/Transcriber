@@ -5,7 +5,6 @@ import cats.instances.either._
 import cats.instances.vector._
 import cats.syntax.either._ // required for orElse method in Scala 2.11 and 2.12
 import cats.syntax.traverse._
-import hangeul4s.encoding.Decoder
 import hangeul4s.error.ParsingFailure
 import hangeul4s.parsing._
 import hangeul4s.syntax.either._
@@ -27,7 +26,7 @@ object HangeulTextElement {
       Parser.instance[String, Captured] { input =>
         input
           .toVector
-          .map(Decoder[Char, HangeulSyllable].decode)
+          .map(HangeulSyllable.charDecoder.decode)
           .sequence
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput))
           .map(Captured(_))
@@ -37,7 +36,7 @@ object HangeulTextElement {
       AccumulativeParser.instance[String, Captured] { input =>
         input
           .toVector
-          .map(Decoder[Char, HangeulSyllable].decode(_).toValidatedNev)
+          .map(HangeulSyllable.charDecoder.decode(_).toValidatedNev)
           .sequence
           .andThen(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput).toValidatedNev)
           .map(Captured(_))
@@ -84,8 +83,8 @@ object HangeulTextElement {
 
   implicit val unparser: Unparser[HangeulTextElement, String] =
     Unparser.instance {
-      case Captured(syllables) => syllables.toVector.map(_.toString).mkString
-      case NotCaptured(contents)    => contents
+      case Captured(syllables)   => syllables.toVector.map(HangeulSyllable.charEncoder.encode(_).toString).mkString
+      case NotCaptured(contents) => contents
     }
 
   implicit val iteratorTokenizer: Tokenizer[Iterator, HangeulTextElement] =

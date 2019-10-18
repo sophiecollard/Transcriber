@@ -1,5 +1,6 @@
 package hangeul4s.model.hangeul
 
+import cats.Show
 import hangeul4s.encoding.syntax._
 import hangeul4s.error.DecodingFailure
 import org.specs2.mutable.Specification
@@ -13,6 +14,32 @@ class HangeulSyllableSpec extends Specification {
     HangeulSyllable.twoJamo(HangeulJamo.Initial.ㄱ, HangeulJamo.Medial.ㅏ)
   private val decodedThreeJamoSyllable: HangeulSyllable =
     HangeulSyllable.threeJamo(HangeulJamo.Initial.ㅎ, HangeulJamo.Medial.ㅣ, HangeulJamo.Final.ㅎ)
+
+  "HangeulSyllable#toString" should {
+
+    "return a String representation of a HangeulSyllable.TwoJamo instance" in {
+      val syllable = HangeulSyllable.twoJamo(HangeulJamo.Initial.ㄱ, HangeulJamo.Medial.ㅏ)
+      syllable.toString ==== "hangeul4s.model.hangeul.HangeulSyllable(가)"
+    }
+
+    "return a String representation of a HangeulSyllable.ThreeJamo instance" in {
+      val syllable = HangeulSyllable.threeJamo(HangeulJamo.Initial.ㅎ, HangeulJamo.Medial.ㅣ, HangeulJamo.Final.ㅎ)
+      syllable.toString ==== "hangeul4s.model.hangeul.HangeulSyllable(힣)"
+    }
+
+  }
+
+  "HangeulSyllable#show" should {
+
+    "return the character representing a two-jamo syllable" in {
+      Show[HangeulSyllable].show(decodedTwoJamoSyllable) ==== "가"
+    }
+
+    "return the character representing a three-jamo syllable" in {
+      Show[HangeulSyllable].show(decodedThreeJamoSyllable) ==== "힣"
+    }
+
+  }
 
   "HangeulSyllable#charDecoder" should {
 

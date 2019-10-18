@@ -2,6 +2,7 @@ package hangeul4s.model.hangeul
 
 import java.text.Normalizer
 
+import cats.Show
 import cats.syntax.either._ // required for toOption method in Scala 2.11
 import hangeul4s.encoding.{Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
@@ -27,9 +28,7 @@ sealed trait HangeulSyllable {
   }
 
   override def toString: String =
-    Encoder[HangeulSyllable, Char]
-      .encode(this)
-      .toString
+    s"hangeul4s.model.hangeul.HangeulSyllable(${HangeulSyllable.charEncoder.encode(this)})"
 
 }
 
@@ -81,5 +80,8 @@ object HangeulSyllable {
     Encoder.instance { syllable =>
       Normalizer.normalize(syllable.toJamoString, Normalizer.Form.NFC).charAt(0)
     }
+
+  implicit val show: Show[HangeulSyllable] =
+    Show.show(charEncoder.encode(_).toString)
 
 }

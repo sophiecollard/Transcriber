@@ -21,7 +21,7 @@ class End2EndSpec extends Specification {
 
       val output = for {
         parsed <- input.parseTo[HangeulTextElement]
-        transliterated <- parsed.transliterate[RomanizedTextElement]
+        transliterated <- parsed.transliterateTo[RomanizedTextElement]
       } yield transliterated.unparseTo[String]
 
       output must beRight("annyeonghaseyo")
@@ -30,7 +30,7 @@ class End2EndSpec extends Specification {
     "fail to process an empty string as a single Hangeul text element" in {
       val output = for {
         parsed <- "".parseTo[HangeulTextElement]
-        transliterated <- parsed.transliterate[RomanizedTextElement]
+        transliterated <- parsed.transliterateTo[RomanizedTextElement]
       } yield transliterated.unparseTo[String]
 
       output.leftMap(_.message) must beLeft(ParsingFailure.FailedToMatchRegex("", "[^\uAC00-\uD7AF]+".r).message)
@@ -43,7 +43,7 @@ class End2EndSpec extends Specification {
 
       val output = for {
         parsed <- input.parseToF[Vector, HangeulTextElement]
-        transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
+        transliterated <- parsed.transliterateToF[Vector, RomanizedTextElement]
       } yield transliterated.unparseTo[String] // OR transliterated.unparseF[Vector, Token[RomanizedTextElement]].untokenize
 
       output must beRight("sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.")
@@ -52,7 +52,7 @@ class End2EndSpec extends Specification {
     "return an empty string when passed an empty string as Hangeul text" in {
       val output = for {
         parsed <- "".parseToF[Vector, HangeulTextElement]
-        transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
+        transliterated <- parsed.transliterateToF[Vector, RomanizedTextElement]
       } yield transliterated.unparseTo[String] // OR transliterated.unparseF[Vector, Token[RomanizedTextElement]].untokenize
 
       output must beRight("")

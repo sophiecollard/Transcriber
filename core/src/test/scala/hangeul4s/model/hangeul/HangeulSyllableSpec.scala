@@ -6,15 +6,15 @@ import org.specs2.mutable.Specification
 
 class HangeulSyllableSpec extends Specification {
 
-  "HangeulSyllable#charCodec" should {
+  private val encodedTwoJamoSyllable = '가'
+  private val encodedThreeJamoSyllable = '힣'
 
-    val encodedTwoJamoSyllable = '가'
-    val encodedThreeJamoSyllable = '힣'
+  private val decodedTwoJamoSyllable =
+    HangeulSyllable.twoJamo(HangeulJamo.Initial.ㄱ, HangeulJamo.Medial.ㅏ)
+  private val decodedThreeJamoSyllable: HangeulSyllable =
+    HangeulSyllable.threeJamo(HangeulJamo.Initial.ㅎ, HangeulJamo.Medial.ㅣ, HangeulJamo.Final.ㅎ)
 
-    val decodedTwoJamoSyllable =
-      HangeulSyllable.twoJamo(HangeulJamo.Initial.ㄱ, HangeulJamo.Medial.ㅏ)
-    val decodedThreeJamoSyllable: HangeulSyllable =
-      HangeulSyllable.threeJamo(HangeulJamo.Initial.ㅎ, HangeulJamo.Medial.ㅣ, HangeulJamo.Final.ㅎ)
+  "HangeulSyllable#charDecoder" should {
 
     "decode a Char within the Unicode range [AC00–D7A3]" in {
       Decoder[Char, HangeulSyllable].decode(encodedTwoJamoSyllable) must beRight(decodedTwoJamoSyllable)
@@ -24,6 +24,10 @@ class HangeulSyllableSpec extends Specification {
     "fail to decode a character outside the Unicode range [AC00–D7A3]" in {
       Decoder[Char, HangeulSyllable].decode('A') must beLeft[DecodingFailure]
     }
+
+  }
+
+  "HangeulSyllable#charEncoder" should {
 
     "encode to a Char" in {
       Encoder[HangeulSyllable, Char].encode(decodedTwoJamoSyllable) ==== encodedTwoJamoSyllable

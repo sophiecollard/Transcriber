@@ -1,14 +1,23 @@
 package hangeul4s.model.hangeul
 
+import cats.Show
 import cats.syntax.either._ // required for orElse method in Scala 2.11 and 2.12
 import hangeul4s.encoding.{Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
 
+/**
+  * Type representing a modern jamo character from the Hangeul Jamo Unicode block
+  */
 sealed abstract class HangeulJamo private [hangeul] (val char: Char)
 
 object HangeulJamo {
 
-  sealed abstract class Initial(char: Char) extends HangeulJamo(char)
+  sealed abstract class Initial(char: Char) extends HangeulJamo(char) {
+
+    override def toString: String =
+      s"hangeul4s.model.hangeul.HangeulJamo.Initial($char)"
+
+  }
 
   object Initial {
 
@@ -59,9 +68,17 @@ object HangeulJamo {
     implicit val charEncoder: Encoder[Initial, Char] =
       Encoder.instance(_.char)
 
+    implicit val show: Show[Initial] =
+      Show.show(charEncoder.encode(_).toString)
+
   }
 
-  sealed abstract class Medial(char: Char) extends HangeulJamo(char)
+  sealed abstract class Medial(char: Char) extends HangeulJamo(char) {
+
+    override def toString: String =
+      s"hangeul4s.model.hangeul.HangeulJamo.Medial($char)"
+
+  }
 
   object Medial {
 
@@ -116,9 +133,17 @@ object HangeulJamo {
     implicit val charEncoder: Encoder[Medial, Char] =
       Encoder.instance(_.char)
 
+    implicit val show: Show[Medial] =
+      Show.show(charEncoder.encode(_).toString)
+
   }
 
-  sealed abstract class Final(char: Char) extends HangeulJamo(char)
+  sealed abstract class Final(char: Char) extends HangeulJamo(char) {
+
+    override def toString: String =
+      s"hangeul4s.model.hangeul.HangeulJamo.Final($char)"
+
+  }
 
   object Final {
 
@@ -185,6 +210,9 @@ object HangeulJamo {
     implicit val charEncoder: Encoder[Final, Char] =
       Encoder.instance(_.char)
 
+    implicit val show: Show[Final] =
+      Show.show(charEncoder.encode(_).toString)
+
   }
 
   implicit val charDecoder: Decoder[Char, HangeulJamo] =
@@ -200,5 +228,8 @@ object HangeulJamo {
       case m: Medial  => Medial.charEncoder.encode(m)
       case f: Final   => Final.charEncoder.encode(f)
     }
+
+  implicit val show: Show[HangeulJamo] =
+    Show.show(charEncoder.encode(_).toString)
 
 }

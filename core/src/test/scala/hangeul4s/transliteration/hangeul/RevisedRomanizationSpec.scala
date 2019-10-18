@@ -13,16 +13,27 @@ class RevisedRomanizationSpec extends Specification {
 
     "romanize words with ㄱ in final position" in {
 
-      // TODO find a better example
-      "(ㄱ+ㅇ => g)" in {
+      "국 => guk" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄱ),
+            ThreeJamo(Initial.ㄱ, Medial.ㅜ, Final.ㄱ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(G, U, K)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "국이 => gugi (ㄱ+ㅇ => g)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄱ, Medial.ㅜ, Final.ㄱ),
             TwoJamo(Initial.ㅇ, Medial.ㅣ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(B, A, G, I)
+          RomanizedTextElement.Captured.fromLetters(G, U, G, I)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -131,7 +142,90 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
+    "romanize words with ㄲ in final position" in {
+
+      "밖 => bak" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄲ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(B, A, K)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "밖에 => bakke (ㄲ+ㅇ => KK)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅏ, Final.ㄲ),
+            TwoJamo(Initial.ㅇ, Medial.ㅔ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(B, A, K, K, E)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄳ in final position" in {
+
+      "몫 => mok" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅗ, Final.ㄳ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, O, K)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "몫은 => mokseun (ㄳ+ㅇ => KS)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅗ, Final.ㄳ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, O, K, S, E, U, N)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
     "romanize words with ㄴ in final position" in {
+
+      "문 => mun" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅜ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, U, N)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "문이 => muni" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅜ, Final.ㄴ),
+            TwoJamo(Initial.ㅇ, Medial.ㅣ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, U, N, I)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
 
       "성산읍 => seongsaneup (ㄴ+ㅇ)" in {
         val input: HangeulTextElement =
@@ -195,16 +289,15 @@ class RevisedRomanizationSpec extends Specification {
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
-      // TODO find a better example
-      "(ㄴ+ㄹ => ll/nn)" in {
+      "신라 => silla (ㄴ+ㄹ => ll/nn)" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅅ, Medial.ㅐ, Final.ㄴ),
-            TwoJamo(Initial.ㄹ, Medial.ㅢ)
+            ThreeJamo(Initial.ㅅ, Medial.ㅣ, Final.ㄴ),
+            TwoJamo(Initial.ㄹ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(S, A, E, L, L, U, I)
+          RomanizedTextElement.Captured.fromLetters(S, I, L, L, A)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -239,18 +332,92 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
-    "romanize words with ㄷ in final position" in {
+    "romanize words with ㄵ in final position" in {
 
-      // TODO find a better example
-      "(ㄷ+ㅇ => d/j)" in {
+      "앉다 => anda" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅈ, Medial.ㅑ, Final.ㄷ),
-            TwoJamo(Initial.ㅇ, Medial.ㅡ)
+            ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄵ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(J, Y, A, D, E, U)
+          RomanizedTextElement.Captured.fromLetters(A, N, D, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "앉아서 => anjaseo (ㄵ+ㅇ => NJ)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄵ),
+            TwoJamo(Initial.ㅇ, Medial.ㅏ),
+            TwoJamo(Initial.ㅅ, Medial.ㅓ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(A, N, J, A, S, E, O)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄶ in final position" in {
+
+      "많다 => manta" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅏ, Final.ㄶ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, A, N, T, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }.pendingUntilFixed
+
+      "많은 => maneun" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅏ, Final.ㄶ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, A, N, E, U, N)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄷ in final position" in {
+
+      "닫다 => datda" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄷ, Medial.ㅏ, Final.ㄷ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(D, A, T, D, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "닫으면 => dadeumyeon (ㄷ+ㅇ => d/j)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄷ, Medial.ㅏ, Final.ㄷ),
+            TwoJamo(Initial.ㅇ, Medial.ㅡ),
+            ThreeJamo(Initial.ㅁ, Medial.ㅕ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(D, A, D, E, U, M, Y, E, O, N)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -342,6 +509,20 @@ class RevisedRomanizationSpec extends Specification {
     }
 
     "romanize words with ㄹ in final position" in {
+
+      "별 => byeol" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅂ, Medial.ㅕ, Final.ㄹ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            B, Y, E, O, L
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
 
       "설악 => seorak (ㄹ+ㅇ => r)" in {
         val input: HangeulTextElement =
@@ -475,32 +656,241 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
-    "romanize words with ㅁ in final position" in {
+    "romanize words with ㄺ in final position" in {
 
-      // TODO find a better example
-      "(ㅁ+ㅇ)" in {
+      "읽다 => ikda" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoJamo(Initial.ㅇ, Medial.ㅟ)
+            ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㄺ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(K, E, O, M, W, I)
+          RomanizedTextElement.Captured.fromLetters(I, K, D, A)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
 
-      // TODO find a better example
-      "(ㅁ+ㄱ)" in {
+      "읽으면 => ilgeumyeon (ㄺ+ㅇ => LG)" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅋ, Medial.ㅓ, Final.ㅁ),
-            TwoJamo(Initial.ㄱ, Medial.ㅟ)
+            ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㄺ),
+            TwoJamo(Initial.ㅇ, Medial.ㅡ),
+            ThreeJamo(Initial.ㅁ, Medial.ㅕ, Final.ㄴ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(K, E, O, M, G, W, I)
+          RomanizedTextElement.Captured.fromLetters(I, L, G, E, U, M, Y, E, O, N)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄻ in final position" in {
+
+      "삶 => sam" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅏ, Final.ㄻ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(S, A, M)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "삶은 => salmeun (ㄻ+ㅇ => lm)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅅ, Medial.ㅏ, Final.ㄻ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            S, A, L, M, E, U, N
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄼ in final position" in {
+
+      "넓어서 => neolbeoseo (ㄼ+ㅇ => l)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅓ, Final.ㄼ),
+            TwoJamo(Initial.ㅇ, Medial.ㅓ),
+            TwoJamo(Initial.ㅅ, Medial.ㅓ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            N, E, O, L, B, E, O, S, E, O
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "넓다 => neolda (ㄼ+ㄷ => ld)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅓ, Final.ㄼ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            N, E, O, L, D, A
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄽ in final position" in todo
+
+    "romanize words with ㄾ in final position" in {
+
+      "핥은 => halteun (ㄾ+ㅇ => lt)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅏ, Final.ㄾ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            H, A, L, T, E, U, N
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "핥다 => halda (ㄾ+ㄷ => ld)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅎ, Medial.ㅏ, Final.ㄾ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            H, A, L, D, A
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㄿ in final position" in {
+
+      "읊으면 => eulpeumyeon (ㄿ+ㅇ => lp)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄿ),
+            TwoJamo(Initial.ㅇ, Medial.ㅡ),
+            ThreeJamo(Initial.ㅁ, Medial.ㅕ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(E, U, L, P, E, U, M, Y, E, O, N)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "읊다 => eupda" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄿ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(E, U, P, D, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㅀ in final position" in {
+
+      "끓으면 => kkeureumyeon (ㅀ+ㅇ => r)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅡ, Final.ㅀ),
+            TwoJamo(Initial.ㅇ, Medial.ㅡ),
+            ThreeJamo(Initial.ㅁ, Medial.ㅕ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            K, K, E, U, R, E, U, M, Y, E, O, N
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "끓다 => kkeulta (ㅀ+ㄷ => lt)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅡ, Final.ㅀ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(
+            K, K, E, U, L, T, A
+          )
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㅁ in final position" in {
+
+      "몸 => mom" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅗ, Final.ㅁ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, O, M)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "몸이 => momi (ㅁ+ㅇ)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅁ, Medial.ㅗ, Final.ㅁ),
+            TwoJamo(Initial.ㅇ, Medial.ㅣ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(M, O, M, I)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "금곡 =>  geumgok (ㅁ+ㄱ)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄱ, Medial.ㅡ, Final.ㅁ),
+            ThreeJamo(Initial.ㄱ, Medial.ㅗ, Final.ㄱ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(G, E, U, M, G, O, K)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -579,16 +969,27 @@ class RevisedRomanizationSpec extends Specification {
 
     "romanize words with ㅂ in final position" in {
 
-      // TODO find a better example
-      "(ㅂ+ㅇ => b)" in {
+      "답 => dap" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅌ, Medial.ㅔ, Final.ㅂ),
-            TwoJamo(Initial.ㅇ, Medial.ㅞ)
+            ThreeJamo(Initial.ㄷ, Medial.ㅏ, Final.ㅂ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(T, E, B, W, E)
+          RomanizedTextElement.Captured.fromLetters(D, A, P)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "답은 => dabeun (ㅂ+ㅇ => b)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄷ, Medial.ㅏ, Final.ㅂ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅡ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(D, A, B, E, U, N)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -682,18 +1083,60 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
-    "romanize words with ㅅ in final position" in {
+    "romanize words with ㅄ in final position" in {
 
-      // TODO find a better example
-      "(ㅅ+ㅇ => s)" in {
+      "없어서 => eopseoseo (ㅄ+ㅇ => ps)" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅍ, Medial.ㅕ, Final.ㅅ),
-            TwoJamo(Initial.ㅇ, Medial.ㅝ)
+            ThreeJamo(Initial.ㅇ, Medial.ㅓ, Final.ㅄ),
+            TwoJamo(Initial.ㅇ, Medial.ㅓ),
+            TwoJamo(Initial.ㅅ, Medial.ㅓ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(P, Y, E, O, S, W, O)
+          RomanizedTextElement.Captured.fromLetters(E, O, P, S, E, O, S, E, O)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "없다 => eopda" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅓ, Final.ㅄ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(E, O, P, D, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㅅ in final position" in {
+
+      "옷 => ot" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅗ, Final.ㅅ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(O, T)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "옷이 => osi (ㅅ+ㅇ => s)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅗ, Final.ㅅ),
+            TwoJamo(Initial.ㅇ, Medial.ㅣ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(O, S, I)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -784,18 +1227,60 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
-    "romanize words with ㅇ in final position" in {
+    "romanize words with ㅆ in final position" in {
 
-      // TODO find a better example
-      "(ㅇ+ㅇ)" in {
+      "있다 => itda" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅎ, Medial.ㅖ, Final.ㅇ),
-            TwoJamo(Initial.ㅇ, Medial.ㅜ)
+            ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(H, Y, E, N, G, U)
+          RomanizedTextElement.Captured.fromLetters(I, T, D, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "있어서 => isseoseo (ㅆ+ㅇ => ss)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅣ, Final.ㅆ),
+            TwoJamo(Initial.ㅇ, Medial.ㅓ),
+            TwoJamo(Initial.ㅅ, Medial.ㅓ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(I, S, S, E, O, S, E, O)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㅇ in final position" in {
+
+      "강 => gang" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄱ, Medial.ㅏ, Final.ㅇ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(G, A, N, G)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "강이 => gangi (ㅇ+ㅇ)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄱ, Medial.ㅏ, Final.ㅇ),
+            TwoJamo(Initial.ㅇ, Medial.ㅣ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(G, A, N, G, I)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -890,16 +1375,27 @@ class RevisedRomanizationSpec extends Specification {
 
     "romanize words with ㅈ in final position" in {
 
-      // TODO find a better example
-      "(ㅈ+ㅇ => j)" in {
+      "낮 => nat" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅈ),
-            TwoJamo(Initial.ㅇ, Medial.ㅛ)
+            ThreeJamo(Initial.ㄴ, Medial.ㅏ, Final.ㅈ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(K, K, O, J, Y, O)
+          RomanizedTextElement.Captured.fromLetters(N, A, T)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "낮에 => naje (ㅈ+ㅇ => j)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅏ, Final.ㅈ),
+            TwoJamo(Initial.ㅇ, Medial.ㅔ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(N, A, J, E)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -992,16 +1488,27 @@ class RevisedRomanizationSpec extends Specification {
 
     "romanize words with ㅊ in final position" in {
 
-      // TODO find a better example
-      "(ㅊ+ㅇ => ch)" in {
+      "꽃" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㄸ, Medial.ㅘ, Final.ㅊ),
-            TwoJamo(Initial.ㅇ, Medial.ㅚ)
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅊ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(T, T, W, A, C, H, O, E)
+          RomanizedTextElement.Captured.fromLetters(K, K, O, T)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "꽃이 => kkochi (ㅊ+ㅇ => ch)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅗ, Final.ㅊ),
+            TwoJamo(Initial.ㅇ, Medial.ㅣ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(K, K, O, C, H, I)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -1092,18 +1599,60 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
-    "romanize words with ㅌ in final position" in {
+    "romanize words with ㅋ in final position" in {
 
-      // TODO find a better example
-      "(ㅌ+ㅇ => t/ch)" in {
+      "부엌 => bueok" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅃ, Medial.ㅙ, Final.ㅌ),
-            TwoJamo(Initial.ㅇ, Medial.ㅙ)
+            TwoJamo(Initial.ㅂ, Medial.ㅜ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅓ, Final.ㅋ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(P, P, W, A, E, T, W, A, E)
+          RomanizedTextElement.Captured.fromLetters(B, U, E, O, K)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "부엌에 => bueoke" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            TwoJamo(Initial.ㅂ, Medial.ㅜ),
+            ThreeJamo(Initial.ㅇ, Medial.ㅓ, Final.ㅋ),
+            TwoJamo(Initial.ㅇ, Medial.ㅔ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(B, U, E, O, K, E)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㅌ in final position" in {
+
+      "끝 => kkeut" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅡ, Final.ㅌ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(K, K, E, U, T)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "끝에 => kkeute (ㅌ+ㅇ => t/ch)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄲ, Medial.ㅡ, Final.ㅌ),
+            TwoJamo(Initial.ㅇ, Medial.ㅔ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(K, K, E, U, T, E)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }
@@ -1194,18 +1743,60 @@ class RevisedRomanizationSpec extends Specification {
 
     }
 
-    "romanize words with ㅎ in final position" in {
+    "romanize words with ㅍ in final position" in {
 
-      // TODO find better example
-      "(ㅎ+ㅇ)" in {
+      "앞 => ap" in {
         val input: HangeulTextElement =
           HangeulTextElement.Captured.fromSyllables(
-            ThreeJamo(Initial.ㅆ, Medial.ㅚ, Final.ㅎ),
-            TwoJamo(Initial.ㅇ, Medial.ㅘ)
+            ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㅍ)
           )
 
         val expectedOutput: RomanizedTextElement =
-          RomanizedTextElement.Captured.fromLetters(S, S, O, E, H, W, A)
+          RomanizedTextElement.Captured.fromLetters(A, P)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "앞에 => ape" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㅍ),
+            TwoJamo(Initial.ㅇ, Medial.ㅔ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(A, P, E)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+    }
+
+    "romanize words with ㅎ in final position" in {
+
+      "놓다 => nota" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅗ, Final.ㅎ),
+            TwoJamo(Initial.ㄷ, Medial.ㅏ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(N, O, T, A)
+
+        RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
+      }
+
+      "놓으면 => noeumyeon (ㅎ+ㅇ => silent)" in {
+        val input: HangeulTextElement =
+          HangeulTextElement.Captured.fromSyllables(
+            ThreeJamo(Initial.ㄴ, Medial.ㅗ, Final.ㅎ),
+            TwoJamo(Initial.ㅇ, Medial.ㅡ),
+            ThreeJamo(Initial.ㅁ, Medial.ㅕ, Final.ㄴ)
+          )
+
+        val expectedOutput: RomanizedTextElement =
+          RomanizedTextElement.Captured.fromLetters(N, O, E, U, M, Y, E, O, N)
 
         RevisedRomanization.transliterator.transliterate(input) must beRight(expectedOutput)
       }

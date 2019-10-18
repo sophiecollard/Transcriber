@@ -1,9 +1,9 @@
 package hangeul4s.model.hangeul
 
-import hangeul4s.encoding.Decoder
+import hangeul4s.encoding.{Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
 
-sealed abstract class HangeulJamo(val char: Char)
+sealed abstract class HangeulJamo private [hangeul] (val char: Char)
 
 object HangeulJamo {
 
@@ -54,6 +54,9 @@ object HangeulJamo {
         case 'ᄒ' => Right(ㅎ)
         case c   => Left(DecodingFailure.FailedToDecodeHangeulJamoInitial(c))
       }
+
+    implicit val charEncoder: Encoder[Initial, Char] =
+      Encoder.instance(_.char)
 
   }
 
@@ -108,6 +111,9 @@ object HangeulJamo {
         case 'ᅵ' => Right(ㅣ)
         case c   => Left(DecodingFailure.FailedToDecodeHangeulJamoMedial(c))
       }
+
+    implicit val charEncoder: Encoder[Medial, Char] =
+      Encoder.instance(_.char)
 
   }
 
@@ -175,6 +181,23 @@ object HangeulJamo {
         case c   => Left(DecodingFailure.FailedToDecodeHangeulJamoFinal(c))
       }
 
+    implicit val charEncoder: Encoder[Final, Char] =
+      Encoder.instance(_.char)
+
   }
+
+  implicit val charDecoder: Decoder[Char, HangeulJamo] =
+    Decoder.instance { char =>
+      Initial.charDecoder.decode(char) orElse
+        Medial.charDecoder.decode(char) orElse
+        Final.charDecoder.decode(char)
+    }
+
+  implicit val charEncoder: Encoder[HangeulJamo, Char] =
+    Encoder.instance {
+      case i: Initial => Initial.charEncoder.encode(i)
+      case m: Medial  => Medial.charEncoder.encode(m)
+      case f: Final   => Final.charEncoder.encode(f)
+    }
 
 }

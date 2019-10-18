@@ -33,9 +33,9 @@ val input = "안녕하세요"
 // input: String = 안녕하세요
 
 val output = for {
-  parsed <- input.parse[HangeulTextElement]
+  parsed <- input.parseTo[HangeulTextElement]
   transliterated <- parsed.transliterate[RomanizedTextElement]
-} yield transliterated.unparse[String]
+} yield transliterated.unparseTo[String]
 // output: scala.util.Either[hangeul4s.error.Hangeul4sError,String] = Right(annyeonghaseyo)
 ```
 
@@ -57,9 +57,9 @@ val input = "시청 소재지는 중구이며, 25개의 자치구로 이루어�
 // input: String = 시청 소재지는 중구이며, 25개의 자치구로 이루어져 있다.
 
 val output = for {
-  parsed <- input.parseF[Vector, HangeulTextElement]
+  parsed <- input.parseToF[Vector, HangeulTextElement]
   transliterated <- parsed.transliterateF[Vector, RomanizedTextElement]
-} yield transliterated.unparse[String]
+} yield transliterated.unparseTo[String]
 // output: scala.util.Either[hangeul4s.error.Hangeul4sError,String] = Right(sicheong sojaejineun jungguimyeo, 25gaeui jachiguro irueojyeo itda.)
 ```
 

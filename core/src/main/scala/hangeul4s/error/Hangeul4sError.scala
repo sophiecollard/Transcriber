@@ -32,6 +32,9 @@ object DecodingFailure {
   final case class FailedToDecodeHangeulSyllable(char: Char)
     extends DecodingFailure(s"Failed to decode HangeulSyllable from Char [$char] with decimal code point [${char.toInt}]")
 
+  final case class FailedToDecodeRomanLetter(char: Char)
+    extends DecodingFailure(s"Failed to decode RomanLetter from Char [$char] with decimal code point [${char.toInt}]")
+
 }
 
 sealed abstract class TransliterationFailure(override val message: String) extends Hangeul4sError(message)

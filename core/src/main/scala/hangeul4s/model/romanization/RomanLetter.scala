@@ -1,6 +1,7 @@
 package hangeul4s.model.romanization
 
-import hangeul4s.encoding.Encoder
+import hangeul4s.encoding.{Decoder, Encoder}
+import hangeul4s.error.DecodingFailure
 
 /**
   * Roman letters used in the revised romanization of Korean.
@@ -37,6 +38,32 @@ object RomanLetter {
   final case object U extends RomanLetter('u')
   final case object W extends RomanLetter('w')
   final case object Y extends RomanLetter('y')
+
+  implicit val charDecoder: Decoder[Char, RomanLetter] =
+    Decoder.instance {
+      case 'A' | 'a' => Right(A)
+      case 'B' | 'b' => Right(B)
+      case 'C' | 'c' => Right(C)
+      case 'D' | 'd' => Right(D)
+      case 'E' | 'e' => Right(E)
+      case 'G' | 'g' => Right(G)
+      case 'H' | 'h' => Right(H)
+      case 'I' | 'i' => Right(I)
+      case 'J' | 'j' => Right(J)
+      case 'K' | 'k' => Right(K)
+      case 'L' | 'l' => Right(L)
+      case 'M' | 'm' => Right(M)
+      case 'N' | 'n' => Right(N)
+      case 'O' | 'o' => Right(O)
+      case 'P' | 'p' => Right(P)
+      case 'R' | 'r' => Right(R)
+      case 'S' | 's' => Right(S)
+      case 'T' | 't' => Right(T)
+      case 'U' | 'u' => Right(U)
+      case 'W' | 'w' => Right(W)
+      case 'Y' | 'y' => Right(Y)
+      case c         => Left(DecodingFailure.FailedToDecodeRomanLetter(c))
+    }
 
   implicit val charEncoder: Encoder[RomanLetter, Char] =
     Encoder.instance(_.char)

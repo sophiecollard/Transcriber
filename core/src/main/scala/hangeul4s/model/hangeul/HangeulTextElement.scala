@@ -16,7 +16,14 @@ sealed trait HangeulTextElement
 
 object HangeulTextElement {
 
-  final case class Captured(syllables: NonEmptyVector[HangeulSyllable]) extends HangeulTextElement
+  final case class Captured(syllables: NonEmptyVector[HangeulSyllable]) extends HangeulTextElement {
+
+    override def toString: String = {
+      val encodedSyllables = syllables.map(HangeulSyllable.charEncoder.encode).toVector.mkString
+      s"hangeul4s.model.hangeul.HangeulTextElement.Captured($encodedSyllables)"
+    }
+
+  }
 
   object Captured {
     def fromSyllables(b: HangeulSyllable, bs: HangeulSyllable*): Captured =
@@ -45,7 +52,12 @@ object HangeulTextElement {
     private [hangeul] val regex: Regex = "[\uAC00-\uD7AF]+".r
   }
 
-  sealed abstract case class NotCaptured(contents: String) extends HangeulTextElement
+  sealed abstract case class NotCaptured(contents: String) extends HangeulTextElement {
+
+    override def toString: String =
+      s"hangeul4s.model.hangeul.HangeulTextElement.NotCaptured($contents)"
+
+  }
 
   object NotCaptured {
     def fromString(input: String): Option[NotCaptured] =

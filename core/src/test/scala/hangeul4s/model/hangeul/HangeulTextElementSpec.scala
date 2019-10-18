@@ -12,6 +12,15 @@ import org.specs2.mutable.Specification
 
 class HangeulTextElementSpec extends Specification {
 
+  "HangeulTextElement#NotCaptured#toString" should {
+
+    "return a String representation of a HangeulTextElement.NotCaptured instance" in {
+      val notCaptured = HangeulTextElement.NotCaptured.unvalidatedFromString("ABCdef !#&0123456789")
+      notCaptured.toString ==== "hangeul4s.model.hangeul.HangeulTextElement.NotCaptured(ABCdef !#&0123456789)"
+    }
+
+  }
+
   "HangeulTextElement#NotCaptured#fromString" should {
 
     "successfully construct a NotCaptured instance from characters outside of the Hangeul Syllables Unicode block" in {
@@ -30,6 +39,22 @@ class HangeulTextElementSpec extends Specification {
 
     "fail to construct a NotCaptured instance from an empty string" in {
       HangeulTextElement.NotCaptured.fromString("") must beNone
+    }
+
+  }
+
+  "HangeulTextElement#Captured#toString" should {
+
+    "return a String representation of a HangeulTextElement.Captured instance" in {
+      val captured = HangeulTextElement.Captured.fromSyllables(
+        ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoJamo(Initial.ㅎ, Medial.ㅏ),
+        TwoJamo(Initial.ㅅ, Medial.ㅔ),
+        TwoJamo(Initial.ㅇ, Medial.ㅛ)
+      )
+
+      captured.toString ==== "hangeul4s.model.hangeul.HangeulTextElement.Captured(안녕하세요)"
     }
 
   }

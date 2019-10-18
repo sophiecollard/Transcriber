@@ -86,7 +86,7 @@ private [transliteration] object HangeulSyllableRomanizer {
         Vector(C, H)
       case (Final.ㅌ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
         Vector(N)
-      case (Final.ㅎ, Some(Initial.ㄱ) | Some(Initial.ㅇ)) =>
+      case (Final.ㅎ, Some(Initial.ㄱ) | Some(Initial.ㅇ) | Some(Initial.ㅈ)) =>
         Vector.empty
       case (Final.ㅎ, Some(Initial.ㄴ) | Some(Initial.ㄹ) | Some(Initial.ㅁ)) =>
         Vector(N)
@@ -103,7 +103,7 @@ private [transliteration] object HangeulSyllableRomanizer {
         Vector(K)
       case (Some(Final.ㄹ), Initial.ㄴ) =>
         Vector(L) // Also sometimes NN instead of LL
-      case (Some(Final.ㅀ), Initial.ㄷ) =>
+      case (Some(Final.ㄶ) | Some(Final.ㅀ), Initial.ㄷ) =>
         Vector(T)
       case (Some(Final.ㅎ), Initial.ㄷ) =>
         Vector.empty
@@ -114,6 +114,8 @@ private [transliteration] object HangeulSyllableRomanizer {
         Vector(L)
       case (Some(Final.ㅂ), Initial.ㅁ) =>
         Vector(M)
+      case (Some(Final.ㅎ), Initial.ㅈ) =>
+        Vector(C, H)
       case (Some(Final.ㄲ), Initial.ㅇ) =>
         Vector(K)
       case (Some(Final.ㄳ), Initial.ㅇ) =>

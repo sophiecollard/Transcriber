@@ -1,5 +1,7 @@
 package hangeul4s.model.romanization
 
+import hangeul4s.encoding.Encoder
+
 /**
   * Roman letters used in the revised romanization of Korean.
   *
@@ -30,5 +32,8 @@ object RomanLetter {
   final case object U extends RomanLetter('u')
   final case object W extends RomanLetter('w')
   final case object Y extends RomanLetter('y')
+
+  implicit val charEncoder: Encoder[RomanLetter, Char] =
+    Encoder.instance(_.char)
 
 }

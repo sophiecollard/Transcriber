@@ -10,7 +10,14 @@ sealed trait RomanizedTextElement
 
 object RomanizedTextElement {
 
-  final case class Captured(letters: NonEmptyVector[RomanLetter]) extends RomanizedTextElement
+  final case class Captured(letters: NonEmptyVector[RomanLetter]) extends RomanizedTextElement {
+
+    override def toString: String = {
+      val encodedLetters = letters.map(RomanLetter.charEncoder.encode).toVector.mkString
+      s"hangeul4s.model.romanization.RomanizedTextElement.Captured($encodedLetters)"
+    }
+
+  }
 
   object Captured {
     def fromLetters(l: RomanLetter, ls: RomanLetter*): Captured =
@@ -19,7 +26,12 @@ object RomanizedTextElement {
     private [romanization] val regex: Regex = "[A-EG-PR-UWYa-eg-pr-uwy]+".r
   }
 
-  sealed abstract case class NotCaptured(contents: String) extends RomanizedTextElement
+  sealed abstract case class NotCaptured(contents: String) extends RomanizedTextElement {
+
+    override def toString: String =
+      s"hangeul4s.model.romanization.RomanizedTextElement.NotCaptured($contents)"
+
+  }
 
   object NotCaptured {
     def fromHangeul(hangeul: HangeulTextElement.NotCaptured): NotCaptured =

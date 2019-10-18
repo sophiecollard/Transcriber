@@ -12,6 +12,22 @@ import org.specs2.mutable.Specification
 
 class HangeulTextElementSpec extends Specification {
 
+  "HangeulTextElement#Captured#toString" should {
+
+    "return a String representation of a HangeulTextElement.Captured instance" in {
+      val captured = HangeulTextElement.Captured.fromSyllables(
+        ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
+        ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
+        TwoJamo(Initial.ㅎ, Medial.ㅏ),
+        TwoJamo(Initial.ㅅ, Medial.ㅔ),
+        TwoJamo(Initial.ㅇ, Medial.ㅛ)
+      )
+
+      captured.toString ==== "hangeul4s.model.hangeul.HangeulTextElement.Captured(안녕하세요)"
+    }
+
+  }
+
   "HangeulTextElement#NotCaptured#toString" should {
 
     "return a String representation of a HangeulTextElement.NotCaptured instance" in {
@@ -39,22 +55,6 @@ class HangeulTextElementSpec extends Specification {
 
     "fail to construct a NotCaptured instance from an empty string" in {
       HangeulTextElement.NotCaptured.fromString("") must beNone
-    }
-
-  }
-
-  "HangeulTextElement#Captured#toString" should {
-
-    "return a String representation of a HangeulTextElement.Captured instance" in {
-      val captured = HangeulTextElement.Captured.fromSyllables(
-        ThreeJamo(Initial.ㅇ, Medial.ㅏ, Final.ㄴ),
-        ThreeJamo(Initial.ㄴ, Medial.ㅕ, Final.ㅇ),
-        TwoJamo(Initial.ㅎ, Medial.ㅏ),
-        TwoJamo(Initial.ㅅ, Medial.ㅔ),
-        TwoJamo(Initial.ㅇ, Medial.ㅛ)
-      )
-
-      captured.toString ==== "hangeul4s.model.hangeul.HangeulTextElement.Captured(안녕하세요)"
     }
 
   }

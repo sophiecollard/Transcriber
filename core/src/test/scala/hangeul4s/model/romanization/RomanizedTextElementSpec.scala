@@ -7,6 +7,24 @@ import org.specs2.mutable.Specification
 
 class RomanizedTextElementSpec extends Specification {
 
+  "RomanizedTextElement#Captured#toString" should {
+
+    "return a String representation of a RomanizedTextElement.Captured instance" in {
+      val captured = RomanizedTextElement.Captured.fromLetters(A, B, C)
+      captured.toString ==== "hangeul4s.model.romanization.RomanizedTextElement.Captured(abc)"
+    }
+
+  }
+
+  "RomanizedTextElement#NotCaptured#toString" should {
+
+    "return a String representation of a RomanizedTextElement.NotCaptured instance" in {
+      val notCaptured = RomanizedTextElement.NotCaptured.unvalidatedFromString(" !#&0123456789")
+      notCaptured.toString ==== "hangeul4s.model.romanization.RomanizedTextElement.NotCaptured( !#&0123456789)"
+    }
+
+  }
+
   "RomanizedTextElement#Captured#regex" should {
 
     "only match characters within the range [A-EG-PR-UWYa-eg-pr-uwy]" in {

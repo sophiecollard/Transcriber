@@ -5,7 +5,7 @@ package hangeul4s.model.romanization
   *
   * Note that letters F, Q, V, X and Z are never and therefore omitted.
   */
-sealed abstract class RomanLetter(val char: Char)
+sealed abstract class RomanLetter private [romanization] (val char: Char)
 
 object RomanLetter {
 

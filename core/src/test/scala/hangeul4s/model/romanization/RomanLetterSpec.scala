@@ -1,7 +1,11 @@
 package hangeul4s.model.romanization
 
+import cats.instances.either._
+import cats.instances.vector._
+import cats.syntax.traverse._
 import hangeul4s.encoding.syntax._
 import hangeul4s.error.DecodingFailure
+import hangeul4s.model.romanization.RomanLetter._
 import org.specs2.mutable.Specification
 
 class RomanLetterSpec extends Specification {
@@ -16,12 +20,20 @@ class RomanLetterSpec extends Specification {
 
   "RomanLetter#charDecoder" should {
 
-    "decode an lower-case roman letter" in {
-      'a'.decodeTo[RomanLetter] should beRight[RomanLetter](RomanLetter.A)
+    "decode lower-case roman letters" in {
+      val encoded = Vector('a', 'b', 'c', 'd', 'e', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't', 'u', 'w', 'y')
+
+      val decoded = Vector[RomanLetter](A, B, C, D, E, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y)
+
+      encoded.map(_.decodeTo[RomanLetter]).sequence should beRight(decoded)
     }
 
-    "decode an upper-case roman letter" in {
-      'A'.decodeTo[RomanLetter] should beRight[RomanLetter](RomanLetter.A)
+    "decode upper-case roman letters" in {
+      val encoded = Vector('A', 'B', 'C', 'D', 'E', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'W', 'Y')
+
+      val decoded = Vector[RomanLetter](A, B, C, D, E, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y)
+
+      encoded.map(_.decodeTo[RomanLetter]).sequence should beRight(decoded)
     }
 
     "fail to decode a character outside the [A-EG-PR-UWYa-eg-pr-uwy] range" in {

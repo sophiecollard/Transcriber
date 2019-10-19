@@ -30,7 +30,7 @@ class SyntaxSpec extends Specification {
   "Syntax#EncodingOps[B]" should {
 
     "provide an 'encodeTo' method on B instances" in {
-      (RomanLetter.A: RomanLetter).encodeTo[Char] ==== 'a'
+      RomanLetter.A.encodeTo[Char] ==== 'a'
     }
 
   }

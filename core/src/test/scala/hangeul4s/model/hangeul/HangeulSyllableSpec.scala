@@ -10,9 +10,9 @@ class HangeulSyllableSpec extends Specification {
   private val encodedTwoJamoSyllable = '가'
   private val encodedThreeJamoSyllable = '힣'
 
-  private val decodedTwoJamoSyllable: HangeulSyllable =
+  private val decodedTwoJamoSyllable =
     HangeulSyllable.twoJamo(HangeulJamo.Initial.ㄱ, HangeulJamo.Medial.ㅏ)
-  private val decodedThreeJamoSyllable: HangeulSyllable =
+  private val decodedThreeJamoSyllable =
     HangeulSyllable.threeJamo(HangeulJamo.Initial.ㅎ, HangeulJamo.Medial.ㅣ, HangeulJamo.Final.ㅎ)
 
   "HangeulSyllable#toString" should {

@@ -1,6 +1,5 @@
 package hangeul4s.model.hangeul
 
-import cats.Show
 import cats.instances.either._
 import cats.instances.vector._
 import cats.syntax.traverse._
@@ -23,25 +22,6 @@ class HangeulJamoSpec extends Specification {
 
     "return a String representation of a Final instance" in {
       Final.ㄲ.toString ==== "hangeul4s.model.hangeul.HangeulJamo.Final(ᆩ)"
-    }
-
-  }
-
-  "HangeulJamo#show" should {
-
-    "return the character representing an initial consonant" in {
-      Show[Initial].show(Initial.ㄲ) ==== "ᄁ"
-      Show[HangeulJamo].show(Initial.ㄲ) ==== "ᄁ"
-    }
-
-    "return the character representing a medial" in {
-      Show[Medial].show(Medial.ㅐ) ==== "ᅢ"
-      Show[HangeulJamo].show(Medial.ㅐ) ==== "ᅢ"
-    }
-
-    "return the character representing a final consonant" in {
-      Show[Final].show(Final.ㄲ) ==== "ᆩ"
-      Show[HangeulJamo].show(Final.ㄲ) ==== "ᆩ"
     }
 
   }

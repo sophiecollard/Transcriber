@@ -1,6 +1,5 @@
 package hangeul4s.model.hangeul
 
-import cats.Show
 import cats.syntax.either._ // required for orElse method in Scala 2.11 and 2.12
 import hangeul4s.encoding.{Decoder, Encoder}
 import hangeul4s.error.DecodingFailure
@@ -68,9 +67,6 @@ object HangeulJamo {
     implicit val charEncoder: Encoder[Initial, Char] =
       Encoder.instance(_.char)
 
-    implicit val show: Show[Initial] =
-      Show.show(charEncoder.encode(_).toString)
-
   }
 
   sealed abstract class Medial(char: Char) extends HangeulJamo(char) {
@@ -132,9 +128,6 @@ object HangeulJamo {
 
     implicit val charEncoder: Encoder[Medial, Char] =
       Encoder.instance(_.char)
-
-    implicit val show: Show[Medial] =
-      Show.show(charEncoder.encode(_).toString)
 
   }
 
@@ -210,9 +203,6 @@ object HangeulJamo {
     implicit val charEncoder: Encoder[Final, Char] =
       Encoder.instance(_.char)
 
-    implicit val show: Show[Final] =
-      Show.show(charEncoder.encode(_).toString)
-
   }
 
   implicit val charDecoder: Decoder[Char, HangeulJamo] =
@@ -228,8 +218,5 @@ object HangeulJamo {
       case m: Medial  => Medial.charEncoder.encode(m)
       case f: Final   => Final.charEncoder.encode(f)
     }
-
-  implicit val show: Show[HangeulJamo] =
-    Show.show(charEncoder.encode(_).toString)
 
 }

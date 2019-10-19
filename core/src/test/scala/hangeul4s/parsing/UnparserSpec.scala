@@ -36,7 +36,7 @@ class UnparserSpec extends Specification {
     "return a new instance with input and output types lifted into a type F[_]" in {
       import cats.instances.vector._
 
-      val liftedUnparser = unparser.lift[Vector]
+      val liftedUnparser = unparser.lift[Vector, Int, String]
 
       liftedUnparser.unparse(Vector(20, 7, 1810)) ==== Vector("20", "7", "1810")
     }

@@ -6,7 +6,12 @@ package object error {
 
   sealed abstract class Hangeul4sError(val message: String)
 
-  sealed abstract class ParsingFailure(override val message: String) extends Hangeul4sError(message)
+  sealed abstract class ParsingFailure(override val message: String) extends Hangeul4sError(message) {
+
+    override def toString: String =
+      s"Parsing failure: $message"
+
+  }
 
   object ParsingFailure {
 
@@ -18,7 +23,12 @@ package object error {
 
   }
 
-  sealed abstract class DecodingFailure(override val message: String) extends ParsingFailure(message)
+  sealed abstract class DecodingFailure(override val message: String) extends ParsingFailure(message) {
+
+    override def toString: String =
+      s"Decoding failure: $message"
+
+  }
 
   object DecodingFailure {
 
@@ -39,7 +49,12 @@ package object error {
 
   }
 
-  sealed abstract class TransliterationFailure(override val message: String) extends Hangeul4sError(message)
+  sealed abstract class TransliterationFailure(override val message: String) extends Hangeul4sError(message) {
+
+    override def toString: String =
+      s"Transliteration failure: $message"
+
+  }
 
   object TransliterationFailure {
 

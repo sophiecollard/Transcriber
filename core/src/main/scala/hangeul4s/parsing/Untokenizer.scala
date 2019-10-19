@@ -15,8 +15,8 @@ trait Untokenizer[F[_], A] {
 
 object Untokenizer {
 
-  def apply[F[_], A](implicit ev: Untokenizer[F, A]): Untokenizer[F, A] =
-    ev
+  def apply[F[_], A](implicit untokenizer: Untokenizer[F, A]): Untokenizer[F, A] =
+    untokenizer
 
   def instance[F[_], A](f: F[Token[A]] => String): Untokenizer[F, A] =
     new Untokenizer[F, A] {

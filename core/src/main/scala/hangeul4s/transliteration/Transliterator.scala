@@ -8,8 +8,8 @@ trait Transliterator[I, O] {
 
 object Transliterator {
 
-  def apply[I, O](implicit ev: Transliterator[I, O]): Transliterator[I, O] =
-    ev
+  def apply[I, O](implicit transliterator: Transliterator[I, O]): Transliterator[I, O] =
+    transliterator
 
   def instance[I, O](f: I => TransliterationResult[O]): Transliterator[I, O] =
     new Transliterator[I, O] {

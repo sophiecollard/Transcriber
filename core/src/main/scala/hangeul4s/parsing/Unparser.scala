@@ -26,8 +26,8 @@ trait Unparser[B, A] {
 
 object Unparser {
 
-  def apply[B, A](implicit ev: Unparser[B, A]): Unparser[B, A] =
-    ev
+  def apply[B, A](implicit unparser: Unparser[B, A]): Unparser[B, A] =
+    unparser
 
   def instance[B, A](f: B => A): Unparser[B, A] =
     new Unparser[B, A] {

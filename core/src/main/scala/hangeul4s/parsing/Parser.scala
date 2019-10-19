@@ -28,8 +28,8 @@ trait Parser[A, B] {
 
 object Parser {
 
-  def apply[A, B](implicit ev: Parser[A, B]): Parser[A, B] =
-    ev
+  def apply[A, B](implicit parser: Parser[A, B]): Parser[A, B] =
+    parser
 
   def instance[A, B](f: A => ParsingResult[B]): Parser[A, B] =
     new Parser[A, B] {

@@ -15,8 +15,8 @@ trait Tokenizer[F[_], A] {
 
 object Tokenizer {
 
-  def apply[F[_], A](implicit ev: Tokenizer[F, A]): Tokenizer[F, A] =
-    ev
+  def apply[F[_], A](implicit tokenizer: Tokenizer[F, A]): Tokenizer[F, A] =
+    tokenizer
 
   def instance[F[_], A](f: String => F[Token[A]]): Tokenizer[F, A] =
     new Tokenizer[F, A] {

@@ -27,8 +27,8 @@ trait AccumulativeParser[A, B] {
 
 object AccumulativeParser {
 
-  def apply[A, B](implicit ev: AccumulativeParser[A, B]): AccumulativeParser[A, B] =
-    ev
+  def apply[A, B](implicit parser: AccumulativeParser[A, B]): AccumulativeParser[A, B] =
+    parser
 
   def instance[A, B](f: A => AccumulativeParsingResult[B]): AccumulativeParser[A, B] =
     new AccumulativeParser[A, B] {

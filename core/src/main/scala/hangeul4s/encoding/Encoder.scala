@@ -8,8 +8,8 @@ trait Encoder[B, A] {
 
 object Encoder {
 
-  def apply[B, A](implicit ev: Encoder[B, A]): Encoder[B, A] =
-    ev
+  def apply[B, A](implicit encoder: Encoder[B, A]): Encoder[B, A] =
+    encoder
 
   def instance[B, A](f: B => A): Encoder[B, A] =
     new Encoder[B, A] {

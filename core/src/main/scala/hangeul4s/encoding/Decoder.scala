@@ -10,8 +10,8 @@ trait Decoder[A, B] {
 
 object Decoder {
 
-  def apply[A, B](implicit ev: Decoder[A, B]): Decoder[A, B] =
-    ev
+  def apply[A, B](implicit decoder: Decoder[A, B]): Decoder[A, B] =
+    decoder
 
   def instance[A, B](f: A => Either[DecodingFailure, B]): Decoder[A, B] =
     new Decoder[A, B] {

@@ -75,7 +75,7 @@ object HangeulTextElement {
 
     private [hangeul] val accumulativeParser: AccumulativeParser[String, NotCaptured] =
       AccumulativeParser.instance[String, NotCaptured] { input =>
-        fromString(input).toValid[ParsingFailure](ParsingFailure.FailedToMatchRegex(input, regex))
+        fromString(input).toValidatedNev[ParsingFailure](ParsingFailure.FailedToMatchRegex(input, regex))
       }
 
     private [hangeul] val regex: Regex = "[^\uAC00-\uD7AF]+".r

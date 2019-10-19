@@ -14,7 +14,7 @@ trait Parser[A, B] {
       parse(f(input))
     }
 
-  final def map[C](f: B => C): Parser[A, C] =
+  final def map[D](f: B => D): Parser[A, D] =
     Parser.instance { input =>
       parse(input).map(f)
     }

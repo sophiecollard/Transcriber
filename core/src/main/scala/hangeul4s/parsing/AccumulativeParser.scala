@@ -13,7 +13,7 @@ trait AccumulativeParser[A, B] {
       parse(f(input))
     }
 
-  final def map[C](f: B => C): AccumulativeParser[A, C] =
+  final def map[D](f: B => D): AccumulativeParser[A, D] =
     AccumulativeParser.instance { input =>
       parse(input).map(f)
     }

@@ -7,7 +7,7 @@ trait Unparser[B, A] {
 
   def unparse(input: B): A
 
-  final def contramap[C](f: C => B): Unparser[C, A] =
+  final def contramap[D](f: D => B): Unparser[D, A] =
     Unparser.instance { input =>
       unparse(f(input))
     }

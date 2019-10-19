@@ -1,19 +1,19 @@
 package hangeul4s.transliteration
 
-trait Transliterator[I, O] {
+trait Transliterator[-A, +B] {
 
-  def transliterate(input: I): TransliterationResult[O]
+  def transliterate(input: A): TransliterationResult[B]
 
 }
 
 object Transliterator {
 
-  def apply[I, O](implicit transliterator: Transliterator[I, O]): Transliterator[I, O] =
+  def apply[A, B](implicit transliterator: Transliterator[A, B]): Transliterator[A, B] =
     transliterator
 
-  def instance[I, O](f: I => TransliterationResult[O]): Transliterator[I, O] =
-    new Transliterator[I, O] {
-      override def transliterate(input: I): TransliterationResult[O] =
+  def instance[A, B](f: A => TransliterationResult[B]): Transliterator[A, B] =
+    new Transliterator[A, B] {
+      override def transliterate(input: A): TransliterationResult[B] =
         f(input)
     }
 

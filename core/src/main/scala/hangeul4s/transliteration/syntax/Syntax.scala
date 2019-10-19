@@ -4,13 +4,13 @@ import hangeul4s.transliteration.{TransliterationResult, Transliterator}
 
 trait Syntax {
 
-  implicit class TransliterationOps[I](input: I) {
-    def transliterateTo[O](implicit transliterator: Transliterator[I, O]): TransliterationResult[O] =
+  implicit class TransliterationOps[A](input: A) {
+    def transliterateTo[B](implicit transliterator: Transliterator[A, B]): TransliterationResult[B] =
       transliterator.transliterate(input)
   }
 
-  implicit class TransliterationFOps[F[_], I](input: F[I]) {
-    def transliterateToF[G[_], O](implicit transliteratorF: Transliterator[F[I], G[O]]): TransliterationResult[G[O]] =
+  implicit class TransliterationFOps[F[_], A](input: F[A]) {
+    def transliterateToF[G[_], B](implicit transliteratorF: Transliterator[F[A], G[B]]): TransliterationResult[G[B]] =
       transliteratorF.transliterate(input)
   }
 

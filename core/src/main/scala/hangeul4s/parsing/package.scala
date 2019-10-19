@@ -17,7 +17,7 @@ package object parsing {
       Left(e)
   }
 
-  type AccumulativeParsingResult[A] = ValidatedNev[ParsingFailure, A]
+  type AccumulativeParsingResult[+A] = ValidatedNev[ParsingFailure, A]
 
   object AccumulativeParsingResult {
     def success[A](value: A): AccumulativeParsingResult[A] =

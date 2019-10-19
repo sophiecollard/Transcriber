@@ -13,10 +13,10 @@ object Decoder {
   def apply[A, B](implicit ev: Decoder[A, B]): Decoder[A, B] =
     ev
 
-  def instance[A, B](g: A => Either[DecodingFailure, B]): Decoder[A, B] =
+  def instance[A, B](f: A => Either[DecodingFailure, B]): Decoder[A, B] =
     new Decoder[A, B] {
       override def decode(encoded: A): Either[DecodingFailure, B] =
-        g(encoded)
+        f(encoded)
     }
 
 }

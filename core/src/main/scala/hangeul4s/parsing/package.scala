@@ -7,7 +7,7 @@ import hangeul4s.util.ValidatedNev
 
 package object parsing {
 
-  type ParsingResult[A] = Either[ParsingFailure, A]
+  type ParsingResult[+A] = Either[ParsingFailure, A]
 
   object ParsingResult {
     def success[A](value: A): ParsingResult[A] =

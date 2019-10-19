@@ -45,7 +45,7 @@ class ParserSpec extends Specification {
     "return a new instance with input and output types lifted into a type F[_]" in {
       import cats.instances.vector._
 
-      val liftedParser = parser.lift[Vector]
+      val liftedParser = parser.lift[Vector, String, Int]
 
       liftedParser.parse(Vector("6", "12", "1917")) should beRight(Vector(6, 12, 1917))
     }

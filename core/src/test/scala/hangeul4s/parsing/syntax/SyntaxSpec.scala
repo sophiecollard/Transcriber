@@ -1,9 +1,11 @@
 package hangeul4s.parsing.syntax
 
+import cats.data.NonEmptyVector
+import cats.data.Validated.{Invalid, Valid}
 import cats.instances.vector._
 import hangeul4s.error.ParsingFailure
-import hangeul4s.parsing.generic._
 import hangeul4s.parsing._
+import hangeul4s.parsing.generic._
 import org.specs2.mutable.Specification
 
 import scala.util.{Failure, Success, Try}
@@ -50,6 +52,15 @@ class SyntaxSpec extends Specification {
       }
     }
 
+  private implicit val accumulativeParser: AccumulativeParser[Token[Int], Int] =
+    AccumulativeParser.instance { token =>
+      Try(token.contents.toInt) match {
+        case Success(int) => Valid(int)
+        // not a sensible failure to return but this is irrelevant here
+        case Failure(_)   => Invalid(NonEmptyVector.one(ParsingFailure.EmptyInput))
+      }
+    }
+
   "Syntax#ParsingOps[A]" should {
 
     "provide a 'parseTo' method on A instances" in {
@@ -58,6 +69,14 @@ class SyntaxSpec extends Specification {
 
     "provide a 'parseToF' method on A instances" in {
       "14/07/1789".parseToF[Vector, Int] should beRight(Vector(14, 7, 1789))
+    }
+
+    "provide a 'parseAccTo' method on A instances" in {
+      Token[Int]("1789").parseAccTo[Int].toEither should beRight(1789)
+    }
+
+    "provide a 'parseAccToF' method on A instances" in {
+      "14/07/1789".parseAccToF[Vector, Int].toEither should beRight(Vector(14, 7, 1789))
     }
 
   }

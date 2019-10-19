@@ -20,6 +20,12 @@ trait Syntax {
 
     def parseToF[F[_], B](implicit parserF: Parser[A, F[B]]): ParsingResult[F[B]] =
       parserF.parse(input)
+
+    def parseAccTo[B](implicit parser: AccumulativeParser[A, B]): AccumulativeParsingResult[B] =
+      parser.parse(input)
+
+    def parseAccToF[F[_], B](implicit parserF: AccumulativeParser[A, F[B]]): AccumulativeParsingResult[F[B]] =
+      parserF.parse(input)
   }
 
   implicit class UnparsingOps[B](input: B) {

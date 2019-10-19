@@ -1,10 +1,10 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/hangeul4s
+
     docker:
       - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/hangeul-transliterator-4s
 
 #    environment:
 #      # Customize the JVM maximum heap limit
@@ -21,13 +21,22 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: cat /dev/null | sbt +test:clean +test:compile
+      - run:
+          name: Clean and compile project for all supported Scala versions
+          command: cat /dev/null | sbt +test:clean +test:compile
 
+      # Cache dependencies for next build
       - save_cache:
-          paths:
-            - ~/.m2
           key: v1-dependencies--{{ checksum "build.sbt" }}
+          paths:
+            - ~/.ivy2/cache
+            - ~/.m2
+            - ~/.sbt
 
-      - run: cat /dev/null | sbt coverage +test:test coverageReport
+      - run:
+          name: Run tests for all supported Scala versions and produce coverage report
+          command: cat /dev/null | sbt coverage +test:test coverageReport
 
-      - run: bash <(curl -s https://codecov.io/bash)
+      - run:
+          name: Upload coverage report to Codecov
+          command: bash <(curl -s https://codecov.io/bash)

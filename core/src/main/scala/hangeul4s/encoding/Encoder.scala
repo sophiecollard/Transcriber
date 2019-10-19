@@ -1,6 +1,6 @@
 package hangeul4s.encoding
 
-trait Encoder[B, A] {
+trait Encoder[-B, +A] {
 
   def encode(decoded: B): A
 

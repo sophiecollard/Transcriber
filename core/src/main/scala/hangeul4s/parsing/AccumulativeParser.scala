@@ -4,7 +4,7 @@ import cats.Traverse
 import cats.syntax.functor._
 import cats.syntax.traverse._
 
-trait AccumulativeParser[A, B] {
+trait AccumulativeParser[-A, +B] {
 
   def parse(input: A): AccumulativeParsingResult[B]
 
@@ -18,9 +18,9 @@ trait AccumulativeParser[A, B] {
       parse(input).map(f)
     }
 
-  final def lift[F[_]: Traverse]: AccumulativeParser[F[A], F[B]] =
+  final def lift[F[_]: Traverse, AA <: A, BB >: B]: AccumulativeParser[F[AA], F[BB]] =
     AccumulativeParser.instance { input =>
-      input.map(parse).sequence
+      input.map(parse(_).widen[BB]).sequence
     }
 
 }

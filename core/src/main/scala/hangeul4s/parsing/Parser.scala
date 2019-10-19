@@ -5,7 +5,7 @@ import cats.instances.either._
 import cats.syntax.functor._
 import cats.syntax.traverse._
 
-trait Parser[A, B] {
+trait Parser[-A, +B] {
 
   def parse(input: A): ParsingResult[B]
 
@@ -19,9 +19,9 @@ trait Parser[A, B] {
       parse(input).map(f)
     }
 
-  final def lift[F[_]: Traverse]: Parser[F[A], F[B]] =
+  final def lift[F[_]: Traverse, AA <: A, BB >: B]: Parser[F[AA], F[BB]] =
     Parser.instance { input =>
-      input.map(parse).sequence
+      input.map(parse(_).widen[BB]).sequence
     }
 
 }

@@ -2,7 +2,7 @@ package hangeul4s.encoding
 
 import hangeul4s.error.DecodingFailure
 
-trait Decoder[A, B] {
+trait Decoder[-A, +B] {
 
   def decode(encoded: A): Either[DecodingFailure, B]
 

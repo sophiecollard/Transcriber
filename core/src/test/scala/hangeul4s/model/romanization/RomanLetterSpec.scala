@@ -46,7 +46,7 @@ class RomanLetterSpec extends Specification {
   "RomanLetter#charEncoder" should {
 
     "encode a roman letter" in {
-      (RomanLetter.A: RomanLetter).encodeTo[Char] ==== 'a'
+      RomanLetter.A.encodeTo[Char] ==== 'a'
     }
 
   }

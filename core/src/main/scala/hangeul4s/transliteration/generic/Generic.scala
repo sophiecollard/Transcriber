@@ -8,9 +8,9 @@ import hangeul4s.transliteration.Transliterator
 
 trait Generic {
 
-  implicit def transliteratorF[F[_]: Traverse, I, O](
-    implicit transliterator: Transliterator[I, O]
-  ): Transliterator[F[I], F[O]] =
+  implicit def transliteratorF[F[_]: Traverse, A, B](
+    implicit transliterator: Transliterator[A, B]
+  ): Transliterator[F[A], F[B]] =
     Transliterator.instance { input =>
       input.map(transliterator.transliterate).sequence
     }

@@ -101,15 +101,15 @@ class HangeulJamoSpec extends Specification {
   "HangeulJamo#charEncoder" should {
 
     "encode an initial consonant" in {
-      (Initial.ㅎ: HangeulJamo).encodeTo[Char] ==== 'ᄒ'
+      Initial.ㅎ.encodeTo[Char] ==== 'ᄒ'
     }
 
     "encode a medial" in {
-      (Medial.ㅣ: HangeulJamo).encodeTo[Char] ==== 'ᅵ'
+      Medial.ㅣ.encodeTo[Char] ==== 'ᅵ'
     }
 
     "encode a final consonant" in {
-      (Final.ㅎ: HangeulJamo).encodeTo[Char] ==== 'ᇂ'
+      Final.ㅎ.encodeTo[Char] ==== 'ᇂ'
     }
 
   }

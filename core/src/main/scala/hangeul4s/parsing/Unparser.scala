@@ -3,7 +3,7 @@ package hangeul4s.parsing
 import cats.Functor
 import cats.syntax.functor._
 
-trait Unparser[B, A] {
+trait Unparser[-B, +A] {
 
   def unparse(input: B): A
 
@@ -17,7 +17,7 @@ trait Unparser[B, A] {
       f(unparse(input))
     }
 
-  final def lift[F[_]: Functor]: Unparser[F[B], F[A]] =
+  final def lift[F[_]: Functor, BB <: B, AA >: A]: Unparser[F[BB], F[AA]] =
     Unparser.instance { input =>
       input.map(unparse)
     }

@@ -5,7 +5,7 @@ import hangeul4s.parsing._
 trait Syntax {
 
   implicit class TokenizingOps(input: String) {
-    def tokenize[F[_], A](implicit tokenizer: Tokenizer[F, A]): F[Token[A]] =
+    def tokenizeTo[F[_], A](implicit tokenizer: Tokenizer[F, A]): F[Token[A]] =
       tokenizer.tokenize(input)
   }
 

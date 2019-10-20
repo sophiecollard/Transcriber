@@ -2,9 +2,10 @@ package hangeul4s.syntax.vector
 
 import org.specs2.mutable.Specification
 
-class VectorOpsSpec extends Specification {
+class VectorSyntaxSpec extends Specification {
 
-  "RichVector#zipWithNeighbors" should {
+  "VectorOps#zipWithNeighbors" should {
+
     "return an empty vector when invoked on an empty vector" in {
       val input = Vector.empty[Int]
 
@@ -22,6 +23,7 @@ class VectorOpsSpec extends Specification {
 
       input.zipWithNeighbors must beEqualTo(expectedOutput)
     }
+
   }
 
 }

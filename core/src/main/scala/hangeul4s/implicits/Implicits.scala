@@ -6,4 +6,5 @@ trait Implicits
     with hangeul4s.parsing.syntax.Syntax
     with hangeul4s.syntax.Syntax
     with hangeul4s.transliteration.generic.Generic
+    with hangeul4s.transliteration.instances.Instances
     with hangeul4s.transliteration.syntax.Syntax

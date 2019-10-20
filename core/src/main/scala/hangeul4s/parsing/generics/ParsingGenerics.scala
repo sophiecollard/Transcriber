@@ -1,4 +1,4 @@
-package hangeul4s.parsing.generic
+package hangeul4s.parsing.generics
 
 import cats.arrow.FunctionK
 import cats.instances.either._
@@ -7,7 +7,7 @@ import cats.syntax.traverse._
 import cats.{Functor, Traverse}
 import hangeul4s.parsing._
 
-trait Generic {
+trait ParsingGenerics {
 
   implicit def tokenParser[A](
     implicit parser: Parser[String, A]
@@ -60,16 +60,16 @@ trait Generic {
   implicit val vectorToIterator: FunctionK[Vector, Iterator] =
     λ[FunctionK[Vector, Iterator]](_.iterator)
 
-  implicit def derivedTokenizer[F[_], G[_], A](
-    implicit tokenizer: Tokenizer[F, A],
+  implicit def tokenizerG[F[_], G[_], A](
+    implicit tokenizerF: Tokenizer[F, A],
     f: FunctionK[F, G]
   ): Tokenizer[G, A] =
-    tokenizer.mapK(f)
+    tokenizerF.mapK(f)
 
-  implicit def derivedUntokenizer[F[_], G[_], A](
-    implicit untokenizer: Untokenizer[F, A],
+  implicit def untokenizerG[F[_], G[_], A](
+    implicit untokenizerF: Untokenizer[F, A],
     f: FunctionK[G, F]
   ): Untokenizer[G, A] =
-    untokenizer.contramapK(f)
+    untokenizerF.contramapK(f)
 
 }

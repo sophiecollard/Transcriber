@@ -5,7 +5,7 @@ import cats.data.Validated.{Invalid, Valid}
 import cats.instances.vector._
 import hangeul4s.error.ParsingFailure
 import hangeul4s.parsing._
-import hangeul4s.parsing.generic._
+import hangeul4s.parsing.generics._
 import org.specs2.mutable.Specification
 
 import scala.util.{Failure, Success, Try}

@@ -2,7 +2,7 @@ package hangeul4s.parsing.syntax
 
 import hangeul4s.parsing._
 
-trait Syntax {
+trait ParsingSyntax {
 
   implicit class TokenizingOps(input: String) {
     def tokenizeTo[F[_], A](implicit tokenizer: Tokenizer[F, A]): F[Token[A]] =

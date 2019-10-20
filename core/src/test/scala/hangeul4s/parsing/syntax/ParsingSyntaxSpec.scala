@@ -10,7 +10,7 @@ import org.specs2.mutable.Specification
 
 import scala.util.{Failure, Success, Try}
 
-class SyntaxSpec extends Specification {
+class ParsingSyntaxSpec extends Specification {
 
   private implicit val tokenizer: Tokenizer[Vector, Int] =
     Tokenizer.instance { string =>
@@ -20,7 +20,7 @@ class SyntaxSpec extends Specification {
         .map(Token.apply[Int])
     }
 
-  "Syntax#TokenizingOps" should {
+  "ParsingSyntax#TokenizingOps" should {
 
     "provide a 'tokenizeTo' method on String instances" in {
       "14/07/1789".tokenizeTo[Vector, Int] ====
@@ -34,7 +34,7 @@ class SyntaxSpec extends Specification {
       tokens.map(_.contents).mkString("/")
     }
 
-  "Syntax#UntokenizingOps[F[_], A]" should {
+  "ParsingSyntax#UntokenizingOps[F[_], A]" should {
 
     "provide an 'untokenize' method on F[Token[A]] instances" in {
       Vector[Token[Int]](Token("14"), Token("7"), Token("1789")).untokenize ====
@@ -61,7 +61,7 @@ class SyntaxSpec extends Specification {
       }
     }
 
-  "Syntax#ParsingOps[A]" should {
+  "ParsingSyntax#ParsingOps[A]" should {
 
     "provide a 'parseTo' method on A instances" in {
       Token[Int]("1789").parseTo[Int] should beRight(1789)
@@ -91,7 +91,7 @@ class SyntaxSpec extends Specification {
       int.toString.toCharArray.toVector
     }
 
-  "Syntax#UnparsingOps[B]" should {
+  "ParsingSyntax#UnparsingOps[B]" should {
 
     "provide a 'unparseTo' method on B instances" in {
       1789.unparseTo[Token[Int]] ==== Token[Int]("1789")

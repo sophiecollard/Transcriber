@@ -5,7 +5,7 @@ import hangeul4s.error.DecodingFailure
 import hangeul4s.model.romanization.RomanLetter
 import org.specs2.mutable.Specification
 
-class SyntaxSpec extends Specification {
+class EncodingSyntaxSpec extends Specification {
 
   private implicit val decoder: Decoder[Char, RomanLetter] =
     Decoder.instance {
@@ -14,7 +14,7 @@ class SyntaxSpec extends Specification {
       case c         => Left(DecodingFailure.FailedToDecodeRomanLetter(c))
     }
 
-  "Syntax#DecodingOps[A]" should {
+  "EncodingSyntax#DecodingOps[A]" should {
 
     "provide a 'decodeTo' method on A instances" in {
       'A'.decodeTo[RomanLetter] must beRight[RomanLetter](RomanLetter.A)
@@ -27,7 +27,7 @@ class SyntaxSpec extends Specification {
       letter.char
     }
 
-  "Syntax#EncodingOps[B]" should {
+  "EncodingSyntax#EncodingOps[B]" should {
 
     "provide an 'encodeTo' method on B instances" in {
       RomanLetter.A.encodeTo[Char] ==== 'a'

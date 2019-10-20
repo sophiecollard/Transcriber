@@ -7,4 +7,4 @@ trait Implicits
     with hangeul4s.syntax.Syntax
     with hangeul4s.transliteration.generics.TransliterationGenerics
     with hangeul4s.transliteration.instances.Instances
-    with hangeul4s.transliteration.syntax.Syntax
+    with hangeul4s.transliteration.syntax.TransliterationSyntax

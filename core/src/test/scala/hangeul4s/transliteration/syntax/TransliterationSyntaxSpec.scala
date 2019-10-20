@@ -10,7 +10,7 @@ import hangeul4s.model.romanization.RomanLetter
 import hangeul4s.transliteration.Transliterator
 import org.specs2.mutable.Specification
 
-class SyntaxSpec extends Specification {
+class TransliterationSyntaxSpec extends Specification {
 
   private implicit val transliterator: Transliterator[RomanLetter, HangeulJamo] =
     Transliterator.instance {
@@ -20,7 +20,7 @@ class SyntaxSpec extends Specification {
       case _ => Left(TransliterationFailure.EmptyResult)
     }
 
-  "Syntax#TransliterationOps[A]" should {
+  "TransliterationSyntax#TransliterationOps[A]" should {
 
     "provide a 'transliterateTo' method on A instances" in {
       RomanLetter.A.transliterateTo[HangeulJamo] must beRight[HangeulJamo](Medial.ㅏ)
@@ -38,7 +38,7 @@ class SyntaxSpec extends Specification {
       }.toVector.sequence
     }
 
-  "Syntax#TransliterationFOps[F[_], A]" should {
+  "TransliterationSyntax#TransliterationFOps[F[_], A]" should {
 
     "provide a 'transliterateToF' method on F[A] instances" in {
       List(RomanLetter.A, RomanLetter.E).transliterateToF[Vector, HangeulJamo] must

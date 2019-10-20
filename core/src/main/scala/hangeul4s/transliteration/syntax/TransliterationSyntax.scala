@@ -2,7 +2,7 @@ package hangeul4s.transliteration.syntax
 
 import hangeul4s.transliteration.{TransliterationResult, Transliterator}
 
-trait Syntax {
+trait TransliterationSyntax {
 
   implicit class TransliterationOps[A](input: A) {
     def transliterateTo[B](implicit transliterator: Transliterator[A, B]): TransliterationResult[B] =

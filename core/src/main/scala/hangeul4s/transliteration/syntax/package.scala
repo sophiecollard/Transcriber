@@ -1,3 +1,3 @@
 package hangeul4s.transliteration
 
-package object syntax extends Syntax
+package object syntax extends TransliterationSyntax

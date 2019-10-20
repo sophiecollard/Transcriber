@@ -43,13 +43,12 @@ Text transliteration example:
 
 ```scala
 import cats.instances.vector._
+import hangeul4s.implicits._
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.model.hangeul.HangeulTextElement._
 import hangeul4s.model.romanization.RomanizedTextElement
 import hangeul4s.model.romanization.RomanizedTextElement._
-import hangeul4s.parsing.implicits._
 import hangeul4s.transliteration.hangeul.instances._
-import hangeul4s.transliteration.implicits._
 
 // first sentence of second paragraph of the Korean Wikipedia article on Seoul (retrieved 2019-09-22)
 // See https://ko.wikipedia.org/wiki/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C

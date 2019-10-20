@@ -3,13 +3,12 @@ package hangeul4s.e2e
 import cats.instances.vector._
 import cats.syntax.either._
 import hangeul4s.error.ParsingFailure
+import hangeul4s.implicits._
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.model.hangeul.HangeulTextElement._
 import hangeul4s.model.romanization.RomanizedTextElement
 import hangeul4s.model.romanization.RomanizedTextElement._
-import hangeul4s.parsing.implicits._
 import hangeul4s.transliteration.hangeul.instances._
-import hangeul4s.transliteration.implicits._
 import org.specs2.mutable.Specification
 
 class End2EndSpec extends Specification {

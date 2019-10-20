@@ -7,7 +7,7 @@ import hangeul4s.model.hangeul.HangeulJamo._
 import hangeul4s.model.hangeul.HangeulSyllable._
 import hangeul4s.model.hangeul.HangeulTextElement._
 import hangeul4s.parsing._
-import hangeul4s.parsing.implicits._
+import hangeul4s.parsing.generic._
 import org.specs2.mutable.Specification
 
 class HangeulTextElementSpec extends Specification {

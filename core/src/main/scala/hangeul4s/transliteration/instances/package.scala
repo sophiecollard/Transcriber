@@ -1,3 +1,3 @@
 package hangeul4s.transliteration
 
-package object instances extends Instances
+package object instances extends TransliterationInstances

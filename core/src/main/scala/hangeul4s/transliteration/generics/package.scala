@@ -1,0 +1,3 @@
+package hangeul4s.transliteration
+
+package object generics extends TransliterationGenerics

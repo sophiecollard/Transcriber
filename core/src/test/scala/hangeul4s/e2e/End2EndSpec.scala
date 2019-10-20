@@ -1,8 +1,8 @@
 package hangeul4s.e2e
 
 import cats.instances.vector._
-import cats.syntax.either._
-import hangeul4s.error.ParsingFailure
+import cats.syntax.either._ // required to avoid ambiguous implicit conversion in Scala 2.11
+import hangeul4s.error.{Hangeul4sError, ParsingFailure}
 import hangeul4s.implicits._
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.model.romanization.RomanizedTextElement
@@ -29,7 +29,7 @@ class End2EndSpec extends Specification {
         transliterated <- parsed.transliterateTo[RomanizedTextElement]
       } yield transliterated.unparseTo[String]
 
-      output.leftMap(_.message) must beLeft(ParsingFailure.FailedToMatchRegex("", "[^\uAC00-\uD7AF]+".r).message)
+      output must beLeft[Hangeul4sError](ParsingFailure.FailedToMatchRegex("", "[^\uAC00-\uD7AF]+".r))
     }
 
     "tokenize, parse, transliterate, unparse and untokenize Hangeul text" in {

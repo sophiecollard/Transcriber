@@ -26,26 +26,26 @@ trait ParsingGenerics {
 
   implicit def tokenizerParser[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F, A],
-    parser: Parser[Token[A], A]
+    tokenParser: Parser[Token[A], A]
   ): Parser[String, F[A]] =
     Parser.instance { input =>
-      tokenizer.tokenize(input).map(parser.parse).sequence
+      tokenizer.tokenize(input).map(tokenParser.parse).sequence
     }
 
   implicit def tokenizerAccumulativeParser[F[_]: Traverse, A](
     implicit tokenizer: Tokenizer[F, A],
-    parser: AccumulativeParser[Token[A], A]
+    tokenParser: AccumulativeParser[Token[A], A]
   ): AccumulativeParser[String, F[A]] =
     AccumulativeParser.instance { input =>
-      tokenizer.tokenize(input).map(parser.parse).sequence
+      tokenizer.tokenize(input).map(tokenParser.parse).sequence
     }
 
   implicit def unparserUntokenizer[F[_]: Functor, A](
-    implicit unparser: Unparser[A, Token[A]],
+    implicit tokenUnparser: Unparser[A, Token[A]],
     untokenizer: Untokenizer[F, A]
   ): Unparser[F[A], String] =
     Unparser.instance { input =>
-      untokenizer.untokenize(input.map(unparser.unparse))
+      untokenizer.untokenize(input.map(tokenUnparser.unparse))
     }
 
   implicit val iteratorToList: FunctionK[Iterator, List] =

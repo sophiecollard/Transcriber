@@ -38,7 +38,7 @@ class TextStreamTransliterationExample extends Specification {
 
   "This library" should {
 
-    "tokenize/parse, transliterate and unparse/untokenize a stream of Hangeul text" in {
+    "tokenize&parse, transliterate and unparse&untokenize a stream of Hangeul text" in {
       def parse[F[_]](implicit F: Sync[F]): Pipe[F, String, HangeulTextElement] =
         stream => stream
           .map(_.parseToF[Vector, HangeulTextElement])

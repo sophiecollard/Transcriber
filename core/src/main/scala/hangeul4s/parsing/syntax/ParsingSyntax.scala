@@ -1,5 +1,7 @@
 package hangeul4s.parsing.syntax
 
+import cats.{Functor, Traverse}
+import cats.implicits._
 import hangeul4s.parsing._
 
 trait ParsingSyntax {
@@ -28,12 +30,22 @@ trait ParsingSyntax {
       parserF.parse(input)
   }
 
+  implicit class ParsingFOps[F[_]: Traverse, A](input: F[A]) {
+    def parseFTo[B](implicit parser: Parser[A, B]): ParsingResult[F[B]] =
+      input.traverse(parser.parse)
+  }
+
   implicit class UnparsingOps[B](input: B) {
     def unparseTo[A](implicit unparser: Unparser[B, A]): A =
       unparser.unparse(input)
 
     def unparseToF[F[_], A](implicit unparserF: Unparser[B, F[A]]): F[A] =
       unparserF.unparse(input)
+  }
+
+  implicit class UnparsingFOps[F[_]: Functor, B](input: F[B]) {
+    def unparseFTo[A](implicit unparser: Unparser[B, A]): F[A] =
+      input.map(unparser.unparse)
   }
 
 }

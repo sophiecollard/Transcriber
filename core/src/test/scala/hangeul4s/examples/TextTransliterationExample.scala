@@ -20,7 +20,7 @@ class TextTransliterationExample extends Specification {
 
   "This library" should {
 
-    "tokenize/parse, transliterate and unparse/untokenize Hangeul text" in {
+    "tokenize&parse, transliterate and unparse&untokenize Hangeul text" in {
       val result = for {
         parsed <- input.parseToF[Vector, HangeulTextElement]
         transliterated <- parsed.transliterateToF[Vector, RomanizedTextElement]
@@ -33,11 +33,9 @@ class TextTransliterationExample extends Specification {
       val tokens = input.tokenizeTo[Vector, HangeulTextElement]
 
       val result = for {
-        // TODO improve low-level parsing API
-        parsed <- tokens.traverse(_.parseTo[HangeulTextElement])
+        parsed <- tokens.parseFTo[HangeulTextElement]
         transliterated <- parsed.transliterateToF[Vector, RomanizedTextElement]
-        // TODO improve low-level unparsing API
-        unparsed = transliterated.map(_.unparseTo[Token[RomanizedTextElement]])
+        unparsed = transliterated.unparseFTo[Token[RomanizedTextElement]]
       } yield unparsed.untokenize
 
       result must beRight(expectedResult)

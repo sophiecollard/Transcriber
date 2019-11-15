@@ -20,14 +20,13 @@ This project is currently under development.
   - [x] Add Apache 2.0 licence
 
 ## Examples
-Single-word transliteration example:
+
+##### Single-word transliteration example
 
 ```scala
+import hangeul4s.implicits._
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.model.romanization.RomanizedTextElement
-import hangeul4s.parsing.syntax._
-import hangeul4s.transliteration.hangeul.instances._
-import hangeul4s.transliteration.syntax._
 
 val input = "안녕하세요"
 // input: String = 안녕하세요
@@ -39,10 +38,10 @@ val output = for {
 // output: scala.util.Either[hangeul4s.error.Hangeul4sError,String] = Right(annyeonghaseyo)
 ```
 
-Text transliteration example:
+##### Text transliteration example
 
 ```scala
-import cats.instances.vector._
+import cats.implicits._
 import hangeul4s.implicits._
 import hangeul4s.model.hangeul.HangeulTextElement
 import hangeul4s.model.romanization.RomanizedTextElement

@@ -11,9 +11,13 @@ object Dependencies extends AutoPlugin {
   }
 
   private val dependencySettings: Seq[Def.Setting[_]] = {
+    val catsVersion = "2.0.0"
+
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-core" % "2.0.0",
-      "org.specs2" %% "specs2-core" % "4.6.0" % Test
+      "org.typelevel" %% "cats-core"   % catsVersion,
+      "org.typelevel" %% "cats-effect" % catsVersion % Test,
+      "co.fs2"        %% "fs2-core"    % "2.0.0"     % Test,
+      "org.specs2"    %% "specs2-core" % "4.6.0"     % Test
     )
   }
 

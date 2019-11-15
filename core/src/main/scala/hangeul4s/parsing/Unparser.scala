@@ -3,7 +3,7 @@ package hangeul4s.parsing
 import cats.Functor
 import cats.syntax.functor._
 
-trait Unparser[-B, +A] {
+trait Unparser[B, A] {
 
   def unparse(input: B): A
 

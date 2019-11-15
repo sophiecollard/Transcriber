@@ -4,7 +4,7 @@ import cats.Traverse
 import cats.syntax.functor._
 import cats.syntax.traverse._
 
-trait AccumulativeParser[-A, +B] {
+trait AccumulativeParser[A, B] {
 
   def parse(input: A): AccumulativeParsingResult[B]
 

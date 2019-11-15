@@ -5,7 +5,7 @@ import cats.instances.either._
 import cats.syntax.functor._
 import cats.syntax.traverse._
 
-trait Parser[-A, +B] {
+trait Parser[A, B] {
 
   def parse(input: A): ParsingResult[B]
 

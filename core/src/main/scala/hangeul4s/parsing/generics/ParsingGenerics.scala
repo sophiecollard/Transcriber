@@ -29,7 +29,7 @@ trait ParsingGenerics {
     tokenParser: Parser[Token[A], A]
   ): Parser[String, F[A]] =
     Parser.instance { input =>
-      tokenizer.tokenize(input).map(tokenParser.parse).sequence
+      tokenizer.tokenize(input).traverse(tokenParser.parse)
     }
 
   implicit def tokenizerAccumulativeParser[F[_]: Traverse, A](
@@ -37,7 +37,7 @@ trait ParsingGenerics {
     tokenParser: AccumulativeParser[Token[A], A]
   ): AccumulativeParser[String, F[A]] =
     AccumulativeParser.instance { input =>
-      tokenizer.tokenize(input).map(tokenParser.parse).sequence
+      tokenizer.tokenize(input).traverse(tokenParser.parse)
     }
 
   implicit def unparserUntokenizer[F[_]: Functor, A](

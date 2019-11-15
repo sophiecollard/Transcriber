@@ -39,7 +39,7 @@ class HangeulJamoSpec extends Specification {
         Initial.ㅎ
       )
 
-      encoded.map(_.decodeTo[HangeulJamo]).sequence should beRight(decoded)
+      encoded.traverse(_.decodeTo[HangeulJamo]) should beRight(decoded)
     }
 
     "decode medials" in {
@@ -54,7 +54,7 @@ class HangeulJamoSpec extends Specification {
         Medial.ㅣ
       )
 
-      encoded.map(_.decodeTo[HangeulJamo]).sequence should beRight(decoded)
+      encoded.traverse(_.decodeTo[HangeulJamo]) should beRight(decoded)
     }
 
     "decode final consonants" in {
@@ -69,7 +69,7 @@ class HangeulJamoSpec extends Specification {
         Final.ㅊ, Final.ㅋ, Final.ㅌ, Final.ㅍ, Final.ㅎ
       )
 
-      encoded.map(_.decodeTo[HangeulJamo]).sequence should beRight(decoded)
+      encoded.traverse(_.decodeTo[HangeulJamo]) should beRight(decoded)
     }
 
     "fail to decode archaic jamo" in {

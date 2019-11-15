@@ -21,7 +21,7 @@ trait Parser[-A, +B] {
 
   final def lift[F[_]: Traverse, AA <: A, BB >: B]: Parser[F[AA], F[BB]] =
     Parser.instance { input =>
-      input.map(parse(_).widen[BB]).sequence
+      input.traverse(parse(_).widen[BB])
     }
 
 }

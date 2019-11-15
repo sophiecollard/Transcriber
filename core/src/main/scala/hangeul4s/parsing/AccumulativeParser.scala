@@ -20,7 +20,7 @@ trait AccumulativeParser[-A, +B] {
 
   final def lift[F[_]: Traverse, AA <: A, BB >: B]: AccumulativeParser[F[AA], F[BB]] =
     AccumulativeParser.instance { input =>
-      input.map(parse(_).widen[BB]).sequence
+      input.traverse(parse(_).widen[BB])
     }
 
 }

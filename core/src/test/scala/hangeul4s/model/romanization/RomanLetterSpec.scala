@@ -25,7 +25,7 @@ class RomanLetterSpec extends Specification {
 
       val decoded = Vector[RomanLetter](A, B, C, D, E, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y)
 
-      encoded.map(_.decodeTo[RomanLetter]).sequence should beRight(decoded)
+      encoded.traverse(_.decodeTo[RomanLetter]) should beRight(decoded)
     }
 
     "decode upper-case roman letters" in {
@@ -33,7 +33,7 @@ class RomanLetterSpec extends Specification {
 
       val decoded = Vector[RomanLetter](A, B, C, D, E, G, H, I, J, K, L, M, N, O, P, R, S, T, U, W, Y)
 
-      encoded.map(_.decodeTo[RomanLetter]).sequence should beRight(decoded)
+      encoded.traverse(_.decodeTo[RomanLetter]) should beRight(decoded)
     }
 
     "fail to decode a character outside the [A-EG-PR-UWYa-eg-pr-uwy] range" in {

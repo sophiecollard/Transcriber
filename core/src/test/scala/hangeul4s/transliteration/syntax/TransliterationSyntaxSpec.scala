@@ -30,12 +30,12 @@ class TransliterationSyntaxSpec extends Specification {
 
   private implicit val transliteratorF: Transliterator[List[RomanLetter], Vector[HangeulJamo]] =
     Transliterator.instance { letters =>
-      letters.map {
+      letters.toVector.traverse {
         case RomanLetter.A => Right(Medial.ㅏ)
         case RomanLetter.E => Right(Medial.ㅔ)
         // not a sensible failure to return but this is irrelevent here
         case _ => Left(TransliterationFailure.EmptyResult)
-      }.toVector.sequence
+      }
     }
 
   "TransliterationSyntax#TransliterationFOps[F[_], A]" should {

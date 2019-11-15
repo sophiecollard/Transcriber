@@ -20,12 +20,11 @@ object RevisedRomanization extends  {
           case HangeulTextElement.Captured(syllables) =>
             syllables.toVector
               .zipWithNeighbors
-              .map { case (maybePrevSyllable, syllable, maybeNextSyllable) =>
+              .traverse { case (maybePrevSyllable, syllable, maybeNextSyllable) =>
                 val maybePrecedingFinal = maybePrevSyllable.flatMap(_.maybeFinal)
                 val maybeFollowingInitial = maybeNextSyllable.map(_.initial)
                 HangeulSyllableRomanizer.transliterateSyllable(maybePrecedingFinal, syllable, maybeFollowingInitial)
               }
-              .sequence
               .map(_.flatten)
               .flatMap(NonEmptyVector.fromVector(_).toRight[TransliterationFailure](TransliterationFailure.EmptyResult))
               .map(RomanizedTextElement.Captured(_))

@@ -12,7 +12,7 @@ trait TransliterationGenerics {
     implicit transliterator: Transliterator[A, B]
   ): Transliterator[F[A], F[B]] =
     Transliterator.instance { input =>
-      input.map(transliterator.transliterate).sequence
+      input.traverse(transliterator.transliterate)
     }
 
 }

@@ -33,8 +33,7 @@ object HangeulTextElement {
       Parser.instance[String, Captured] { input =>
         input
           .toVector
-          .map(HangeulSyllable.charDecoder.decode)
-          .sequence
+          .traverse(HangeulSyllable.charDecoder.decode)
           .flatMap(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput))
           .map(Captured(_))
       }
@@ -43,8 +42,7 @@ object HangeulTextElement {
       AccumulativeParser.instance[String, Captured] { input =>
         input
           .toVector
-          .map(HangeulSyllable.charDecoder.decode(_).toValidatedNev)
-          .sequence
+          .traverse(HangeulSyllable.charDecoder.decode(_).toValidatedNev)
           .andThen(NonEmptyVector.fromVector(_).toRight(ParsingFailure.EmptyInput).toValidatedNev)
           .map(Captured(_))
       }

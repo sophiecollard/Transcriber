@@ -2,7 +2,6 @@ package hangeul4s.transliteration.generics
 
 import cats.Traverse
 import cats.instances.either._
-import cats.syntax.functor._
 import cats.syntax.traverse._
 import hangeul4s.transliteration.Transliterator
 

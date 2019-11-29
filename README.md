@@ -6,6 +6,14 @@
 
 A functional library for [Hangeul](https://en.wikipedia.org/wiki/Hangul) transliteration
 
+## Quick start
+A snapshot of version `0.0.1` is available from Sonatype. It is cross-built for Scala 2.11, 2.12 and 2.13. Just add the following to your `build.sbt`:
+
+```scala
+resolvers += Resolver.sonatypeRepo("snapshots")
+libraryDependencies += "com.github.sophiecollard" %% "hangeul4s" % "0.0.1-SNAPSHOT"
+```
+
 ## Status
 This project is currently under development.
 

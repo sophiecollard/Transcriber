@@ -20,6 +20,7 @@ lazy val core = project
   .in(file("core"))
   .settings(crossScalaVersions := supportedScalaVersions)
   .settings(projectMetadataSettings)
+  .settings(releaseSettings)
   .settings(scalaSettings)
   .settings(scalacSettings)
   .settings(resolverSettings)
@@ -46,6 +47,15 @@ lazy val projectMetadataSettings = Seq(
   ),
   licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
   publishMavenStyle := true
+)
+
+lazy val releaseSettings = Seq(
+  publishTo := Some(
+    if (isSnapshot.value)
+      Opts.resolver.sonatypeSnapshots
+    else
+      Opts.resolver.sonatypeStaging
+  )
 )
 
 lazy val scalaSettings = Seq(

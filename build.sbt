@@ -46,7 +46,8 @@ lazy val projectMetadataSettings = Seq(
     )
   ),
   licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
-  publishMavenStyle := true
+  publishMavenStyle := true,
+  version := "0.0.1-SNAPSHOT"
 )
 
 lazy val releaseSettings = Seq(
